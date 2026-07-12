@@ -51,7 +51,7 @@ export default function Hero() {
           <img
             src="/illustrations/blue-mosque.png"
             alt="Hand-drawn pencil illustration of a Timurid-era blue-domed mosque"
-            className="w-full h-auto"
+            className="w-full h-auto opacity-40"
             draggable={false}
           />
         </div>

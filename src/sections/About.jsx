@@ -18,6 +18,7 @@ export default function About() {
             src="/illustrations/bamiyan-cliffs.png"
             alt="Hand-drawn pencil illustration of the Bamiyan cliffs"
             decorative={false}
+            imgClassName="opacity-40"
           />
 
           <div className="border-t border-border pt-6 flex flex-col gap-1">

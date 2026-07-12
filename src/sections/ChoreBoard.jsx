@@ -47,6 +47,7 @@ export default function ChoreBoard() {
           alt="Hand-drawn pencil illustration of a citadel in the Hindu Kush mountains"
           decorative={false}
           className="md:order-1"
+          imgClassName="opacity-40"
         />
       </div>
     </section>

@@ -50,7 +50,7 @@ export default function Experience() {
             alt=""
             aria-hidden="true"
             draggable={false}
-            className="w-48 sm:w-56 md:w-48 lg:w-56 h-auto object-contain opacity-90 self-center md:self-end mx-auto md:mx-0"
+            className="w-48 sm:w-56 md:w-48 lg:w-56 h-auto object-contain opacity-40 self-center md:self-end mx-auto md:mx-0"
           />
         </div>
 
@@ -65,7 +65,7 @@ export default function Experience() {
             alt=""
             aria-hidden="true"
             draggable={false}
-            className="h-80 sm:h-96 md:h-[28rem] lg:h-[32rem] xl:h-[40rem] w-auto object-contain opacity-90 self-center md:self-end mx-auto md:mx-0 mt-8 md:mt-0"
+            className="h-80 sm:h-96 md:h-[28rem] lg:h-[32rem] xl:h-[40rem] w-auto object-contain opacity-40 self-center md:self-end mx-auto md:mx-0 mt-8 md:mt-0"
           />
         </div>
       </div>

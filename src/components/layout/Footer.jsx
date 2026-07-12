@@ -15,7 +15,7 @@ export default function Footer() {
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none select-none absolute left-2 sm:left-6 md:left-10 top-0 bottom-0 my-auto h-[88%] w-auto max-w-[40%] object-contain opacity-95"
+        className="pointer-events-none select-none absolute left-2 sm:left-6 md:left-10 top-0 bottom-0 my-auto h-[88%] w-auto max-w-[40%] object-contain opacity-20"
       />
 
       <div className="relative max-w-6xl mx-auto px-6 md:px-10 py-20 flex flex-col items-center text-center gap-8">
