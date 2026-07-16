@@ -30,12 +30,16 @@ export default function Hero() {
           <h1 className="text-6xl md:text-7xl leading-[1.05] text-text">
             Marzia Saidi
           </h1>
-          <p className="font-serif text-2xl text-gold">Software Engineer</p>
+          <p className="font-serif text-2xl text-gold">
+            Software Engineer building products from idea to production.
+          </p>
           <p className="text-text-secondary leading-relaxed max-w-md">
-            I like building things that make people's lives a little easier.
-            Whether it's a full-stack application or improving a small
-            interaction, I care about the details that turn software into a
-            better experience.
+            I build full-stack applications that solve real problems, from
+            designing database systems and backend workflows to creating
+            interfaces that make software easier to use. I've worked with
+            startups to ship production features across web and mobile,
+            combining engineering skills with product thinking to build
+            software people actually need.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Button href="#chore-board" variant="primary">

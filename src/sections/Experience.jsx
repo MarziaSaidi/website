@@ -19,13 +19,32 @@ function TimelineItem({ item }) {
       </div>
       <p className="text-text-secondary text-sm mb-4">{item.location}</p>
 
-      <ul className="flex flex-col gap-2 text-text-secondary leading-relaxed mb-5">
-        {item.bullets.map((bullet) => (
-          <li key={bullet} className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-gold">
-            {bullet}
-          </li>
-        ))}
-      </ul>
+      {item.intro && (
+        <p className="text-text-secondary leading-relaxed mb-4">{item.intro}</p>
+      )}
+
+      {item.bulletsLabel && (
+        <p className="text-text-secondary leading-relaxed mb-2">{item.bulletsLabel}</p>
+      )}
+
+      {item.bullets.length > 0 && (
+        <ul className="flex flex-col gap-2 text-text-secondary leading-relaxed mb-5">
+          {item.bullets.map((bullet) => (
+            <li key={bullet} className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-gold">
+              {bullet}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {item.lesson && (
+        <p className="text-text-secondary leading-relaxed mb-5">
+          {item.lesson.label && (
+            <span className="text-text">{item.lesson.label} </span>
+          )}
+          {item.lesson.text}
+        </p>
+      )}
 
       <p className="text-xs tracking-wide uppercase text-text-secondary">
         {item.tags.join("  ·  ")}
@@ -42,7 +61,7 @@ export default function Experience() {
           <SectionHeading
             index="03"
             eyebrow="Career History"
-            title="Where I've made an impact"
+            title="Building software with real users in mind"
             description="A breakdown of my professional roles, combining web development, mobile applications, and user experience design."
           />
           <img

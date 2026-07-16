@@ -1,13 +1,21 @@
 export const experience = [
   {
-    role: "UX Designer",
+    role: "Product Engineer",
     company: "Get Campus & New Start Mobile",
     location: "Remote · Internship",
     dates: "Jan 2026 – Apr 2026",
+    intro:
+      "I worked with stakeholders to understand user needs and translate business requirements into product solutions.",
+    bulletsLabel: "My work included:",
     bullets: [
-      "Designed the Get Campus employer portal in Figma, covering job posting, payment flows, privacy controls, and analytics in one dashboard.",
-      "Redesigned the New Start Mobile site end to end, delivering dev-ready wireframes for handoff.",
+      "improving user workflows",
+      "defining product behavior",
+      "creating developer-ready specifications",
+      "collaborating across product and engineering decisions",
     ],
+    lesson: {
+      text: "This experience helped me understand how technical decisions connect to user problems.",
+    },
     tags: ["Figma", "UX/UI Design", "Wireframing", "SaaS Design"],
   },
   {
@@ -15,12 +23,18 @@ export const experience = [
     company: "Quill & Pigeon",
     location: "Portland, ME · Internship",
     dates: "Jan 2025 – Aug 2025",
+    intro:
+      "I worked on production features that improved internal workflows and customer-facing experiences.",
+    bulletsLabel: "Some things I built:",
     bullets: [
-      "Built a CSV/XLSX import pipeline (React, TypeScript, Zod) with real-time validation, replacing a fully manual data entry process.",
-      "Shipped dynamic Open Graph image generation, improving SEO and social share performance.",
-      "Built an artist portal with data-driven components, giving the team live visibility into their own data.",
-      "Integrated frontend auth and sync for Google Contacts and Calendar APIs.",
+      "A CSV/XLSX import system that replaced manual data entry with automated validation and processing.",
+      "A reminder system connecting Google Calendar and Contacts through OAuth.",
+      "Data-driven portals that gave users better visibility into their information.",
     ],
+    lesson: {
+      label: "The biggest lesson I learned:",
+      text: "Good software is not just about writing code. It is about removing friction from someone's day.",
+    },
     tags: ["React", "TypeScript", "Zod", "SEO", "Google APIs"],
   },
   {
@@ -28,10 +42,9 @@ export const experience = [
     company: "Survue",
     location: "Remote · Internship",
     dates: "Sep 2024 – Dec 2024",
-    bullets: [
-      "Led UX for a cross-platform app: 20+ wireframes and high-fidelity prototypes that guided a 3-person dev team start to finish.",
-      "Shipped a production .NET MAUI Settings module with light/dark mode and full feature parity across iOS, Android, and Windows.",
-    ],
+    intro:
+      "I helped build a cross-platform mobile application using .NET MAUI. I focused on creating reusable components and production-ready features that worked consistently across iOS, Android, and Windows. Working in a small team taught me how important communication and clear product decisions are when building quickly.",
+    bullets: [],
     tags: [".NET MAUI", "C#", "Figma", "Cross-Platform"],
   },
   {
@@ -39,11 +52,20 @@ export const experience = [
     company: "Wildwood Oyster Co.",
     location: "Portland, ME · Internship",
     dates: "May 2024 – Aug 2024",
+    intro:
+      "I improved the company's ecommerce experience by building and optimizing customer-facing web pages.",
+    bulletsLabel: "Some things I worked on:",
     bullets: [
-      "Built 5+ responsive pages, lifting mobile engagement 30%.",
-      "Audited the site, fixed 15+ usability issues, and raised performance scores 25%.",
+      "Built responsive pages and custom Shopify components to improve the online shopping experience.",
+      "Audited the website to identify usability and performance issues across devices.",
+      "Improved mobile experience by fixing interface problems and optimizing page performance.",
+      "Created custom marketing pages and email templates to support ecommerce campaigns.",
     ],
-    tags: ["HTML5 / CSS3", "Responsive Design", "Usability Audit", "Performance Tuning"],
+    lesson: {
+      label: "The biggest lesson I learned:",
+      text: "Small improvements in a customer's online experience can directly affect how people interact with a business.",
+    },
+    tags: ["HTML5 / CSS3", "Shopify", "Responsive Design", "Performance Tuning"],
   },
 ];
 

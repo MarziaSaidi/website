@@ -2,10 +2,11 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
-import ChoreBoard from "./sections/ChoreBoard";
+import FeaturedProjects from "./sections/FeaturedProjects";
 import Experience from "./sections/Experience";
 import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
+import HowIWork from "./sections/HowIWork";
 import Contact from "./sections/Contact";
 
 export default function App() {
@@ -21,10 +22,11 @@ export default function App() {
       <main id="main">
         <Hero />
         <About />
-        <ChoreBoard />
+        <FeaturedProjects />
         <Experience />
         <Projects />
         <Skills />
+        <HowIWork />
         <Contact />
       </main>
       <Footer />
