@@ -96,8 +96,7 @@ export default async function handler(req, res) {
 
   try {
     let data = null;
-    let lastStatus = 0;
-    let lastDetail = "";
+    const attempts = [];
 
     for (const model of MODELS) {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -109,23 +108,24 @@ export default async function handler(req, res) {
 
       if (gemini.ok) {
         data = await gemini.json();
+        attempts.push({ model, status: 200 });
         break;
       }
 
-      lastStatus = gemini.status;
-      lastDetail = (await gemini.text()).slice(0, 400);
-      console.error(`Gemini error (${model}):`, gemini.status, lastDetail);
-
-      // 404 = model not available, 429 = no free-tier quota for this model.
-      // Try the next model. Any other status (400 bad key, 403 API disabled)
-      // won't be fixed by a different model, so stop.
-      if (gemini.status !== 404 && gemini.status !== 429) break;
+      const detail = await gemini.text();
+      // Pull just Google's reason string so the debug stays short.
+      let reason = detail.slice(0, 160);
+      try {
+        reason = JSON.parse(detail)?.error?.message?.slice(0, 160) || reason;
+      } catch {}
+      attempts.push({ model, status: gemini.status, reason });
+      console.error(`Gemini error (${model}):`, gemini.status, detail.slice(0, 300));
     }
 
     if (!data) {
       return res.status(502).json({
         error: "The assistant is having trouble right now. Please try again.",
-        debug: { upstreamStatus: lastStatus, detail: lastDetail },
+        debug: { attempts },
       });
     }
 
