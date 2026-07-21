@@ -1,6 +1,7 @@
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
+import ChatWidget from "./components/ChatWidget";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import FeaturedProjects from "./sections/FeaturedProjects";
@@ -32,6 +33,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <ChatWidget />
     </>
   );
 }
