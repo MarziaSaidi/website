@@ -10,7 +10,7 @@ export default function Illustration({
   const ref = useScrollReveal();
 
   return (
-    <div ref={ref} className={`reveal ${className}`}>
+    <div ref={ref} className={`reveal-media illustration-hover ${className}`}>
       <img
         src={src}
         alt={decorative ? "" : alt}

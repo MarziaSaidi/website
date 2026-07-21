@@ -1,5 +1,6 @@
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import ScrollProgress from "./components/layout/ScrollProgress";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import FeaturedProjects from "./sections/FeaturedProjects";
@@ -18,6 +19,7 @@ export default function App() {
       >
         Skip to content
       </a>
+      <ScrollProgress />
       <Navbar />
       <main id="main">
         <Hero />

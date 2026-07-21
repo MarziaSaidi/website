@@ -1,5 +1,6 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Illustration from "../components/ui/Illustration";
+import Reveal from "../components/ui/Reveal";
 import { education } from "../data/experience";
 
 export default function About() {
@@ -21,7 +22,7 @@ export default function About() {
             imgClassName="opacity-40"
           />
 
-          <div className="border-t border-border pt-6 flex flex-col gap-1">
+          <Reveal className="border-t border-border pt-6 flex flex-col gap-1">
             <p className="text-xs tracking-[0.2em] uppercase text-text-secondary">
               Education
             </p>
@@ -29,7 +30,7 @@ export default function About() {
             <p className="text-text-secondary text-sm">
               {education.school} &middot; {education.meta}
             </p>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

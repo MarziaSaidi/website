@@ -6,7 +6,7 @@ export default function Button({
   ...props
 }) {
   const base =
-    "inline-flex items-center gap-2 px-7 py-3 text-sm tracking-wide rounded-md border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "hover-lift inline-flex items-center gap-2 px-7 py-3 text-sm tracking-wide rounded-md border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   const variants = {
     primary:

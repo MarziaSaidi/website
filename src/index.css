@@ -66,9 +66,9 @@
 @layer utilities {
   .reveal {
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(22px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .reveal.is-visible {
@@ -76,8 +76,22 @@
     transform: translateY(0);
   }
 
+  /* Reveal that also settles a slight scale — nice for illustrations/images */
+  .reveal-media {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+    transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-media.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .reveal {
+    .reveal,
+    .reveal-media {
       transform: none;
       transition: opacity 0.4s ease;
     }
@@ -133,6 +147,103 @@
 
     .row-stagger {
       animation: none;
+    }
+  }
+
+  /* ---- On-load entrance (hero) ---- */
+  @keyframes enter-up {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .enter {
+    opacity: 0;
+    animation: enter-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .enter-1 { animation-delay: 0.05s; }
+  .enter-2 { animation-delay: 0.2s; }
+  .enter-3 { animation-delay: 0.35s; }
+  .enter-4 { animation-delay: 0.5s; }
+  .enter-5 { animation-delay: 0.65s; }
+
+  /* ---- Animated scroll cue ---- */
+  @keyframes scroll-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
+
+  .scroll-cue-dot {
+    animation: scroll-bob 1.8s ease-in-out infinite;
+  }
+
+  /* ---- Illustration hover ---- */
+  .illustration-hover img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.6s ease;
+  }
+
+  .illustration-hover:hover img {
+    transform: scale(1.04);
+    opacity: 0.65 !important;
+  }
+
+  /* ---- Hover lift for cards & buttons ---- */
+  .hover-lift {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-soft-lg);
+  }
+
+  /* ---- Scroll progress bar ---- */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(var(--scroll-progress, 0));
+    transform-origin: left;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent),
+      var(--color-gold)
+    );
+    z-index: 60;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .enter {
+      opacity: 1;
+      animation: none;
+    }
+
+    .scroll-cue-dot {
+      animation: none;
+    }
+
+    .hover-lift:hover,
+    .illustration-hover:hover img {
+      transform: none;
     }
   }
 }

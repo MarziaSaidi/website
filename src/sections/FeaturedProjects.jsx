@@ -1,5 +1,6 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Illustration from "../components/ui/Illustration";
+import Reveal from "../components/ui/Reveal";
 import { choreBoard, soloEats } from "../data/projects";
 
 function Bullet({ children }) {
@@ -24,7 +25,7 @@ export default function FeaturedProjects() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="md:order-2 flex flex-col gap-14">
             {/* Chore Board */}
-            <div className="flex flex-col gap-6">
+            <Reveal className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <h3 className="font-serif text-3xl text-text">{choreBoard.name}</h3>
                 <p className="text-text-secondary leading-relaxed">{choreBoard.tagline}</p>
@@ -44,17 +45,17 @@ export default function FeaturedProjects() {
                 href={choreBoard.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+                className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
               >
                 View Live Project
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M18 6H8M18 6V16" />
                 </svg>
               </a>
-            </div>
+            </Reveal>
 
             {/* Solo Eats */}
-            <div className="flex flex-col gap-6 border-t border-border pt-14">
+            <Reveal className="flex flex-col gap-6 border-t border-border pt-14">
               <div className="flex flex-col gap-2">
                 <h3 className="font-serif text-3xl text-text">{soloEats.name}</h3>
                 <p className="text-text-secondary leading-relaxed">{soloEats.tagline}</p>
@@ -72,7 +73,7 @@ export default function FeaturedProjects() {
               </div>
 
               <p className="text-text-secondary leading-relaxed">{soloEats.closing}</p>
-            </div>
+            </Reveal>
           </div>
 
           <Illustration
