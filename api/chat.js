@@ -96,9 +96,10 @@ export default async function handler(req, res) {
     if (!gemini.ok) {
       const detail = await gemini.text();
       console.error("Gemini API error:", gemini.status, detail);
-      return res
-        .status(502)
-        .json({ error: "The assistant is having trouble right now. Please try again." });
+      return res.status(502).json({
+        error: "The assistant is having trouble right now. Please try again.",
+        debug: { upstreamStatus: gemini.status, detail: detail.slice(0, 400) },
+      });
     }
 
     const data = await gemini.json();
