@@ -8,8 +8,15 @@ import { experience, education } from "../src/data/experience.js";
 import { choreBoard, soloEats } from "../src/data/projects.js";
 import { skillCategories } from "../src/data/skills.js";
 
-// Free-tier Gemini model. Swap to another free model here if you like.
-const MODEL = "gemini-2.0-flash";
+// Free-tier Gemini models, tried in order. Whichever your API key allows on the
+// free tier gets used. Reorder to set a preference.
+const MODELS = [
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+  "gemini-2.0-flash-lite",
+  "gemini-2.0-flash",
+  "gemini-1.5-flash",
+];
 const MAX_HISTORY = 12; // cap how much conversation we send, to keep it fast/cheap
 
 function buildSystemPrompt() {
@@ -81,28 +88,47 @@ export default async function handler(req, res) {
       parts: [{ text: m.content }],
     }));
 
-  try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
-    const gemini = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: buildSystemPrompt() }] },
-        contents,
-        generationConfig: { temperature: 0.6, maxOutputTokens: 500 },
-      }),
-    });
+  const requestBody = JSON.stringify({
+    systemInstruction: { parts: [{ text: buildSystemPrompt() }] },
+    contents,
+    generationConfig: { temperature: 0.6, maxOutputTokens: 500 },
+  });
 
-    if (!gemini.ok) {
-      const detail = await gemini.text();
-      console.error("Gemini API error:", gemini.status, detail);
+  try {
+    let data = null;
+    let lastStatus = 0;
+    let lastDetail = "";
+
+    for (const model of MODELS) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const gemini = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: requestBody,
+      });
+
+      if (gemini.ok) {
+        data = await gemini.json();
+        break;
+      }
+
+      lastStatus = gemini.status;
+      lastDetail = (await gemini.text()).slice(0, 400);
+      console.error(`Gemini error (${model}):`, gemini.status, lastDetail);
+
+      // 404 = model not available, 429 = no free-tier quota for this model.
+      // Try the next model. Any other status (400 bad key, 403 API disabled)
+      // won't be fixed by a different model, so stop.
+      if (gemini.status !== 404 && gemini.status !== 429) break;
+    }
+
+    if (!data) {
       return res.status(502).json({
         error: "The assistant is having trouble right now. Please try again.",
-        debug: { upstreamStatus: gemini.status, detail: detail.slice(0, 400) },
+        debug: { upstreamStatus: lastStatus, detail: lastDetail },
       });
     }
 
-    const data = await gemini.json();
     const reply =
       data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") || "";
 
