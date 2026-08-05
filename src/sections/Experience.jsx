@@ -49,6 +49,27 @@ function TimelineItem({ item }) {
       <p className="text-xs tracking-wide uppercase text-text-secondary">
         {item.tags.join("  ·  ")}
       </p>
+
+      {item.caseStudyHref && (
+        <a
+          href={item.caseStudyHref}
+          className="group mt-5 inline-flex items-center gap-2 text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+        >
+          View Case Study
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-x-0.5"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      )}
     </li>
   );
 }

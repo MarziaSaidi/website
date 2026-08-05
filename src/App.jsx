@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
@@ -10,8 +11,19 @@ import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
 import HowIWork from "./sections/HowIWork";
 import Contact from "./sections/Contact";
+import CaseStudySurvue from "./pages/CaseStudySurvue";
+import { useHashRoute } from "./hooks/useHashRoute";
 
-export default function App() {
+function MainSite() {
+  // When returning from a sub-page via an anchor hash (e.g. "#experience"),
+  // scroll to that section once the main site mounts.
+  useEffect(() => {
+    const h = window.location.hash;
+    if (h && h.length > 1 && !h.startsWith("#/")) {
+      document.getElementById(h.slice(1))?.scrollIntoView();
+    }
+  }, []);
+
   return (
     <>
       <a
@@ -36,4 +48,14 @@ export default function App() {
       <ChatWidget />
     </>
   );
+}
+
+export default function App() {
+  const route = useHashRoute();
+
+  if (route.startsWith("#/survue")) {
+    return <CaseStudySurvue />;
+  }
+
+  return <MainSite />;
 }

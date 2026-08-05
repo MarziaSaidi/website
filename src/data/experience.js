@@ -42,6 +42,7 @@ export const experience = [
     company: "Survue",
     location: "Remote · Internship",
     dates: "Sep 2024 – Dec 2024",
+    caseStudyHref: "#/survue",
     intro:
       "I helped build a cross-platform mobile application using .NET MAUI. I focused on creating reusable components and production-ready features that worked consistently across iOS, Android, and Windows. Working in a small team taught me how important communication and clear product decisions are when building quickly.",
     bullets: [],
