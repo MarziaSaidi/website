@@ -37,12 +37,11 @@ function Placeholder({ label, sub }) {
 function Screenshot({ src, label, caption }) {
   const [failed, setFailed] = useState(false);
   return (
-    <figure className="flex flex-col gap-3">
+    <figure className="flex flex-col gap-3 w-full max-w-[118px] md:max-w-[150px] mx-auto">
       {failed ? (
-        <div className="w-full max-w-[180px] mx-auto aspect-[9/19] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary px-4 text-center">
+        <div className="w-full aspect-[9/19] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2 text-text-secondary px-2 text-center">
           <ImageIcon />
-          <span className="font-mono text-[0.62rem] uppercase tracking-[0.16em]">{label}</span>
-          <span className="text-[0.62rem] text-text-secondary/70 break-all">{src}</span>
+          <span className="font-mono text-[0.55rem] uppercase tracking-[0.12em]">{label}</span>
         </div>
       ) : (
         <img
@@ -50,11 +49,11 @@ function Screenshot({ src, label, caption }) {
           alt={label}
           loading="lazy"
           onError={() => setFailed(true)}
-          className="w-full max-w-[180px] mx-auto h-auto max-h-[400px] object-contain drop-shadow-[0_14px_32px_rgba(45,45,42,0.14)]"
+          className="w-full h-auto object-contain drop-shadow-[0_12px_28px_rgba(45,45,42,0.14)]"
         />
       )}
       {caption && (
-        <figcaption className="text-sm text-text-secondary text-center leading-relaxed max-w-[240px] mx-auto">
+        <figcaption className="text-xs text-text-secondary text-center leading-relaxed">
           {caption}
         </figcaption>
       )}
@@ -298,7 +297,7 @@ export default function CaseStudySurvue() {
             components behaved consistently on every platform while respecting
             each one's conventions.
           </p>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-12">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-5 gap-y-10 justify-items-center">
             <Screenshot
               src="/survue/pairing.png"
               label="Final: device pairing"
