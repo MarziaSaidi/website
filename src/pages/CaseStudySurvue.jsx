@@ -325,7 +325,7 @@ export default function CaseStudySurvue() {
                 <>
                   The settings module I built in .NET MAUI: theme, sound,
                   warnings, help.
-                  <span className="block mt-1.5 text-xs italic text-text-secondary/70">
+                  <span className="block mt-1.5 text-xs italic text-text-secondary">
                     Shown in Light Mode. Survue was prototyped in both dark and
                     light themes.
                   </span>
