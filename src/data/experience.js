@@ -33,7 +33,7 @@ export const experience = [
     ],
     lesson: {
       label: "The biggest lesson I learned:",
-      text: "Good software is not just about writing code. It is about removing friction from someone's day.",
+      text: "Good software is not just about writing code. It is about removing friction from someone’s day.",
     },
     tags: ["React", "TypeScript", "Zod", "SEO", "Google APIs"],
   },
@@ -54,7 +54,7 @@ export const experience = [
     location: "Portland, ME · Internship",
     dates: "May 2024 – Aug 2024",
     intro:
-      "I improved the company's ecommerce experience by building and optimizing customer-facing web pages.",
+      "I improved the company’s ecommerce experience by building and optimizing customer-facing web pages.",
     bulletsLabel: "Some things I worked on:",
     bullets: [
       "Built responsive pages and custom Shopify components to improve the online shopping experience.",
@@ -64,7 +64,7 @@ export const experience = [
     ],
     lesson: {
       label: "The biggest lesson I learned:",
-      text: "Small improvements in a customer's online experience can directly affect how people interact with a business.",
+      text: "Small improvements in a customer’s online experience can directly affect how people interact with a business.",
     },
     tags: ["HTML5 / CSS3", "Shopify", "Responsive Design", "Performance Tuning"],
   },

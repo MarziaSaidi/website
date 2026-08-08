@@ -25,7 +25,7 @@ export default function MauiSimulator() {
             Theme persistence: system defaults vs. custom override.
           </li>
           <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-gold">
-            Cross-platform layout compliance matching MAUI's XML layouts.
+            Cross-platform layout compliance matching MAUI’s XML layouts.
           </li>
           <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-gold">
             Smooth, restrained visual states.

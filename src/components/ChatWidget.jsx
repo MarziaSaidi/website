@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 const GREETING = {
   role: "assistant",
   content:
-    "Hi! I'm Marzia's assistant. Ask me anything about her experience, projects, or skills.",
+    "Hi! I’m Marzia’s assistant. Ask me anything about her experience, projects, or skills.",
 };
 
 const SUGGESTIONS = [
-  "What's her experience?",
+  "What’s her experience?",
   "What projects has she built?",
   "What tech does she use?",
 ];
@@ -59,7 +59,7 @@ export default function ChatWidget() {
         {
           role: "assistant",
           content:
-            "I couldn't reach the assistant. Please check your connection and try again.",
+            "I couldn’t reach the assistant. Please check your connection and try again.",
         },
       ]);
     } finally {
@@ -82,7 +82,7 @@ export default function ChatWidget() {
             : "opacity-0 translate-y-4 scale-95 pointer-events-none"
         }`}
         role="dialog"
-        aria-label="Chat with Marzia's assistant"
+        aria-label="Chat with Marzia’s assistant"
         aria-hidden={!open}
       >
         <div className="flex flex-col h-[28rem] max-h-[70vh] bg-paper border border-border rounded-lg shadow-soft-lg overflow-hidden">

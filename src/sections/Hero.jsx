@@ -32,7 +32,7 @@ export default function Hero() {
           <p className="enter enter-3 text-text-secondary leading-relaxed max-w-md">
             I build full-stack applications that solve real problems, from
             designing database systems and backend workflows to creating
-            interfaces that make software easier to use. I've worked with
+            interfaces that make software easier to use. I’ve worked with
             startups to ship production features across web and mobile,
             combining engineering skills with product thinking to build
             software people actually need.

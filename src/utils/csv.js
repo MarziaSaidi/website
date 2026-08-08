@@ -26,7 +26,7 @@ export function parseCsvLine(line) {
 }
 
 // Validate a contact date in mm-dd or mm-dd-yyyy form (birthdays/anniversaries
-// don't require a year). Rejects impossible calendar dates such as 02-30 or 13-40.
+// don’t require a year). Rejects impossible calendar dates such as 02-30 or 13-40.
 export function isValidContactDate(str) {
   let month, day, year;
 

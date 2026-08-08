@@ -19,7 +19,7 @@ export default function Projects() {
           index="04"
           eyebrow="Selected Work"
           title="A closer look at how I build"
-          description="Working demonstrations of specific technical solutions I've implemented in past roles — a data validation pipeline and a cross-platform settings module."
+          description="Working demonstrations of specific technical solutions I’ve implemented in past roles â a data validation pipeline and a cross-platform settings module."
           className="mb-14"
         />
 

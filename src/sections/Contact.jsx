@@ -47,9 +47,9 @@ export default function Contact() {
         <div className="flex flex-col gap-10">
           <SectionHeading
             index="07"
-            eyebrow="Let's Connect"
-            title="Let's build something useful"
-            description="I'm currently looking for software engineering opportunities where I can contribute to real products, learn from experienced engineers, and take ownership of meaningful features. If you're building something interesting, I'd love to connect."
+            eyebrow="Let’s Connect"
+            title="Let’s build something useful"
+            description="I’m currently looking for software engineering opportunities where I can contribute to real products, learn from experienced engineers, and take ownership of meaningful features. If you’re building something interesting, I’d love to connect."
           />
           <Illustration
             src="/illustrations/pomegranate.png"
@@ -112,7 +112,7 @@ export default function Contact() {
                 name="message"
                 required
                 rows={5}
-                placeholder="Hello Marzia, I'd like to talk about..."
+                placeholder="Hello Marzia, I’d like to talk about..."
                 className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm resize-y"
               />
             </div>
