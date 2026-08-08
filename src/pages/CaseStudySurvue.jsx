@@ -106,7 +106,7 @@ function SunIcon() {
 const constraints = [
   { icon: <EyeOff />, title: "Eyes off the screen", body: "The rider is watching traffic. Information has to land through glance, sound, or feel, not reading." },
   { icon: <HandsIcon />, title: "Hands occupied", body: "On the handlebars. Any in-ride interaction must be near-zero, ideally none at all." },
-  { icon: <SunIcon />, title: "Harsh conditions", body: "Bright sun, motion, gloves. High contrast and large targets aren't optional; they're safety-critical." },
+  { icon: <SunIcon />, title: "Harsh conditions", body: "Bright sun, motion, gloves. High contrast and large targets aren’t optional; they’re safety-critical." },
 ];
 
 const journey = ["Onboarding", "Device pairing", "Start ride", "Vehicle detected", "Safety alert"];
@@ -184,7 +184,7 @@ export default function CaseStudySurvue() {
             </p>
             <p>
               The central design tension was unusual: the app is most important
-              exactly when the user can't look at it. Every decision had to serve
+              exactly when the user can’t look at it. Every decision had to serve
               a person in motion, in traffic, with their attention rightly on the
               road.
             </p>
@@ -192,10 +192,10 @@ export default function CaseStudySurvue() {
         </Section>
 
         {/* PROBLEM */}
-        <Section eyebrow="The Problem" title="The rider's attention belongs on the road">
+        <Section eyebrow="The Problem" title="The rider’s attention belongs on the road">
           <div className="flex flex-col gap-8 text-text-secondary leading-relaxed text-lg">
             <p>
-              Cyclists have almost no reliable awareness of what's coming up
+              Cyclists have almost no reliable awareness of what’s coming up
               behind them. A safety app could close that gap, but only if it
               delivers a warning the rider can absorb in a fraction of a second,
               without pulling focus from riding.
@@ -207,7 +207,7 @@ export default function CaseStudySurvue() {
               </p>
             </blockquote>
             <p>
-              That reframed the whole project. This wasn't a screen-design
+              That reframed the whole project. This wasn’t a screen-design
               problem; it was a problem of designing for divided attention under
               real stakes.
             </p>
@@ -295,7 +295,7 @@ export default function CaseStudySurvue() {
             The final designs carried across iOS, Android, and Windows with full
             feature parity. I built the settings module in .NET MAUI so the
             components behaved consistently on every platform while respecting
-            each one's conventions.
+            each one’s conventions.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-x-5 gap-y-10 justify-items-center">
             <Screenshot
@@ -350,7 +350,7 @@ export default function CaseStudySurvue() {
                 Survue taught me to design from the context of use outward, not
                 from the screen inward. The best decision on the project, leading
                 with sound and haptics instead of visuals, only became obvious
-                once I took the rider's real situation seriously. It's the lesson I
+                once I took the rider’s real situation seriously. It’s the lesson I
                 bring to every product since: understand the moment the person is
                 actually in, then design the smallest thing that helps.
               </p>
