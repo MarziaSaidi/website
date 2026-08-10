@@ -16,7 +16,7 @@ export default function Projects() {
     <section id="work" aria-labelledby="projects-heading" className="relative py-24 md:py-32">
       <div id="projects" className="relative max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
-          index="04"
+          index="05"
           eyebrow="Selected Work"
           title="A closer look at how I build"
           description="Working demonstrations of specific technical solutions I’ve implemented in past roles â a data validation pipeline and a cross-platform settings module."

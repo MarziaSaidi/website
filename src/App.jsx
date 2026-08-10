@@ -6,12 +6,14 @@ import ChatWidget from "./components/ChatWidget";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import FeaturedProjects from "./sections/FeaturedProjects";
+import CaseStudies from "./sections/CaseStudies";
 import Experience from "./sections/Experience";
 import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
 import HowIWork from "./sections/HowIWork";
 import Contact from "./sections/Contact";
 import CaseStudySurvue from "./pages/CaseStudySurvue";
+import CaseStudyRelay from "./pages/CaseStudyRelay";
 import { useHashRoute } from "./hooks/useHashRoute";
 
 function MainSite() {
@@ -38,6 +40,7 @@ function MainSite() {
         <Hero />
         <About />
         <FeaturedProjects />
+        <CaseStudies />
         <Experience />
         <Projects />
         <Skills />
@@ -55,6 +58,10 @@ export default function App() {
 
   if (route.startsWith("#/survue")) {
     return <CaseStudySurvue />;
+  }
+
+  if (route.startsWith("#/relay")) {
+    return <CaseStudyRelay />;
   }
 
   return <MainSite />;

@@ -46,7 +46,7 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-start">
         <div className="flex flex-col gap-10">
           <SectionHeading
-            index="07"
+            index="08"
             eyebrow="Let’s Connect"
             title="Let’s build something useful"
             description="I’m currently looking for software engineering opportunities where I can contribute to real products, learn from experienced engineers, and take ownership of meaningful features. If you’re building something interesting, I’d love to connect."

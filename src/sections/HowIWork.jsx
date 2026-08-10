@@ -26,7 +26,7 @@ export default function HowIWork() {
     <section id="approach" aria-labelledby="approach-heading" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
-          index="06"
+          index="07"
           eyebrow="How I Work"
           title="My approach"
           className="mb-14"

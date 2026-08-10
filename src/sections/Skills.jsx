@@ -39,7 +39,7 @@ export default function Skills() {
             className="order-first md:order-last w-48 sm:w-56 md:w-56 lg:w-64 h-auto object-contain opacity-40 self-center mx-auto md:mx-0"
           />
           <SectionHeading
-            index="05"
+            index="06"
             eyebrow="Core Capabilities"
             title="Technical skillset & toolkit"
           />

@@ -80,7 +80,7 @@ export default function Experience() {
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="grid md:grid-cols-[1fr_auto] gap-10 items-start mb-16">
           <SectionHeading
-            index="03"
+            index="04"
             eyebrow="Career History"
             title="Building software with real users in mind"
             description="A breakdown of my professional roles, combining web development, mobile applications, and user experience design."

@@ -129,7 +129,7 @@ export default function CaseStudySurvue() {
       <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-sm border-b border-border">
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <a
-            href="#experience"
+            href="#case-studies"
             className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">
@@ -137,7 +137,7 @@ export default function CaseStudySurvue() {
             </svg>
             Back to portfolio
           </a>
-          <a href="#experience" className="font-serif text-lg text-text tracking-wide">
+          <a href="#case-studies" className="font-serif text-lg text-text tracking-wide">
             Marzia Saidi
           </a>
         </div>
@@ -365,7 +365,7 @@ export default function CaseStudySurvue() {
             Case study · Survue · Marzia Saidi
           </p>
           <a
-            href="#experience"
+            href="#case-studies"
             className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
           >
             Back to portfolio
