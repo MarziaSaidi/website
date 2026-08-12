@@ -27,15 +27,14 @@ export default function Hero() {
             Marzia Saidi
           </h1>
           <p className="enter enter-2 font-serif text-2xl text-gold">
-            Software Engineer building products from idea to production.
+            Design engineer — a designer who ships in code.
           </p>
           <p className="enter enter-3 text-text-secondary leading-relaxed max-w-md">
-            I build full-stack applications that solve real problems, from
-            designing database systems and backend workflows to creating
-            interfaces that make software easier to use. I’ve worked with
-            startups to ship production features across web and mobile,
-            combining engineering skills with product thinking to build
-            software people actually need.
+            I move fluidly between product design and full-stack engineering:
+            designing the interface, then building it myself, from database
+            to pixel. I’ve shipped production features across web and mobile
+            for startups, combining design craft with engineering ownership
+            to build software people actually need.
           </p>
           <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-2">
             <Button href="#chore-board" variant="primary">
