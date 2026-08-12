@@ -38,9 +38,9 @@ function MainSite() {
       <Navbar />
       <main id="main">
         <Hero />
+        <CaseStudies />
         <About />
         <FeaturedProjects />
-        <CaseStudies />
         <Experience />
         <Projects />
         <Skills />

@@ -8,7 +8,7 @@ export default function About() {
     <section id="about" aria-labelledby="about-heading" className="py-24 md:py-32 bg-background-secondary/40">
       <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-center">
         <SectionHeading
-          index="01"
+          index="02"
           eyebrow="About Me"
           title="I enjoy building software where engineering and product decisions meet"
           description="My background is a mix of software engineering, product design, and startup development. Through internships and personal projects, I’ve worked on everything from data processing workflows and mobile applications to real-time web platforms. I like understanding the problem before writing code: Who is using this? What are they struggling with? What is the simplest solution that actually helps? Then I build it. Whether it is designing a database structure, building a feature from scratch, or improving an existing workflow, I enjoy owning the process from the first idea to the final product."

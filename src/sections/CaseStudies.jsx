@@ -60,7 +60,7 @@ export default function CaseStudies() {
     <section id="case-studies" aria-labelledby="case-studies-heading" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
-          index="03"
+          index="01"
           eyebrow="Case Studies"
           title="Design case studies"
           description="Deeper looks at how I approach complex product surfaces, from first-second safety alerts to a dense, real-time operations console."
