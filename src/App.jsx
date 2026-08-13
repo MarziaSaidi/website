@@ -40,8 +40,8 @@ function MainSite() {
         <Hero />
         <CaseStudies />
         <About />
-        <FeaturedProjects />
         <Experience />
+        <FeaturedProjects />
         <Projects />
         <Skills />
         <HowIWork />

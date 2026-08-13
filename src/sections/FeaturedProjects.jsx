@@ -16,7 +16,7 @@ export default function FeaturedProjects() {
     <section id="chore-board" aria-labelledby="projects-featured-heading" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
-          index="03"
+          index="04"
           eyebrow="Projects"
           title="Featured Projects"
           className="mb-16"
