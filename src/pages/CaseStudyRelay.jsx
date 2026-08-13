@@ -187,7 +187,22 @@ export default function CaseStudyRelay() {
               real-time surface a dispatcher can scan and operate under pressure.
             </p>
 
-            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-6 mt-12 border-t border-border pt-8">
+            <a
+              href="https://author-sync-40384662.figma.site/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-lift group mt-8 inline-flex items-center gap-2 w-fit bg-accent text-background border border-accent rounded-full px-6 py-3 text-sm tracking-wide hover:bg-accent-secondary hover:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              View live prototype
+              <span className="text-background/70">
+                (dark mode)
+              </span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M18 6H8M18 6V16" />
+              </svg>
+            </a>
+
+            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-6 mt-8 border-t border-border pt-8">
               {[
                 ["Role", "Product Designer (self-directed)"],
                 ["Type", "Personal project"],
