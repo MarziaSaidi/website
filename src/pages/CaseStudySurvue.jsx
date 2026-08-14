@@ -5,7 +5,7 @@ import Reveal from "../components/ui/Reveal";
 
 function Eyebrow({ children }) {
   return (
-    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-gold">
+    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-label">
       {children}
     </p>
   );
@@ -129,15 +129,15 @@ export default function CaseStudySurvue() {
       <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-sm border-b border-border">
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <a
-            href="#case-studies"
-            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+            href="#selected-work"
+            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M11 18l-6-6 6-6" />
             </svg>
             Back to portfolio
           </a>
-          <a href="#case-studies" className="font-serif text-lg text-text tracking-wide">
+          <a href="#selected-work" className="font-serif text-lg text-text tracking-wide">
             Marzia Saidi
           </a>
         </div>
@@ -164,11 +164,35 @@ export default function CaseStudySurvue() {
                 ["Timeline", "Sep to Dec 2024"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
-                  <dt className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-gold">{k}</dt>
+                  <dt className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">{k}</dt>
                   <dd className="text-sm text-text leading-snug">{v}</dd>
                 </div>
               ))}
             </dl>
+          </div>
+        </section>
+
+        {/* AT A GLANCE — the whole case study in three lines */}
+        <section className="border-b border-border bg-background-secondary/40">
+          <div className="max-w-[820px] mx-auto px-6 md:px-10 py-10 grid sm:grid-cols-3 gap-8">
+            <div className="flex flex-col gap-1.5">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Problem</p>
+              <p className="text-sm text-text leading-relaxed">
+                A rear-vehicle alert has to be absorbed without taking a rider’s eyes off the road.
+              </p>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">What I did</p>
+              <p className="text-sm text-text leading-relaxed">
+                Led UX for the full app and built the cross-platform settings module in .NET MAUI.
+              </p>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Result</p>
+              <p className="text-sm text-text leading-relaxed">
+                Shipped to production across iOS, Android, and Windows with full feature parity.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -200,7 +224,7 @@ export default function CaseStudySurvue() {
               delivers a warning the rider can absorb in a fraction of a second,
               without pulling focus from riding.
             </p>
-            <blockquote className="border-l-2 border-gold pl-6 py-1">
+            <blockquote className="border-l-2 border-bronze pl-6 py-1">
               <p className="font-serif text-2xl md:text-3xl text-accent leading-snug italic">
                 A safety alert that demands attention to read is a safety alert
                 that fails.
@@ -246,13 +270,13 @@ export default function CaseStudySurvue() {
             {journey.map((step, i) => (
               <li key={step} className="flex items-center gap-2 shrink-0">
                 <div className="bg-paper border border-border rounded-lg px-4 py-3 flex flex-col gap-1 min-w-[8.5rem]">
-                  <span className="font-mono text-[0.65rem] text-gold tracking-widest">
+                  <span className="font-mono text-[0.65rem] text-label tracking-widest">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm text-text font-medium">{step}</span>
                 </div>
                 {i < journey.length - 1 && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="text-gold shrink-0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="text-bronze shrink-0">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 6l6 6-6 6" />
                   </svg>
                 )}
@@ -277,7 +301,7 @@ export default function CaseStudySurvue() {
           <ol className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
             {decisions.map((d) => (
               <li key={d.n} className="flex gap-5">
-                <span className="font-serif text-3xl text-gold tabular-nums leading-none pt-1">
+                <span className="font-serif text-3xl text-bronze tabular-nums leading-none pt-1">
                   {d.n}
                 </span>
                 <div className="flex flex-col gap-2">
@@ -365,8 +389,8 @@ export default function CaseStudySurvue() {
             Case study · Survue · Marzia Saidi
           </p>
           <a
-            href="#case-studies"
-            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+            href="#selected-work"
+            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
           >
             Back to portfolio
           </a>

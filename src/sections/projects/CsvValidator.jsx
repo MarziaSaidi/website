@@ -79,7 +79,7 @@ export default function CsvValidator() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             rows={7}
-            className="w-full rounded-md border border-border bg-paper px-4 py-3 text-sm font-mono text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold resize-y"
+            className="w-full rounded-md border border-border bg-paper px-4 py-3 text-sm font-mono text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze resize-y"
           />
         </div>
 
@@ -142,7 +142,7 @@ export default function CsvValidator() {
                         className={`text-xs px-2 py-1 rounded-full border ${
                           row.isValid
                             ? "border-accent-secondary text-accent-secondary"
-                            : "border-gold text-bronze"
+                            : "border-bronze text-label"
                         }`}
                       >
                         {row.isValid ? "Passed" : "Failed"}

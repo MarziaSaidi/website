@@ -10,6 +10,11 @@
   --color-accent-secondary: #2a7b86;
   --color-gold: #c59b53;
   --color-bronze: #a77a39;
+  /* Deeper gold used for small uppercase labels only — hits 4.5:1 (WCAG AA
+     normal text) against paper/background where --color-gold (2.3:1) fails.
+     --color-gold itself is unchanged and stays in use for large-scale text
+     and decorative accents that already clear the 3:1 large-text threshold. */
+  --color-label: #7a5c28;
   --color-border: #d9ccb8;
 
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
@@ -173,32 +178,19 @@
   .enter-4 { animation-delay: 0.5s; }
   .enter-5 { animation-delay: 0.65s; }
 
-  /* ---- Animated scroll cue ---- */
-  @keyframes scroll-bob {
+  /* ---- Scroll cue: a quiet opacity pulse, no bounce ---- */
+  @keyframes scroll-pulse {
     0%,
     100% {
-      transform: translateY(0);
-      opacity: 0.5;
+      opacity: 0.45;
     }
     50% {
-      transform: translateY(6px);
       opacity: 1;
     }
   }
 
   .scroll-cue-dot {
-    animation: scroll-bob 1.8s ease-in-out infinite;
-  }
-
-  /* ---- Illustration hover ---- */
-  .illustration-hover img {
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 0.6s ease;
-  }
-
-  .illustration-hover:hover img {
-    transform: scale(1.04);
-    opacity: 0.65 !important;
+    animation: scroll-pulse 2.2s ease-in-out infinite;
   }
 
   /* ---- Hover lift for cards & buttons ---- */
@@ -241,8 +233,7 @@
       animation: none;
     }
 
-    .hover-lift:hover,
-    .illustration-hover:hover img {
+    .hover-lift:hover {
       transform: none;
     }
   }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 const LINKS = [
+  { href: "#selected-work", label: "Work" },
+  { href: "#experiments", label: "Experiments" },
+  { href: "#experience", label: "Experience" },
   { href: "#about", label: "About" },
-  { href: "#case-studies", label: "Case Studies" },
-  { href: "#chore-board", label: "Experience & Internships" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -46,8 +47,8 @@ export default function Navbar() {
               href={link.href}
               className="relative text-sm tracking-wide text-text-secondary hover:text-text transition-colors duration-300
                 after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-full after:origin-left after:scale-x-0
-                after:bg-gold after:transition-transform after:duration-300 hover:after:scale-x-100
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+                after:bg-bronze after:transition-transform after:duration-300 hover:after:scale-x-100
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
             >
               {link.label}
             </a>
@@ -59,7 +60,7 @@ export default function Navbar() {
             type="button"
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="hidden md:inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-background transition-colors duration-300 hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="hidden md:inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-background transition-colors duration-300 hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 20V4M6 9l6-6 6 6" />
@@ -68,7 +69,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-border text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-border text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}

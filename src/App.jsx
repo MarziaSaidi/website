@@ -4,13 +4,10 @@ import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import ChatWidget from "./components/ChatWidget";
 import Hero from "./sections/Hero";
-import About from "./sections/About";
-import FeaturedProjects from "./sections/FeaturedProjects";
-import CaseStudies from "./sections/CaseStudies";
-import Experience from "./sections/Experience";
+import SelectedWork from "./sections/SelectedWork";
 import Projects from "./sections/Projects";
-import Skills from "./sections/Skills";
-import HowIWork from "./sections/HowIWork";
+import Experience from "./sections/Experience";
+import About from "./sections/About";
 import Contact from "./sections/Contact";
 import CaseStudySurvue from "./pages/CaseStudySurvue";
 import CaseStudyRelay from "./pages/CaseStudyRelay";
@@ -38,13 +35,10 @@ function MainSite() {
       <Navbar />
       <main id="main">
         <Hero />
-        <CaseStudies />
-        <About />
-        <Experience />
-        <FeaturedProjects />
+        <SelectedWork />
         <Projects />
-        <Skills />
-        <HowIWork />
+        <Experience />
+        <About />
         <Contact />
       </main>
       <Footer />

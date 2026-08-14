@@ -96,7 +96,7 @@ export default function ChatWidget() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close chat"
-              className="text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-md p-1"
+              className="text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-md p-1"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 7l10 10M17 7L7 17" />
@@ -135,7 +135,7 @@ export default function ChatWidget() {
                     key={s}
                     type="button"
                     onClick={() => send(s)}
-                    className="text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-gold hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    className="text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-bronze hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
                   >
                     {s}
                   </button>
@@ -159,7 +159,7 @@ export default function ChatWidget() {
               type="submit"
               disabled={!input.trim() || loading}
               aria-label="Send message"
-              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-accent text-background transition-colors hover:bg-accent-secondary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-accent text-background transition-colors hover:bg-accent-secondary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
@@ -175,7 +175,7 @@ export default function ChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close chat" : "Ask about Marzia"}
         aria-expanded={open}
-        className="hover-lift fixed z-[70] bottom-5 right-4 md:right-6 inline-flex items-center gap-2 h-12 pl-4 pr-5 rounded-full bg-accent text-background shadow-soft-lg hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="hover-lift fixed z-[70] bottom-5 right-4 md:right-6 inline-flex items-center gap-2 h-12 pl-4 pr-5 rounded-full bg-accent text-background shadow-soft-lg hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
           {open ? (

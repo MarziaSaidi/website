@@ -5,6 +5,7 @@ export default function SectionHeading({
   eyebrow,
   title,
   description,
+  headingId,
   align = "left",
   className = "",
 }) {
@@ -14,7 +15,7 @@ export default function SectionHeading({
   return (
     <div ref={ref} className={`reveal flex flex-col gap-5 max-w-xl ${alignClass} ${className}`}>
       <div className="flex items-center gap-3 border-t border-border pt-4 w-full">
-        <span className="font-serif text-sm text-gold tabular-nums" aria-hidden="true">
+        <span className="font-serif text-sm text-label tabular-nums" aria-hidden="true">
           {index}
         </span>
         <span className="block h-px w-6 bg-gold divider-draw" aria-hidden="true" />
@@ -22,7 +23,7 @@ export default function SectionHeading({
           {eyebrow}
         </p>
       </div>
-      <h2 className="text-4xl md:text-5xl text-text leading-[1.1]">{title}</h2>
+      <h2 id={headingId} className="text-4xl md:text-5xl text-text leading-[1.1]">{title}</h2>
       {description && (
         <p className="text-text-secondary leading-relaxed">{description}</p>
       )}

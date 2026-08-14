@@ -21,13 +21,13 @@ export default function MauiSimulator() {
           overrides.
         </p>
         <ul className="flex flex-col gap-2 text-sm text-text-secondary">
-          <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-gold">
+          <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-bronze">
             Theme persistence: system defaults vs. custom override.
           </li>
-          <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-gold">
+          <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-bronze">
             Cross-platform layout compliance matching MAUI’s XML layouts.
           </li>
-          <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-gold">
+          <li className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-bronze">
             Smooth, restrained visual states.
           </li>
         </ul>
@@ -173,7 +173,7 @@ function Toggle({ checked, onChange, label }) {
       aria-checked={checked}
       aria-label={label}
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze ${
         checked ? "bg-accent" : "bg-border"
       }`}
     >

@@ -2,7 +2,6 @@ import { useState } from "react";
 import SectionHeading from "../components/ui/SectionHeading";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import Illustration from "../components/ui/Illustration";
 
 const WEB3FORMS_ACCESS_KEY = "8eebed3f-f81a-4b38-92de-83f5c2d8b7c1";
 
@@ -46,21 +45,17 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-start">
         <div className="flex flex-col gap-10">
           <SectionHeading
-            index="08"
+            index="05"
             eyebrow="Let’s Connect"
             title="Let’s build something useful"
-            description="I’m currently looking for software engineering opportunities where I can contribute to real products, learn from experienced engineers, and take ownership of meaningful features. If you’re building something interesting, I’d love to connect."
-          />
-          <Illustration
-            src="/illustrations/pomegranate.png"
-            alt="Hand-drawn pencil illustration of a pomegranate branch"
-            className="max-w-sm"
+            description="I’m looking for design engineer and product design roles where I can own interfaces end to end, from the UX decision to the shipped code. If that’s a gap on your team, I’d like to talk."
+            headingId="contact-heading"
           />
           <a
             href="https://www.linkedin.com/in/marzia-saidisoftwareengineer/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-y-0.5">
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -85,7 +80,7 @@ export default function Contact() {
                 type="text"
                 required
                 placeholder="e.g. John Doe"
-                className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+                className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
               />
             </div>
 
@@ -99,7 +94,7 @@ export default function Contact() {
                 type="email"
                 required
                 placeholder="e.g. john@company.com"
-                className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm"
+                className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
               />
             </div>
 
@@ -113,7 +108,7 @@ export default function Contact() {
                 required
                 rows={5}
                 placeholder="Hello Marzia, I’d like to talk about..."
-                className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm resize-y"
+                className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm resize-y"
               />
             </div>
 
