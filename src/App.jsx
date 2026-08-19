@@ -5,13 +5,13 @@ import ScrollProgress from "./components/layout/ScrollProgress";
 import ChatWidget from "./components/ChatWidget";
 import Hero from "./sections/Hero";
 import SelectedWork from "./sections/SelectedWork";
-import Projects from "./sections/Projects";
 import Experience from "./sections/Experience";
 import About from "./sections/About";
 import Contact from "./sections/Contact";
 import CaseStudySurvue from "./pages/CaseStudySurvue";
 import CaseStudyRelay from "./pages/CaseStudyRelay";
 import { useHashRoute } from "./hooks/useHashRoute";
+import { useHashSync } from "./hooks/useHashSync";
 
 function MainSite() {
   // When returning from a sub-page via an anchor hash (e.g. "#experience"),
@@ -22,6 +22,10 @@ function MainSite() {
       document.getElementById(h.slice(1))?.scrollIntoView();
     }
   }, []);
+
+  // Keeps the hash matching whatever section is on screen as the user
+  // scrolls, so a reload always lands where they actually were.
+  useHashSync();
 
   return (
     <>
@@ -36,7 +40,6 @@ function MainSite() {
       <main id="main">
         <Hero />
         <SelectedWork />
-        <Projects />
         <Experience />
         <About />
         <Contact />

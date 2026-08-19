@@ -45,7 +45,7 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-start">
         <div className="flex flex-col gap-10">
           <SectionHeading
-            index="05"
+            index="04"
             eyebrow="Let’s Connect"
             title="Let’s build something useful"
             description="I’m looking for design engineer and product design roles where I can own interfaces end to end, from the UX decision to the shipped code. If that’s a gap on your team, I’d like to talk."
@@ -118,7 +118,7 @@ export default function Contact() {
 
             <div aria-live="polite" className="min-h-[1.5rem]">
               {feedback && (
-                <p className={`text-sm ${status === "success" ? "text-accent-secondary" : "text-bronze"}`}>
+                <p className={`text-sm ${status === "success" ? "text-accent" : "text-bronze"}`}>
                   {feedback}
                 </p>
               )}

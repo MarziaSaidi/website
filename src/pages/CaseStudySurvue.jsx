@@ -49,7 +49,7 @@ function Screenshot({ src, label, caption }) {
           alt={label}
           loading="lazy"
           onError={() => setFailed(true)}
-          className="w-full h-auto object-contain drop-shadow-[0_12px_28px_rgba(45,45,42,0.14)]"
+          className="w-full h-auto object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.55)]"
         />
       )}
       {caption && (

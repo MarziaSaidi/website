@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #f7f2e9;
-  --color-background-secondary: #ece2d2;
-  --color-paper: #fbf8f2;
-  --color-text: #2d2d2a;
-  --color-text-secondary: #6b655c;
-  --color-accent: #0e5665;
-  --color-accent-secondary: #2a7b86;
-  --color-gold: #c59b53;
-  --color-bronze: #a77a39;
-  /* Deeper gold used for small uppercase labels only — hits 4.5:1 (WCAG AA
-     normal text) against paper/background where --color-gold (2.3:1) fails.
-     --color-gold itself is unchanged and stays in use for large-scale text
-     and decorative accents that already clear the 3:1 large-text threshold. */
-  --color-label: #7a5c28;
-  --color-border: #d9ccb8;
+  /* Dark "2030" palette — now the site's one theme (was scoped to the hero
+     prototype only; promoted here once the rest of the site adopted it). */
+  --color-background: #06070a;
+  --color-background-secondary: #14151d;
+  --color-paper: #12141b;
+  --color-text: #f4f6f8;
+  --color-text-secondary: #8b93a3;
+  --color-accent: #8b5cf6;
+  --color-accent-secondary: #7c3aed;
+  --color-gold: #d4af37;
+  --color-bronze: #c9a24b;
+  --color-label: #d4af37;
+  /* Translucent white rather than a fixed hex so the hairline stays
+     legible over both --color-background and the lighter --color-paper. */
+  --color-border: rgba(244, 246, 248, 0.12);
 
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -23,8 +23,8 @@
   --radius-md: 12px;
   --radius-lg: 16px;
 
-  --shadow-soft: 0 4px 24px rgba(45, 45, 42, 0.06);
-  --shadow-soft-lg: 0 12px 40px rgba(45, 45, 42, 0.08);
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-soft-lg: 0 16px 48px rgba(139, 92, 246, 0.16), 0 10px 28px rgba(0, 0, 0, 0.5);
 }
 
 @layer base {
@@ -235,6 +235,17 @@
 
     .hover-lift:hover {
       transform: none;
+    }
+  }
+
+  .magnetic {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .magnetic {
+      transition: none;
     }
   }
 }

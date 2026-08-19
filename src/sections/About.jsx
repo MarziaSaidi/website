@@ -7,7 +7,7 @@ export default function About() {
     <section id="about" aria-labelledby="about-heading" className="py-24 md:py-32 bg-background-secondary/40">
       <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-center">
         <SectionHeading
-          index="04"
+          index="03"
           eyebrow="About Me"
           title="Design and engineering, one process"
           description="I work across the full stack of a product decision: understanding the user’s problem, designing the interface that solves it, and writing the code that ships it. That range comes from internships that put me in both seats, UX design and full-stack development, often on the same team, in the same sprint."

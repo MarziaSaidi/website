@@ -85,7 +85,7 @@ export default function Experience() {
     <section id="experience" aria-labelledby="experience-heading" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
-          index="03"
+          index="02"
           eyebrow="Experience"
           title="Four internships, on real teams"
           description="Year, role, and company at a glance. Open any row for the detail."

@@ -1,24 +1,29 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import SectionHeading from "../components/ui/SectionHeading";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { CATEGORIES, work } from "../data/work";
+import { useFilteredList } from "../hooks/useFilteredList";
+import { CATEGORIES, DEFAULT_CATEGORY, work } from "../data/work";
+import BrowserChrome from "../components/work/BrowserChrome";
+import PhoneFrame from "../components/work/PhoneFrame";
+import ChatPreview from "../components/work/ChatPreview";
+import ValidatorPreview from "../components/work/ValidatorPreview";
 
-const CATEGORY_LABEL = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.label]));
+function matchesCategory(project, active) {
+  return active === "all" || project.category === active;
+}
 
-// Plain label text, not a pill/badge — a bordered rounded shape here would
-// read as a clickable control next to the real filter buttons above it.
-function MetaPill({ project }) {
+function ProjectLabels({ labels, className = "" }) {
   return (
-    <span className="w-fit text-[0.65rem] font-mono uppercase tracking-[0.14em] text-label">
-      {project.context} · {CATEGORY_LABEL[project.category]}
-    </span>
+    <p className={`font-mono text-[0.65rem] uppercase tracking-[0.14em] text-label ${className}`}>
+      {labels.join("  ·  ")}
+    </p>
   );
 }
 
 function ProjectLinks({ project }) {
   if (!project.href && !project.live) return null;
   return (
-    <div className="flex items-center gap-5 pt-1">
+    <div className="flex items-center gap-5 pt-1 flex-wrap">
       {project.href && (
         <a
           href={project.href}
@@ -37,7 +42,7 @@ function ProjectLinks({ project }) {
           rel="noopener noreferrer"
           className="group/link inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
         >
-          {project.href ? "Live prototype" : "Live project"}
+          {project.liveLabel}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M18 6H8M18 6V16" />
           </svg>
@@ -47,76 +52,130 @@ function ProjectLinks({ project }) {
   );
 }
 
-// Large treatment for the two flagship projects: no screenshot, no device
-// mockup — an oversized index numeral and typography carry the weight.
-// Editorial, not a template "hero image" card.
-function FeaturedRow({ project, index }) {
+// Dispatches to the right presentation for what the project actually is —
+// a live chat surface, a real device screenshot, a real browser screenshot,
+// or real validator output — never a generic stock image.
+function ProjectPreview({ project }) {
+  switch (project.preview) {
+    case "chat":
+      return <ChatPreview />;
+    case "validator":
+      return <ValidatorPreview />;
+    case "device":
+      return (
+        <PhoneFrame>
+          <img
+            src={project.previewSrc}
+            alt={project.previewAlt}
+            loading="lazy"
+            className="w-full h-auto block"
+          />
+        </PhoneFrame>
+      );
+    case "browser":
+      return (
+        <BrowserChrome url={project.previewUrl}>
+          <img
+            src={project.previewSrc}
+            alt={project.previewAlt}
+            loading="lazy"
+            className="w-full h-auto block"
+          />
+        </BrowserChrome>
+      );
+    default:
+      return null;
+  }
+}
+
+// Tier 1 — the flagship pair: full-width, preview and text side by side,
+// alternating which side the preview sits on for rhythm.
+function Tier1Row({ project, index, reverse }) {
   const ref = useScrollReveal();
+  const text = (
+    <div className="flex flex-col gap-4 max-w-lg">
+      <div className="flex items-center gap-3">
+        <span className="font-serif text-sm text-border tabular-nums" aria-hidden="true">
+          {index}
+        </span>
+        <ProjectLabels labels={project.labels} />
+      </div>
+      <h3 className="font-serif text-4xl md:text-5xl text-text leading-tight">{project.name}</h3>
+      <p className="text-text-secondary text-lg leading-relaxed">{project.description}</p>
+      <ProjectLinks project={project} />
+    </div>
+  );
+  const preview = <ProjectPreview project={project} />;
+
+  return (
+    <div ref={ref} className="reveal border-t border-border pt-10 pb-2">
+      <div className="grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+        {reverse ? (
+          <>
+            <div className="md:order-2">{preview}</div>
+            <div className="md:order-1">{text}</div>
+          </>
+        ) : (
+          <>
+            {text}
+            {preview}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Tier 2 — important supporting work. A preview (when there is a real one)
+// sets the card's own visual boundary; text-only cards get a paper card.
+function Tier2Card({ project }) {
+  const ref = useScrollReveal();
+  const hasPreview = project.preview !== "none";
   return (
     <div
       ref={ref}
-      className="reveal group border-t border-border pt-10 pb-2 grid md:grid-cols-[auto_1fr] gap-6 md:gap-12 items-start"
+      className={`reveal flex flex-col gap-4 h-full ${
+        hasPreview ? "" : "bg-paper border border-border rounded-lg shadow-soft p-6"
+      }`}
     >
-      <span
-        className="font-serif text-7xl md:text-8xl leading-none tabular-nums text-border transition-colors duration-500 group-hover:text-bronze/60"
-        aria-hidden="true"
-      >
-        {index}
-      </span>
-
-      <div className="flex flex-col gap-4 max-w-2xl">
-        <MetaPill project={project} />
-
-        <div className="flex flex-col gap-1.5">
-          <h3 className="font-serif text-4xl md:text-5xl text-text leading-tight">{project.name}</h3>
-          <p className="text-text-secondary text-lg leading-relaxed">{project.oneLiner}</p>
-        </div>
-
-        <p className="text-text-secondary leading-relaxed">{project.contribution}</p>
-
-        <p className="text-xs tracking-wide uppercase text-text-secondary pt-1">
-          {project.tags.join("  ·  ")}
-        </p>
-
+      {hasPreview && <ProjectPreview project={project} />}
+      <div className="flex flex-col gap-2.5">
+        <ProjectLabels labels={project.labels} />
+        <h3 className="font-serif text-2xl text-text leading-snug">{project.name}</h3>
+        <p className="text-text-secondary leading-relaxed text-sm">{project.description}</p>
         <ProjectLinks project={project} />
       </div>
     </div>
   );
 }
 
-// Compact treatment for the rest: same honest, text-led card, no fabricated
-// preview.
-function CompactRow({ project }) {
+// Tier 3 — supporting engineering evidence. Same idea as tier 2, smaller.
+function Tier3Card({ project }) {
   const ref = useScrollReveal();
+  const hasPreview = project.preview !== "none";
   return (
     <div
       ref={ref}
-      className="reveal hover-lift bg-paper border border-border rounded-lg shadow-soft p-6 flex flex-col gap-3"
+      className={`reveal flex flex-col gap-3 h-full ${
+        hasPreview ? "" : "bg-paper border border-border rounded-lg shadow-soft p-5"
+      }`}
     >
-      <MetaPill project={project} />
-      <div className="flex flex-col gap-1">
-        <h3 className="font-serif text-xl text-text">{project.name}</h3>
-        <p className="text-text-secondary leading-relaxed text-sm">{project.oneLiner}</p>
+      {hasPreview && <ProjectPreview project={project} />}
+      <div className="flex flex-col gap-2">
+        <ProjectLabels labels={project.labels} />
+        <h3 className="font-serif text-lg text-text leading-snug">{project.name}</h3>
+        <p className="text-text-secondary leading-relaxed text-xs">{project.description}</p>
+        <ProjectLinks project={project} />
       </div>
-      <p className="text-sm text-text-secondary leading-relaxed">{project.contribution}</p>
-      <p className="text-xs tracking-wide uppercase text-text-secondary mt-auto pt-1">
-        {project.tags.join("  ·  ")}
-      </p>
-      <ProjectLinks project={project} />
     </div>
   );
 }
 
 export default function SelectedWork() {
-  const [active, setActive] = useState("all");
+  const [active, setActive] = useState(DEFAULT_CATEGORY);
+  const { renderItems, refFor } = useFilteredList(work, active, matchesCategory);
 
-  const filtered = useMemo(
-    () => (active === "all" ? work : work.filter((p) => p.category === active)),
-    [active]
-  );
-
-  const featured = filtered.filter((p) => p.featured);
-  const rest = filtered.filter((p) => !p.featured);
+  let tier1Seen = 0;
 
   return (
     <section id="selected-work" aria-labelledby="selected-work-heading" className="py-24 md:py-32">
@@ -124,8 +183,8 @@ export default function SelectedWork() {
         <SectionHeading
           index="01"
           eyebrow="Selected Work"
-          title="Design and engineering, across every kind of project"
-          description="Internships and personal work, unified. Filter by what I did, not where it came from."
+          title="Product work I've designed and built"
+          description="Organized by what each project demonstrates, not by job title. Design + Build is where the two meet."
           headingId="selected-work-heading"
           className="mb-10"
         />
@@ -145,7 +204,7 @@ export default function SelectedWork() {
                 onClick={() => setActive(c.id)}
                 className={`text-sm rounded-full px-4 py-2 border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze ${
                   isActive
-                    ? "bg-accent text-background border-accent"
+                    ? "bg-accent text-text border-accent"
                     : "bg-transparent text-text-secondary border-border hover:text-text hover:border-text-secondary"
                 }`}
               >
@@ -155,21 +214,36 @@ export default function SelectedWork() {
           })}
         </div>
 
-        <div aria-live="polite" className="flex flex-col gap-2">
-          {featured.map((project, i) => (
-            <FeaturedRow key={project.id} project={project} index={String(i + 1).padStart(2, "0")} />
-          ))}
+        <div
+          aria-live="polite"
+          className="grid md:grid-cols-2 gap-x-10 gap-y-8 items-start"
+        >
+          {renderItems.map((project) => {
+            if (project.tier === 1) {
+              tier1Seen += 1;
+              const index = String(tier1Seen).padStart(2, "0");
+              return (
+                <div key={project.id} ref={refFor(project.id)} className="md:col-span-2">
+                  <Tier1Row project={project} index={index} reverse={tier1Seen % 2 === 0} />
+                </div>
+              );
+            }
+            if (project.tier === 2) {
+              return (
+                <div key={project.id} ref={refFor(project.id)}>
+                  <Tier2Card project={project} />
+                </div>
+              );
+            }
+            return (
+              <div key={project.id} ref={refFor(project.id)}>
+                <Tier3Card project={project} />
+              </div>
+            );
+          })}
 
-          {rest.length > 0 && (
-            <div className={`grid sm:grid-cols-2 lg:grid-cols-3 gap-6 ${featured.length > 0 ? "mt-12" : ""}`}>
-              {rest.map((project) => (
-                <CompactRow key={project.id} project={project} />
-              ))}
-            </div>
-          )}
-
-          {filtered.length === 0 && (
-            <p className="text-text-secondary">No projects in this category yet.</p>
+          {renderItems.length === 0 && (
+            <p className="text-text-secondary md:col-span-2">No projects in this category yet.</p>
           )}
         </div>
       </div>
