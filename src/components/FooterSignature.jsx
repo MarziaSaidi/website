@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 
 const TEXT = "Marzia Saidi";
-const DUST = "184, 145, 46"; // --color-gold, as an rgba() component string
+// A darker gold scoped to this signature only — not the shared
+// --color-gold token used elsewhere on the site (project labels, etc.).
+const FOOTER_GOLD = "#b8912e";
+const DUST = "184, 145, 46"; // FOOTER_GOLD, as an rgba() component string
 
 // Roughly the sequence described: dust gathers in the space around the
 // letters, drifts inward, fades as it blends into the glyphs, and the
@@ -384,7 +387,7 @@ export default function FooterSignature() {
           textLength="980"
           lengthAdjust="spacingAndGlyphs"
           fontSize="170"
-          fill="var(--color-gold)"
+          fill={FOOTER_GOLD}
           className="font-display font-semibold"
           style={{ opacity: 0 }}
         >

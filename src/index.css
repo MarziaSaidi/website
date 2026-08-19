@@ -10,9 +10,9 @@
   --color-text-secondary: #8b93a3;
   --color-accent: #8b5cf6;
   --color-accent-secondary: #7c3aed;
-  --color-gold: #b8912e;
+  --color-gold: #d4af37;
   --color-bronze: #c9a24b;
-  --color-label: #b8912e;
+  --color-label: #d4af37;
   /* Translucent white rather than a fixed hex so the hairline stays
      legible over both --color-background and the lighter --color-paper. */
   --color-border: rgba(244, 246, 248, 0.12);
