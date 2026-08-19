@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
+import { useScrollY } from "../../hooks/useScrollY";
 
 const LINKS = [
   { href: "#selected-work", id: "selected-work", label: "Work" },
@@ -8,7 +9,8 @@ const LINKS = [
 ];
 
 export default function Navbar({ active }) {
-  const [scrolled, setScrolled] = useState(false);
+  const scrollY = useScrollY();
+  const scrolled = scrollY > 24;
   const [menuOpen, setMenuOpen] = useState(false);
   const [hovered, setHovered] = useState(null);
   const [indicator, setIndicator] = useState({ left: 0, width: 0, ready: false });
@@ -17,13 +19,6 @@ export default function Navbar({ active }) {
   // Hover takes over the indicator momentarily; releasing it falls back to
   // wherever the user actually is on the page.
   const target = hovered ?? active;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useLayoutEffect(() => {
     const nav = navRef.current;

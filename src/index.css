@@ -10,15 +10,16 @@
   --color-text-secondary: #8b93a3;
   --color-accent: #8b5cf6;
   --color-accent-secondary: #7c3aed;
-  --color-gold: #d4af37;
+  --color-gold: #b8912e;
   --color-bronze: #c9a24b;
-  --color-label: #d4af37;
+  --color-label: #b8912e;
   /* Translucent white rather than a fixed hex so the hairline stays
      legible over both --color-background and the lighter --color-paper. */
   --color-border: rgba(244, 246, 248, 0.12);
 
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -247,5 +248,39 @@
     .magnetic {
       transition: none;
     }
+  }
+
+  .glow-text {
+    text-shadow: 0 0 40px rgba(139, 92, 246, 0.45);
+  }
+
+  @keyframes caret-blink {
+    0%, 45% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .caret-blink {
+    animation: caret-blink 1.1s step-end infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caret-blink {
+      animation: none;
+    }
+  }
+}
+
+/* ---- View transitions (case-study navigation) ---- */
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

@@ -1,6 +1,7 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { experience } from "../data/experience";
+import { navigateWithTransition } from "../utils/viewTransition";
 
 function year(dates) {
   const match = dates.match(/\d{4}/);
@@ -66,6 +67,10 @@ function ExperienceRow({ item }) {
           {item.caseStudyHref && (
             <a
               href={item.caseStudyHref}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateWithTransition(item.caseStudyHref);
+              }}
               className="group/link inline-flex items-center gap-2 text-sm text-accent hover:text-accent-secondary transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
             >
               View case study

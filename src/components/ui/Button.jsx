@@ -14,7 +14,7 @@ export default function Button({
     primary:
       "bg-accent text-text border-accent hover:bg-accent-secondary hover:border-accent-secondary",
     secondary:
-      "bg-transparent text-text border-border hover:border-accent hover:text-accent",
+      "bg-transparent text-text border-border hover:border-text hover:text-text",
   };
 
   return (

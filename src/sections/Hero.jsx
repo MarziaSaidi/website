@@ -3,9 +3,12 @@ import Button from "../components/ui/Button";
 import Magnetic from "../components/ui/Magnetic";
 import HeroField from "../components/HeroField";
 import ScrambleText from "../components/ScrambleText";
+import { subscribeScrollY } from "../hooks/useScrollY";
 
 // Pointer parallax + spotlight, and scroll-out fade — all driven by CSS
 // custom properties set directly on refs (no React re-renders per frame).
+// The scroll portion subscribes to the app's one shared scroll listener
+// rather than registering its own.
 function useHeroMotion(sectionRef, contentRef) {
   useEffect(() => {
     const section = sectionRef.current;
@@ -37,24 +40,18 @@ function useHeroMotion(sectionRef, contentRef) {
       section.style.setProperty("--sy", `${pending.sy}px`);
     }
 
-    let scrollRaf = 0;
-    function onScroll() {
-      if (scrollRaf) return;
-      scrollRaf = requestAnimationFrame(() => {
-        scrollRaf = 0;
-        const progress = Math.min(1, Math.max(0, window.scrollY / section.offsetHeight));
-        content.style.opacity = String(1 - progress * 0.7);
-        content.style.transform = `translateY(${progress * 36}px)`;
-      });
+    function onScroll(y) {
+      const progress = Math.min(1, Math.max(0, y / section.offsetHeight));
+      content.style.opacity = String(1 - progress * 0.7);
+      content.style.transform = `translateY(${progress * 36}px)`;
     }
 
     section.addEventListener("pointermove", onMove);
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const unsubscribe = subscribeScrollY(onScroll);
     return () => {
       section.removeEventListener("pointermove", onMove);
-      window.removeEventListener("scroll", onScroll);
+      unsubscribe();
       cancelAnimationFrame(raf);
-      cancelAnimationFrame(scrollRaf);
     };
   }, [sectionRef, contentRef]);
 }
@@ -134,7 +131,7 @@ export default function Hero() {
       <a
         href="#selected-work"
         aria-label="Scroll to selected work"
-        className="enter enter-5 hidden md:flex flex-col items-center gap-2 absolute bottom-8 left-1/2 -translate-x-1/2 text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-full"
+        className="enter enter-5 hidden md:flex flex-col items-center gap-2 absolute bottom-8 left-1/2 -translate-x-1/2 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-full"
       >
         <span className="text-[0.65rem] tracking-[0.25em] uppercase font-mono">Scroll</span>
         <span className="scroll-cue-dot" aria-hidden="true">

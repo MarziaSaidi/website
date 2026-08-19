@@ -1,3 +1,5 @@
+import FooterSignature from "../FooterSignature";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -25,59 +27,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Full-bleed signature. SVG textLength forces the wordmark to reach
-          exact edge-to-edge width at any viewport size — a vw-based
-          font-size can only approximate that. Doubles as a "back to top"
-          link; the outline crossfades to the accent/gold gradient on
-          hover so the two accent colors get one shared, celebratory use. */}
-      <a
-        href="#top"
-        aria-label="Back to top"
-        className="group block w-full pb-6 md:pb-10 focus-visible:outline-none"
-      >
-        <svg
-          viewBox="0 0 1000 200"
-          className="w-full h-auto block focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
-          role="presentation"
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="footerMarkFill" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="var(--color-accent)" />
-              <stop offset="100%" stopColor="var(--color-gold)" />
-            </linearGradient>
-          </defs>
-          <text
-            x="500"
-            y="52%"
-            textAnchor="middle"
-            dominantBaseline="central"
-            textLength="980"
-            lengthAdjust="spacingAndGlyphs"
-            fontSize="170"
-            fill="none"
-            stroke="var(--color-text-secondary)"
-            strokeOpacity="0.55"
-            strokeWidth="1.25"
-            className="font-display font-semibold transition-opacity duration-500 group-hover:opacity-0"
-          >
-            Marzia Saidi
-          </text>
-          <text
-            x="500"
-            y="52%"
-            textAnchor="middle"
-            dominantBaseline="central"
-            textLength="980"
-            lengthAdjust="spacingAndGlyphs"
-            fontSize="170"
-            fill="url(#footerMarkFill)"
-            className="font-display font-semibold opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          >
-            Marzia Saidi
-          </text>
-        </svg>
-      </a>
+      <FooterSignature />
     </footer>
   );
 }

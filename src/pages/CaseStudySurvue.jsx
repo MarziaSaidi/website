@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Reveal from "../components/ui/Reveal";
+import { navigateWithTransition } from "../utils/viewTransition";
 
 /* ---- small building blocks ---- */
 
@@ -130,6 +131,10 @@ export default function CaseStudySurvue() {
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <a
             href="#selected-work"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateWithTransition("#selected-work");
+            }}
             className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">
@@ -148,7 +153,10 @@ export default function CaseStudySurvue() {
         <section className="border-b border-border">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-24 pb-16 md:pt-32 md:pb-24">
             <Eyebrow>Case Study · Mobile UX Design</Eyebrow>
-            <h1 className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-4 mb-6">
+            <h1
+              className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-4 mb-6"
+              style={{ viewTransitionName: "project-title-survue" }}
+            >
               Survue
             </h1>
             <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">

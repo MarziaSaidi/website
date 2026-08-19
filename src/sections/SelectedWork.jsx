@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SectionHeading from "../components/ui/SectionHeading";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useFilteredList } from "../hooks/useFilteredList";
 import { CATEGORIES, DEFAULT_CATEGORY, work } from "../data/work";
+import { navigateWithTransition } from "../utils/viewTransition";
 import BrowserChrome from "../components/work/BrowserChrome";
 import PhoneFrame from "../components/work/PhoneFrame";
 import ChatPreview from "../components/work/ChatPreview";
@@ -10,6 +10,13 @@ import ValidatorPreview from "../components/work/ValidatorPreview";
 
 function matchesCategory(project, active) {
   return active === "all" || project.category === active;
+}
+
+// Case-study links get a real view transition instead of a hard cut; the
+// project's title carries a matching viewTransitionName so it morphs into
+// the case-study hero (see the "Back to portfolio" link on those pages).
+function isCaseStudyHref(href) {
+  return typeof href === "string" && href.startsWith("#/");
 }
 
 function ProjectLabels({ labels, className = "" }) {
@@ -22,11 +29,20 @@ function ProjectLabels({ labels, className = "" }) {
 
 function ProjectLinks({ project }) {
   if (!project.href && !project.live) return null;
+  const isCaseStudy = isCaseStudyHref(project.href);
   return (
     <div className="flex items-center gap-5 pt-1 flex-wrap">
       {project.href && (
         <a
           href={project.href}
+          onClick={
+            isCaseStudy
+              ? (e) => {
+                  e.preventDefault();
+                  navigateWithTransition(project.href);
+                }
+              : undefined
+          }
           className="group/link inline-flex items-center gap-2 text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
         >
           {project.hrefLabel}
@@ -73,14 +89,24 @@ function ProjectPreview({ project }) {
         </PhoneFrame>
       );
     case "browser":
+      // Wide desktop screenshots don't just shrink on small viewports — a
+      // 16:10 dashboard scaled to phone width turns its own labels
+      // illegible. Below sm, crop to a wider-than-source strip (object-fit
+      // cover crops the *far* axis from the container's aspect ratio, so a
+      // container wider than the 16:10 source crops height, not width —
+      // keeping the full-width KPI band at the top in frame and trimming
+      // the chart/table below it); at sm+ the image reverts to its natural
+      // aspect ratio, shown in full.
       return (
         <BrowserChrome url={project.previewUrl}>
-          <img
-            src={project.previewSrc}
-            alt={project.previewAlt}
-            loading="lazy"
-            className="w-full h-auto block"
-          />
+          <div className="aspect-[16/9] sm:aspect-auto overflow-hidden">
+            <img
+              src={project.previewSrc}
+              alt={project.previewAlt}
+              loading="lazy"
+              className="w-full h-full object-cover object-top sm:h-auto sm:object-contain block"
+            />
+          </div>
         </BrowserChrome>
       );
     default:
@@ -100,7 +126,12 @@ function Tier1Row({ project, index, reverse }) {
         </span>
         <ProjectLabels labels={project.labels} />
       </div>
-      <h3 className="font-serif text-4xl md:text-5xl text-text leading-tight">{project.name}</h3>
+      <h3
+        className="font-serif text-4xl md:text-5xl text-text leading-tight"
+        style={isCaseStudyHref(project.href) ? { viewTransitionName: `project-title-${project.id}` } : undefined}
+      >
+        {project.name}
+      </h3>
       <p className="text-text-secondary text-lg leading-relaxed">{project.description}</p>
       <ProjectLinks project={project} />
     </div>
@@ -141,7 +172,12 @@ function Tier2Card({ project }) {
       {hasPreview && <ProjectPreview project={project} />}
       <div className="flex flex-col gap-2.5">
         <ProjectLabels labels={project.labels} />
-        <h3 className="font-serif text-2xl text-text leading-snug">{project.name}</h3>
+        <h3
+          className="font-serif text-2xl text-text leading-snug"
+          style={isCaseStudyHref(project.href) ? { viewTransitionName: `project-title-${project.id}` } : undefined}
+        >
+          {project.name}
+        </h3>
         <p className="text-text-secondary leading-relaxed text-sm">{project.description}</p>
         <ProjectLinks project={project} />
       </div>
@@ -171,6 +207,36 @@ function Tier3Card({ project }) {
   );
 }
 
+// Selected Work is the one section that breaks the page's otherwise
+// uniform SECTION/SECTION/SECTION rhythm: a full-bleed rule (not
+// constrained to the same max-w-6xl column as every other section) and a
+// heading that outranks the rest of the page, because this is the section
+// that has to do the most work in the first few seconds.
+function WorkHeading() {
+  const ref = useScrollReveal();
+  return (
+    <div ref={ref} className="reveal">
+      <div className="border-t border-border" />
+      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-24 md:pt-32 pb-12 md:pb-16">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="font-serif text-sm text-label tabular-nums" aria-hidden="true">01</span>
+          <span className="block h-px w-6 bg-gold divider-draw" aria-hidden="true" />
+          <p className="text-xs tracking-[0.25em] uppercase text-text-secondary">Selected Work</p>
+        </div>
+        <h2
+          id="selected-work-heading"
+          className="text-5xl md:text-7xl text-text leading-[1.05] max-w-3xl"
+        >
+          Product work I've designed and built
+        </h2>
+        <p className="text-text-secondary leading-relaxed max-w-xl mt-5">
+          Organized by what each project demonstrates, not by job title. Design + Build is where the two meet.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function SelectedWork() {
   const [active, setActive] = useState(DEFAULT_CATEGORY);
   const { renderItems, refFor } = useFilteredList(work, active, matchesCategory);
@@ -178,17 +244,9 @@ export default function SelectedWork() {
   let tier1Seen = 0;
 
   return (
-    <section id="selected-work" aria-labelledby="selected-work-heading" className="py-24 md:py-32">
+    <section id="selected-work" aria-labelledby="selected-work-heading" className="pb-24 md:pb-32">
+      <WorkHeading />
       <div className="max-w-6xl mx-auto px-6 md:px-10">
-        <SectionHeading
-          index="01"
-          eyebrow="Selected Work"
-          title="Product work I've designed and built"
-          description="Organized by what each project demonstrates, not by job title. Design + Build is where the two meet."
-          headingId="selected-work-heading"
-          className="mb-10"
-        />
-
         <div
           role="group"
           aria-label="Filter selected work by category"
