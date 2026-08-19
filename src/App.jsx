@@ -12,6 +12,7 @@ import CaseStudySurvue from "./pages/CaseStudySurvue";
 import CaseStudyRelay from "./pages/CaseStudyRelay";
 import { useHashRoute } from "./hooks/useHashRoute";
 import { useHashSync } from "./hooks/useHashSync";
+import { useActiveSection } from "./hooks/useActiveSection";
 
 function MainSite() {
   // When returning from a sub-page via an anchor hash (e.g. "#experience"),
@@ -23,9 +24,11 @@ function MainSite() {
     }
   }, []);
 
-  // Keeps the hash matching whatever section is on screen as the user
-  // scrolls, so a reload always lands where they actually were.
-  useHashSync();
+  // One shared observer: which section is on screen right now. Drives both
+  // the nav's active-state indicator and the URL hash, so a reload always
+  // lands where the user actually was.
+  const activeSection = useActiveSection();
+  useHashSync(activeSection);
 
   return (
     <>
@@ -36,7 +39,7 @@ function MainSite() {
         Skip to content
       </a>
       <ScrollProgress />
-      <Navbar />
+      <Navbar active={activeSection} />
       <main id="main">
         <Hero />
         <SelectedWork />

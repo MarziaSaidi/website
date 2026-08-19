@@ -1,15 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const LINKS = [
-  { href: "#selected-work", label: "Work" },
-  { href: "#experience", label: "Experience" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "#selected-work", id: "selected-work", label: "Work" },
+  { href: "#experience", id: "experience", label: "Experience" },
+  { href: "#about", id: "about", label: "About" },
+  { href: "#contact", id: "contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ active }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hovered, setHovered] = useState(null);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, ready: false });
+  const navRef = useRef(null);
+
+  // Hover takes over the indicator momentarily; releasing it falls back to
+  // wherever the user actually is on the page.
+  const target = hovered ?? active;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -17,6 +24,26 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const el = nav && target && nav.querySelector(`a[data-id="${target}"]`);
+    if (!el) {
+      setIndicator((s) => (s.ready ? { ...s, ready: false } : s));
+      return;
+    }
+    setIndicator({ left: el.offsetLeft, width: el.offsetWidth, ready: true });
+  }, [target]);
+
+  useEffect(() => {
+    function onResize() {
+      const nav = navRef.current;
+      const el = nav && target && nav.querySelector(`a[data-id="${target}"]`);
+      if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth, ready: true });
+    }
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [target]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -39,15 +66,34 @@ export default function Navbar() {
           Marzia Saidi
         </a>
 
-        <nav aria-label="Primary" className="hidden md:flex items-center gap-10">
+        <nav
+          ref={navRef}
+          aria-label="Primary"
+          onMouseLeave={() => setHovered(null)}
+          className="relative hidden md:flex items-center gap-10"
+        >
+          {/* One shared indicator that slides between links, rather than a
+              separate underline animation per link — it tracks the active
+              section and hands off to whatever's hovered. */}
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-1.5 h-px bg-bronze transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              width: `${indicator.width}px`,
+              transform: `translateX(${indicator.left}px)`,
+              opacity: indicator.ready ? 1 : 0,
+            }}
+          />
           {LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="relative text-sm tracking-wide text-text-secondary hover:text-text transition-colors duration-300
-                after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-full after:origin-left after:scale-x-0
-                after:bg-bronze after:transition-transform after:duration-300 hover:after:scale-x-100
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+              data-id={link.id}
+              onMouseEnter={() => setHovered(link.id)}
+              aria-current={active === link.id ? "true" : undefined}
+              className={`relative text-sm tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm ${
+                active === link.id ? "text-text" : "text-text-secondary hover:text-text"
+              }`}
             >
               {link.label}
             </a>
@@ -96,7 +142,10 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-base text-text-secondary hover:text-text transition-colors"
+              aria-current={active === link.id ? "true" : undefined}
+              className={`text-base transition-colors ${
+                active === link.id ? "text-text" : "text-text-secondary hover:text-text"
+              }`}
             >
               {link.label}
             </a>
