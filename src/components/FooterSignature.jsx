@@ -13,10 +13,11 @@ const DUST = "184, 117, 46"; // FOOTER_GOLD, as an rgba() component string
 // not a light switch.
 const HOVER_IN_MS = 850;
 const HOVER_OUT_MS = 1250;
-// The particle field now spans the whole footer (not just the wordmark's
-// own box), so the budget is scaled up from the original 280/60/45-65 to
-// keep the same felt density over the larger area.
-const MAX_PARTICLES = 420;
+// The particle field spans the whole footer, and reads as sparse/uniform
+// at low counts with a narrow size range — pushed up for a denser,
+// more "conjured dust" field with real size variety (a few bright,
+// bigger embers among a lot of fine motes, not a flat grain size).
+const MAX_PARTICLES = 900;
 
 function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
@@ -63,6 +64,12 @@ function sampleGlyphPoints(width, height) {
 
 function randRange(min, max) {
   return min + Math.random() * (max - min);
+}
+
+// Right-skewed: mostly fine dust, occasional larger glowing ember — a
+// flat random range reads as uniform grain, this reads as conjured.
+function randSize() {
+  return 0.4 + Math.pow(Math.random(), 2.3) * 3.6;
 }
 
 export default function FooterSignature() {
@@ -205,8 +212,8 @@ export default function FooterSignature() {
         wobblePhase: Math.random() * Math.PI * 2,
         t: 0,
         duration: randRange(1000, 2300),
-        size: randRange(0.35, 1.4),
-        peak: randRange(0.15, 0.7),
+        size: randSize(),
+        peak: randRange(0.18, 0.85),
         vanishAt: vanishEarly ? randRange(0.35, 0.8) : 1,
       });
     }
@@ -231,8 +238,8 @@ export default function FooterSignature() {
         wobblePhase: Math.random() * Math.PI * 2,
         t: 0,
         duration: randRange(1300, 2600),
-        size: randRange(0.35, 1.4),
-        peak: randRange(0.12, 0.55),
+        size: randSize(),
+        peak: randRange(0.14, 0.65),
         vanishAt: 1,
       });
     }
@@ -254,11 +261,12 @@ export default function FooterSignature() {
       // stirred up and never quite settling while the current runs.
       if (hovering) {
         spawnAccumulator += dt;
-        const interval = 20;
+        const interval = 16;
         while (spawnAccumulator > interval) {
           spawnAccumulator -= interval;
           spawnInbound();
-          if (Math.random() < 0.5) spawnInbound();
+          spawnInbound();
+          if (Math.random() < 0.7) spawnInbound();
         }
       }
 
@@ -331,7 +339,7 @@ export default function FooterSignature() {
       const r = footer.getBoundingClientRect();
       pointer.x = e.clientX - r.left;
       pointer.y = e.clientY - r.top;
-      for (let i = 0; i < 90; i++) spawnInbound();
+      for (let i = 0; i < 160; i++) spawnInbound();
       ensureLoop();
     }
     function onMove(e) {
@@ -356,7 +364,7 @@ export default function FooterSignature() {
           p.duration = randRange(900, 1600);
         }
       });
-      const count = 70 + ((Math.random() * 30) | 0);
+      const count = 130 + ((Math.random() * 50) | 0);
       for (let i = 0; i < count; i++) spawnOutbound();
       ensureLoop();
     }
