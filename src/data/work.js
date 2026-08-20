@@ -42,13 +42,18 @@ export const work = [
   },
   {
     id: "get-campus",
-    name: "Get Campus & New Start",
+    name: "Get Campus",
     tier: 2,
     category: "design",
-    labels: ["Design", "Product", "Web + Mobile"],
+    labels: ["Design", "Product", "Web"],
     description:
-      "Employer and customer platforms designed end to end in Figma and shipped as production-ready specs — onboarding, job posting, payments, and analytics, working directly with founders and engineers.",
-    preview: "none",
+      "An employer platform designed end to end in Figma and shipped as production-ready specs — onboarding, job posting, applications, and billing, working directly with founders and engineers.",
+    preview: "browser",
+    previewSrc: "/get-campus/dashboard-overview.png",
+    previewAlt: "Get Campus's employer dashboard overview",
+    previewUrl: "getcampus.app/dashboard",
+    href: "#/get-campus",
+    hrefLabel: "Case study",
   },
   {
     id: "relay",

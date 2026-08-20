@@ -10,6 +10,7 @@ import About from "./sections/About";
 import Contact from "./sections/Contact";
 import CaseStudySurvue from "./pages/CaseStudySurvue";
 import CaseStudyRelay from "./pages/CaseStudyRelay";
+import CaseStudyGetCampus from "./pages/CaseStudyGetCampus";
 import { useHashRoute } from "./hooks/useHashRoute";
 import { useHashSync } from "./hooks/useHashSync";
 import { useActiveSection } from "./hooks/useActiveSection";
@@ -62,6 +63,10 @@ export default function App() {
 
   if (route.startsWith("#/relay")) {
     return <CaseStudyRelay />;
+  }
+
+  if (route.startsWith("#/get-campus")) {
+    return <CaseStudyGetCampus />;
   }
 
   return <MainSite />;
