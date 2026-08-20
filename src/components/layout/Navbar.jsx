@@ -1,5 +1,6 @@
 import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import { useScrollY } from "../../hooks/useScrollY";
+import { useTheme } from "../../hooks/useTheme";
 
 const LINKS = [
   { href: "#selected-work", id: "selected-work", label: "Work" },
@@ -9,6 +10,7 @@ const LINKS = [
 ];
 
 export default function Navbar({ active }) {
+  const { theme, toggle: toggleTheme } = useTheme();
   const scrollY = useScrollY();
   const scrolled = scrollY > 24;
   const [menuOpen, setMenuOpen] = useState(false);
@@ -96,6 +98,24 @@ export default function Navbar({ active }) {
         </nav>
 
         <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-border text-text-secondary transition-colors duration-300 hover:text-text hover:border-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            {theme === "dark" ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="4.5" />
+                <path strokeLinecap="round" d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" />
+              </svg>
+            )}
+          </button>
+
           <button
             type="button"
             onClick={scrollToTop}

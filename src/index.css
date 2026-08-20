@@ -44,6 +44,48 @@
   --world-accent-strong: var(--color-accent-alt-secondary);
 }
 
+/* Dark theme: same warm, muted character, inverted. Follows system
+   preference by default; an explicit choice (via the nav toggle) is
+   recorded as data-theme on <html> and wins either direction. Values are
+   plain custom-property overrides layered on top of the @theme block
+   above — Tailwind's generated utilities read the property at paint time,
+   so overriding it later in the cascade repaints every utility that uses
+   it with no per-class dark: variants needed. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-background: #100e0b;
+    --color-background-secondary: #1c1914;
+    --color-paper: #17140f;
+    --color-text: #f2ede3;
+    --color-text-secondary: #b0a58e;
+    /* Accent tokens are intentionally NOT redefined here: #a6793c already
+       clears ~4.9:1 against this near-black background (fine for text/
+       links) and swapping in a brighter dark-mode amber would drop white
+       button text below 3:1 — see Button.jsx's white text. One accent
+       value that works against both backdrops beats two that don't. */
+    --color-gold: #c9bfa0;
+    --color-bronze: #96876a;
+    --color-label: #cdc4ad;
+    --color-border: rgba(244, 237, 227, 0.12);
+    --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    --shadow-soft-lg: 0 16px 40px rgba(166, 121, 60, 0.2), 0 10px 28px rgba(0, 0, 0, 0.5);
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-background: #100e0b;
+  --color-background-secondary: #1c1914;
+  --color-paper: #17140f;
+  --color-text: #f2ede3;
+  --color-text-secondary: #b0a58e;
+  --color-gold: #c9bfa0;
+  --color-bronze: #96876a;
+  --color-label: #cdc4ad;
+  --color-border: rgba(244, 237, 227, 0.12);
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-soft-lg: 0 16px 40px rgba(166, 121, 60, 0.2), 0 10px 28px rgba(0, 0, 0, 0.5);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

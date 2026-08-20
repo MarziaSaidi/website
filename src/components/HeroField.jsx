@@ -64,12 +64,23 @@ export default function HeroField({ sectionRef }) {
       }
     }
 
+    // The alpha stops below are tuned for the light theme's cream backdrop.
+    // Read live (cheap DOM attribute read, once per frame) rather than
+    // cached at mount, since the nav's theme toggle can flip this mid-
+    // session — a "lighter" blend needs real presence to read against a
+    // near-black backdrop, so dark mode gets a multiplier instead of a
+    // separate hardcoded set of stops.
+    function darkBoost() {
+      return document.documentElement.getAttribute("data-theme") === "dark" ? 2.4 : 1;
+    }
+
     function paintAurora(time) {
       // No canvas blur filter here on purpose: `ctx.filter = "blur(Npx)"`
       // re-blurs the full canvas every frame and is expensive enough to
       // stall the render thread on a continuous rAF loop. A radial
       // gradient with several soft-falloff stops reads as blurred without
       // the per-frame cost.
+      const boost = darkBoost();
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
       for (const b of blobs) {
@@ -78,9 +89,9 @@ export default function HeroField({ sectionRef }) {
         const cy = h * b.ry + Math.sin(angle * 0.8) * h * 0.14;
         const radius = Math.max(w, h) * b.r;
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-        grad.addColorStop(0, `rgba(${b.color}, 0.05)`);
-        grad.addColorStop(0.4, `rgba(${b.color}, 0.03)`);
-        grad.addColorStop(0.75, `rgba(${b.color}, 0.01)`);
+        grad.addColorStop(0, `rgba(${b.color}, ${0.05 * boost})`);
+        grad.addColorStop(0.4, `rgba(${b.color}, ${0.03 * boost})`);
+        grad.addColorStop(0.75, `rgba(${b.color}, ${0.01 * boost})`);
         grad.addColorStop(1, `rgba(${b.color}, 0)`);
         ctx.fillStyle = grad;
         ctx.beginPath();
@@ -91,6 +102,7 @@ export default function HeroField({ sectionRef }) {
     }
 
     function paintDots(animate) {
+      const boost = darkBoost();
       for (const d of dots) {
         let target = 0;
         if (pointer.active) {
@@ -102,7 +114,7 @@ export default function HeroField({ sectionRef }) {
         const radius = rest + d.s * 2.2;
         ctx.beginPath();
         ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
-        const alpha = 0.1 + d.s * 0.4;
+        const alpha = Math.min(1, (0.1 + d.s * 0.4) * boost);
         ctx.fillStyle = d.s > 0.5
           ? `rgba(${GLOW_VIOLET}, ${alpha})`
           : `rgba(${GLOW}, ${alpha})`;
