@@ -13,7 +13,10 @@ const DUST = "184, 117, 46"; // FOOTER_GOLD, as an rgba() component string
 // not a light switch.
 const HOVER_IN_MS = 850;
 const HOVER_OUT_MS = 1250;
-const MAX_PARTICLES = 280;
+// The particle field now spans the whole footer (not just the wordmark's
+// own box), so the budget is scaled up from the original 280/60/45-65 to
+// keep the same felt density over the larger area.
+const MAX_PARTICLES = 420;
 
 function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
@@ -104,6 +107,11 @@ export default function FooterSignature() {
 
     const ctx = canvas.getContext("2d");
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // The canvas covers the whole <footer> (found once, DOM structure is
+    // static), not just this wordmark link — so the dust field has the
+    // full footer to drift through, not just the space right around the
+    // letters. Falls back to the immediate parent if footer isn't found.
+    const footer = wrap.closest("footer") || wrap.parentElement;
 
     let width = 0;
     let height = 0;
@@ -116,27 +124,32 @@ export default function FooterSignature() {
     let pointer = { x: -9999, y: -9999, active: false };
 
     function resize() {
-      const rect = wrap.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
+      const footerRect = footer.getBoundingClientRect();
+      const wrapRect = wrap.getBoundingClientRect();
+      width = footerRect.width;
+      height = footerRect.height;
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      glyphPoints = sampleGlyphPoints(width, height);
+
+      // Glyphs are still sampled from the wordmark's own box (same
+      // calibration as before), then shifted into footer-local
+      // coordinates so particles anywhere in the footer can target them.
+      const offsetX = wrapRect.left - footerRect.left;
+      const offsetY = wrapRect.top - footerRect.top;
+      glyphPoints = sampleGlyphPoints(wrapRect.width, wrapRect.height).map((p) => ({
+        x: p.x + offsetX,
+        y: p.y + offsetY,
+      }));
     }
 
-    // A point in the "halo" around the letters — not the cursor, not the
-    // glyphs themselves, the quiet space the dust drifts in from.
+    // A point anywhere in the footer — the dust drifts in from (and
+    // scatters back out to) the whole footer area, not just a tight
+    // ring around the letters.
     function haloPoint() {
-      const gp = glyphPoints[(Math.random() * glyphPoints.length) | 0] || { x: width / 2, y: height / 2 };
-      const angle = Math.random() * Math.PI * 2;
-      const dist = randRange(10, 34);
-      return {
-        x: gp.x + Math.cos(angle) * dist,
-        y: gp.y + Math.sin(angle) * dist * 0.6,
-      };
+      return { x: randRange(0, width), y: randRange(0, height) };
     }
 
     // Perpendicular unit vector to a path, so a particle can sway across
@@ -293,14 +306,14 @@ export default function FooterSignature() {
     function onEnter(e) {
       hovering = true;
       pointer.active = true;
-      const r = wrap.getBoundingClientRect();
+      const r = footer.getBoundingClientRect();
       pointer.x = e.clientX - r.left;
       pointer.y = e.clientY - r.top;
-      for (let i = 0; i < 60; i++) spawnInbound();
+      for (let i = 0; i < 90; i++) spawnInbound();
       ensureLoop();
     }
     function onMove(e) {
-      const r = wrap.getBoundingClientRect();
+      const r = footer.getBoundingClientRect();
       pointer.x = e.clientX - r.left;
       pointer.y = e.clientY - r.top;
     }
@@ -321,7 +334,7 @@ export default function FooterSignature() {
           p.duration = randRange(900, 1600);
         }
       });
-      const count = 45 + ((Math.random() * 20) | 0);
+      const count = 70 + ((Math.random() * 30) | 0);
       for (let i = 0; i < count; i++) spawnOutbound();
       ensureLoop();
     }
@@ -334,7 +347,7 @@ export default function FooterSignature() {
 
     resize();
     const ro = new ResizeObserver(resize);
-    ro.observe(wrap);
+    ro.observe(footer);
 
     wrap.addEventListener("pointerenter", onEnter);
     wrap.addEventListener("pointermove", onMove);
@@ -354,47 +367,52 @@ export default function FooterSignature() {
   }, []);
 
   return (
-    <a
-      ref={wrapRef}
-      href="#top"
-      aria-label="Back to top"
-      className="relative block w-full pb-6 md:pb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
-    >
-      <svg viewBox="0 0 1000 200" className="relative z-0 w-full h-auto block" role="presentation" aria-hidden="true">
-        <text
-          ref={outlineTextRef}
-          x="500"
-          y="52%"
-          textAnchor="middle"
-          dominantBaseline="central"
-          textLength="980"
-          lengthAdjust="spacingAndGlyphs"
-          fontSize="170"
-          fill="none"
-          stroke="var(--color-text-secondary)"
-          strokeOpacity="0.55"
-          strokeWidth="1.25"
-          className="font-display font-semibold"
-        >
-          {TEXT}
-        </text>
-        <text
-          ref={goldTextRef}
-          x="500"
-          y="52%"
-          textAnchor="middle"
-          dominantBaseline="central"
-          textLength="980"
-          lengthAdjust="spacingAndGlyphs"
-          fontSize="170"
-          fill={FOOTER_GOLD}
-          className="font-display font-semibold"
-          style={{ opacity: 0 }}
-        >
-          {TEXT}
-        </text>
-      </svg>
-      <canvas ref={canvasRef} className="absolute inset-0 z-10 w-full h-full pointer-events-none" aria-hidden="true" />
-    </a>
+    <>
+      <a
+        ref={wrapRef}
+        href="#top"
+        aria-label="Back to top"
+        className="relative block w-full pb-6 md:pb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
+      >
+        <svg viewBox="0 0 1000 200" className="relative z-0 w-full h-auto block" role="presentation" aria-hidden="true">
+          <text
+            ref={outlineTextRef}
+            x="500"
+            y="52%"
+            textAnchor="middle"
+            dominantBaseline="central"
+            textLength="980"
+            lengthAdjust="spacingAndGlyphs"
+            fontSize="170"
+            fill="none"
+            stroke="var(--color-text-secondary)"
+            strokeOpacity="0.55"
+            strokeWidth="1.25"
+            className="font-display font-semibold"
+          >
+            {TEXT}
+          </text>
+          <text
+            ref={goldTextRef}
+            x="500"
+            y="52%"
+            textAnchor="middle"
+            dominantBaseline="central"
+            textLength="980"
+            lengthAdjust="spacingAndGlyphs"
+            fontSize="170"
+            fill={FOOTER_GOLD}
+            className="font-display font-semibold"
+            style={{ opacity: 0 }}
+          >
+            {TEXT}
+          </text>
+        </svg>
+      </a>
+      {/* Covers the whole footer (not just the wordmark above) — sized and
+          positioned against the <footer> ancestor by the effect above,
+          since the footer itself is the nearest positioned parent. */}
+      <canvas ref={canvasRef} className="absolute inset-0 z-10 pointer-events-none" aria-hidden="true" />
+    </>
   );
 }

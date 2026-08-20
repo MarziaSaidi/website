@@ -22,7 +22,7 @@ export default function Footer() {
   const time = useLocalTime();
 
   return (
-    <footer className="border-t border-border">
+    <footer className="relative border-t border-border">
       <div className="max-w-6xl mx-auto px-6 md:px-10 pt-10 pb-4 flex justify-center">
         <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-text-secondary">
           Marzia.OS &middot; Status: open to work &middot; Local time {time}
