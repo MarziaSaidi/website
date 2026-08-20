@@ -12,7 +12,7 @@ export default function Button({
 
   const variants = {
     primary:
-      "bg-accent text-text border-accent hover:bg-accent-secondary hover:border-accent-secondary",
+      "bg-accent text-white border-accent hover:bg-accent-secondary hover:border-accent-secondary",
     secondary:
       "bg-transparent text-text border-border hover:border-text hover:text-text",
   };

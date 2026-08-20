@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
-const GLOW = "139, 92, 246";
-const GLOW_VIOLET = "124, 58, 237";
+const GLOW = "166, 121, 60";
+const GLOW_VIOLET = "75, 107, 78";
 
 /*
  * Full-bleed hero backdrop: two layers on one canvas.
@@ -78,9 +78,9 @@ export default function HeroField({ sectionRef }) {
         const cy = h * b.ry + Math.sin(angle * 0.8) * h * 0.14;
         const radius = Math.max(w, h) * b.r;
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-        grad.addColorStop(0, `rgba(${b.color}, 0.14)`);
-        grad.addColorStop(0.4, `rgba(${b.color}, 0.09)`);
-        grad.addColorStop(0.75, `rgba(${b.color}, 0.03)`);
+        grad.addColorStop(0, `rgba(${b.color}, 0.05)`);
+        grad.addColorStop(0.4, `rgba(${b.color}, 0.03)`);
+        grad.addColorStop(0.75, `rgba(${b.color}, 0.01)`);
         grad.addColorStop(1, `rgba(${b.color}, 0)`);
         ctx.fillStyle = grad;
         ctx.beginPath();
@@ -102,7 +102,7 @@ export default function HeroField({ sectionRef }) {
         const radius = rest + d.s * 2.2;
         ctx.beginPath();
         ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
-        const alpha = 0.15 + d.s * 0.55;
+        const alpha = 0.1 + d.s * 0.4;
         ctx.fillStyle = d.s > 0.5
           ? `rgba(${GLOW_VIOLET}, ${alpha})`
           : `rgba(${GLOW}, ${alpha})`;

@@ -1,0 +1,68 @@
+import { useEffect, useRef } from "react";
+
+// Augments the native pointer with a small ring — never replaces it (no
+// cursor: none anywhere). Fine-pointer only; bails entirely on touch. Under
+// reduced-motion the ring still appears but snaps to position instantly
+// instead of easing, since only its rAF batching (not a CSS transition) is
+// what "follows" the pointer here.
+export default function CustomCursor() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    if (!fine) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    let pending = null;
+
+    function apply() {
+      raf = 0;
+      if (!pending) return;
+      el.style.setProperty("--cursor-x", `${pending.x}px`);
+      el.style.setProperty("--cursor-y", `${pending.y}px`);
+    }
+
+    function onMove(e) {
+      el.classList.add("is-active");
+
+      // World-aware color: CSS cascade can't reach a fixed-position element
+      // outside the hovered subtree, so read the nearest [data-world] in JS
+      // and set the cursor's own color directly.
+      const worldEl = e.target.closest?.("[data-world]");
+      const world = worldEl?.getAttribute("data-world");
+      el.style.setProperty(
+        "--cursor-color",
+        world === "green" ? "var(--color-accent-alt)" : "var(--color-accent)"
+      );
+
+      const interactive = e.target.closest?.(
+        'a, button, [role="button"], input, textarea, [data-cursor]'
+      );
+      el.style.setProperty("--cursor-scale", interactive ? "1.7" : "1");
+
+      pending = { x: e.clientX, y: e.clientY };
+      if (reduce) {
+        apply();
+      } else if (!raf) {
+        raf = requestAnimationFrame(apply);
+      }
+    }
+
+    function onLeave() {
+      el.classList.remove("is-active");
+    }
+
+    document.addEventListener("pointermove", onMove);
+    document.documentElement.addEventListener("pointerleave", onLeave);
+    return () => {
+      document.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return <div ref={ref} className="custom-cursor" aria-hidden="true" />;
+}

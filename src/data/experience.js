@@ -43,6 +43,7 @@ export const experience = [
     location: "Remote · Internship",
     dates: "Sep 2024 – Dec 2024",
     caseStudyHref: "#/survue",
+    world: "green",
     intro:
       "I led UX design for a cyclist-safety mobile app, defining user journeys and feature scope from onboarding and device pairing through ride monitoring, vehicle detection, and safety alerts.",
     bulletsLabel: "Some things I did:",

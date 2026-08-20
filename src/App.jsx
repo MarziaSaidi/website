@@ -3,6 +3,8 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import ChatWidget from "./components/ChatWidget";
+import SystemStatusBar from "./components/SystemStatusBar";
+import CustomCursor from "./components/CustomCursor";
 import Hero from "./sections/Hero";
 import SelectedWork from "./sections/SelectedWork";
 import Experience from "./sections/Experience";
@@ -40,9 +42,11 @@ function MainSite() {
         Skip to content
       </a>
       <ScrollProgress />
+      <CustomCursor />
       <Navbar active={activeSection} />
       <main id="main">
         <Hero />
+        <SystemStatusBar />
         <SelectedWork />
         <Experience />
         <About />

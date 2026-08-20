@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  /* Dark "2030" palette — now the site's one theme (was scoped to the hero
-     prototype only; promoted here once the rest of the site adopted it). */
-  --color-background: #06070a;
-  --color-background-secondary: #14151d;
-  --color-paper: #12141b;
-  --color-text: #f4f6f8;
-  --color-text-secondary: #8b93a3;
-  --color-accent: #8b5cf6;
-  --color-accent-secondary: #7c3aed;
-  --color-gold: #d4af37;
-  --color-bronze: #c9a24b;
-  --color-label: #d4af37;
-  /* Translucent white rather than a fixed hex so the hairline stays
+  /* Warm, muted "alive" palette — cream/near-black base with a subdued
+     amber/mustard primary accent and a muted sage-green alt accent used
+     only by the per-project "worlds" system (see [data-world] below).
+     Deliberately low-saturation throughout: minimalist, nothing neon. */
+  --color-background: #f4f1ea;
+  --color-background-secondary: #eae4d6;
+  --color-paper: #ffffff;
+  --color-text: #101010;
+  --color-text-secondary: #5c574c;
+  --color-accent: #a6793c;
+  --color-accent-secondary: #8b6530;
+  --color-accent-alt: #4b6b4e;
+  --color-accent-alt-secondary: #37503a;
+  --color-gold: #b8af98;
+  --color-bronze: #6e6152;
+  --color-label: #4a4438;
+  /* Translucent near-black rather than a fixed hex so the hairline stays
      legible over both --color-background and the lighter --color-paper. */
-  --color-border: rgba(244, 246, 248, 0.12);
+  --color-border: rgba(16, 16, 16, 0.12);
 
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -24,8 +28,20 @@
   --radius-md: 12px;
   --radius-lg: 16px;
 
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-soft-lg: 0 16px 48px rgba(139, 92, 246, 0.16), 0 10px 28px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0 4px 20px rgba(16, 16, 16, 0.06), 0 0 0 1px rgba(16, 16, 16, 0.05);
+  --shadow-soft-lg: 0 16px 36px rgba(166, 121, 60, 0.14), 0 10px 26px rgba(16, 16, 16, 0.1);
+}
+
+/* Per-project "worlds": each Selected Work project, case-study page, and the
+   one Experience row with a case study carries a data-world attribute that
+   retints its links/labels via these scoped custom properties. */
+[data-world="gold"] {
+  --world-accent: var(--color-accent);
+  --world-accent-strong: var(--color-accent-secondary);
+}
+[data-world="green"] {
+  --world-accent: var(--color-accent-alt);
+  --world-accent-strong: var(--color-accent-alt-secondary);
 }
 
 @layer base {
@@ -250,8 +266,11 @@
     }
   }
 
+  /* Scoped to the About section's dark-inverted band — the one place on the
+     page that reintroduces a near-black backdrop, where a glow reads as
+     intentional rather than a leftover from the old dark theme. */
   .glow-text {
-    text-shadow: 0 0 40px rgba(139, 92, 246, 0.45);
+    text-shadow: 0 0 40px rgba(166, 121, 60, 0.3);
   }
 
   @keyframes caret-blink {
@@ -267,6 +286,74 @@
   @media (prefers-reduced-motion: reduce) {
     .caret-blink {
       animation: none;
+    }
+  }
+
+  /* ---- Per-project "world" link color (Selected Work + case studies) ---- */
+  .world-link {
+    color: var(--world-accent, var(--color-accent));
+    transition: color 0.3s ease;
+  }
+  .world-link:hover {
+    color: var(--world-accent-strong, var(--color-accent-secondary));
+  }
+
+  /* ---- Tier-1 flagship reveal: the preview panel "assembles" via a wipe
+     rather than just fading in, distinguishing it from tier-2/3 cards ---- */
+  .reveal-wipe {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible .reveal-wipe,
+  .reveal-wipe.is-visible {
+    clip-path: inset(0 0 0 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-wipe {
+      clip-path: inset(0 0 0 0);
+      transition: none;
+    }
+  }
+
+  /* ---- About section's dark-inverted band: a deliberate one-off "night"
+     contrast beat, not a second theme, so its colors stay hardcoded here
+     rather than living in the shared @theme token set. ---- */
+  .about-band {
+    background-color: #101010;
+    color: #f4f1ea;
+  }
+
+  /* ---- Custom cursor: augments the native pointer, never replaces it ---- */
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 -9px;
+    border-radius: 50%;
+    border: 1.5px solid var(--cursor-color, var(--color-accent));
+    pointer-events: none;
+    z-index: 75;
+    transform: translate3d(var(--cursor-x, -9999px), var(--cursor-y, -9999px), 0) scale(var(--cursor-scale, 1));
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+  }
+
+  .custom-cursor.is-active {
+    opacity: 1;
+  }
+
+  @media (pointer: coarse), (hover: none) {
+    .custom-cursor {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .custom-cursor {
+      transition: border-color 0.2s ease, opacity 0.2s ease;
     }
   }
 }

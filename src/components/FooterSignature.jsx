@@ -3,8 +3,8 @@ import { useEffect, useRef } from "react";
 const TEXT = "Marzia Saidi";
 // A darker gold scoped to this signature only — not the shared
 // --color-gold token used elsewhere on the site (project labels, etc.).
-const FOOTER_GOLD = "#b8912e";
-const DUST = "184, 145, 46"; // FOOTER_GOLD, as an rgba() component string
+const FOOTER_GOLD = "#b8752e";
+const DUST = "184, 117, 46"; // FOOTER_GOLD, as an rgba() component string
 
 // Roughly the sequence described: dust gathers in the space around the
 // letters, drifts inward, fades as it blends into the glyphs, and the

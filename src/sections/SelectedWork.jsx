@@ -43,7 +43,7 @@ function ProjectLinks({ project }) {
                 }
               : undefined
           }
-          className="group/link inline-flex items-center gap-2 text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+          className="world-link group/link inline-flex items-center gap-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
         >
           {project.hrefLabel}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5">
@@ -56,7 +56,7 @@ function ProjectLinks({ project }) {
           href={project.live}
           target="_blank"
           rel="noopener noreferrer"
-          className="group/link inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+          className="group/link inline-flex items-center gap-2 text-sm text-text-secondary hover:text-[var(--world-accent,var(--color-accent))] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
         >
           {project.liveLabel}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">
@@ -140,10 +140,14 @@ function Tier1Row({ project, index, reverse }) {
       <ProjectLinks project={project} />
     </div>
   );
-  const preview = <ProjectPreview project={project} />;
+  const preview = (
+    <div className="reveal-wipe" data-cursor="view">
+      <ProjectPreview project={project} />
+    </div>
+  );
 
   return (
-    <div ref={ref} className="reveal border-t border-border pt-10 pb-2">
+    <div ref={ref} data-world={project.world} className="reveal border-t border-border pt-10 pb-2">
       <div className="grid md:grid-cols-2 gap-8 md:gap-14 items-center">
         {reverse ? (
           <>
@@ -169,11 +173,16 @@ function Tier2Card({ project }) {
   return (
     <div
       ref={ref}
-      className={`reveal flex flex-col gap-4 h-full ${
+      data-world={project.world}
+      className={`reveal-media flex flex-col gap-4 h-full ${
         hasPreview ? "" : "bg-paper border border-border rounded-lg shadow-soft p-6"
       }`}
     >
-      {hasPreview && <ProjectPreview project={project} />}
+      {hasPreview && (
+        <div data-cursor="view">
+          <ProjectPreview project={project} />
+        </div>
+      )}
       <div className="flex flex-col gap-2.5">
         <ProjectLabels labels={project.labels} />
         <h3
@@ -196,11 +205,17 @@ function Tier3Card({ project }) {
   return (
     <div
       ref={ref}
+      data-world={project.world}
+      style={{ transitionDuration: "0.55s" }}
       className={`reveal flex flex-col gap-3 h-full ${
         hasPreview ? "" : "bg-paper border border-border rounded-lg shadow-soft p-5"
       }`}
     >
-      {hasPreview && <ProjectPreview project={project} />}
+      {hasPreview && (
+        <div data-cursor="view">
+          <ProjectPreview project={project} />
+        </div>
+      )}
       <div className="flex flex-col gap-2">
         <ProjectLabels labels={project.labels} />
         <h3 className="font-serif text-lg text-text leading-snug">{project.name}</h3>
@@ -266,7 +281,7 @@ export default function SelectedWork() {
                 onClick={() => setActive(c.id)}
                 className={`text-sm rounded-full px-4 py-2 border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze ${
                   isActive
-                    ? "bg-accent text-text border-accent"
+                    ? "bg-accent text-white border-accent"
                     : "bg-transparent text-text-secondary border-border hover:text-text hover:border-text-secondary"
                 }`}
               >

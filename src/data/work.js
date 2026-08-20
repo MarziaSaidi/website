@@ -18,6 +18,7 @@ export const work = [
     id: "supportiq",
     name: "SupportIQ",
     tier: 1,
+    world: "gold",
     category: "design-build",
     labels: ["Design + Build", "AI", "Full-Stack"],
     description:
@@ -30,6 +31,7 @@ export const work = [
     id: "survue",
     name: "Survue",
     tier: 1,
+    world: "green",
     category: "design-build",
     labels: ["Design + Build", "Mobile", "UX"],
     description:
@@ -46,6 +48,7 @@ export const work = [
     id: "get-campus",
     name: "Get Campus",
     tier: 2,
+    world: "gold",
     category: "design",
     labels: ["Design", "Product", "Web"],
     description:
@@ -63,6 +66,7 @@ export const work = [
     id: "relay",
     name: "Relay",
     tier: 2,
+    world: "green",
     category: "design",
     labels: ["Design", "Product", "Figma"],
     description:
@@ -82,6 +86,7 @@ export const work = [
     id: "quill-pigeon",
     name: "Quill & Pigeon",
     tier: 3,
+    world: "gold",
     category: "engineering",
     labels: ["Engineering", "Full-Stack"],
     description:
@@ -92,6 +97,7 @@ export const work = [
     id: "wildwood",
     name: "Wildwood Oyster Co.",
     tier: 3,
+    world: "green",
     category: "engineering",
     labels: ["Engineering", "Frontend"],
     description:

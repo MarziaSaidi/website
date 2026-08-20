@@ -6,7 +6,7 @@ import { navigateWithTransition } from "../utils/viewTransition";
 
 function Eyebrow({ children }) {
   return (
-    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-label">
+    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))]">
       {children}
     </p>
   );
@@ -158,7 +158,7 @@ export default function CaseStudyRelay() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-text">
+    <div data-world="green" className="min-h-screen bg-background text-text">
       {/* Top bar */}
       <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-sm border-b border-border">
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
@@ -201,7 +201,7 @@ export default function CaseStudyRelay() {
               href="https://author-sync-40384662.figma.site/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover-lift group mt-8 inline-flex items-center gap-2 w-fit bg-accent text-text border border-accent rounded-full px-6 py-3 text-sm tracking-wide hover:bg-accent-secondary hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="hover-lift group mt-8 inline-flex items-center gap-2 w-fit bg-accent text-white border border-accent rounded-full px-6 py-3 text-sm tracking-wide hover:bg-accent-secondary hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               View live prototype
               <span className="text-text/70">

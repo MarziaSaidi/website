@@ -6,7 +6,7 @@ import { navigateWithTransition } from "../utils/viewTransition";
 
 function Eyebrow({ children }) {
   return (
-    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-label">
+    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))]">
       {children}
     </p>
   );
@@ -160,7 +160,7 @@ export default function CaseStudyGetCampus() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-text">
+    <div data-world="gold" className="min-h-screen bg-background text-text">
       {/* Top bar */}
       <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-sm border-b border-border">
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">

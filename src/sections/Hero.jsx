@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import Button from "../components/ui/Button";
 import Magnetic from "../components/ui/Magnetic";
 import HeroField from "../components/HeroField";
+import HeroObject from "../components/HeroObject";
 import ScrambleText from "../components/ScrambleText";
 import { subscribeScrollY } from "../hooks/useScrollY";
 
@@ -70,6 +71,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden bg-background"
     >
       <HeroField sectionRef={sectionRef} />
+      <HeroObject />
 
       {/* Cursor spotlight — a soft glow that follows the pointer, layered
           above the aurora/dot field. */}
@@ -78,7 +80,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
           background:
-            "radial-gradient(600px circle at var(--sx) var(--sy), rgba(139, 92, 246, 0.12), transparent 60%)",
+            "radial-gradient(600px circle at var(--sx) var(--sy), rgba(166, 121, 60, 0.06), transparent 60%)",
         }}
       />
 
@@ -95,7 +97,7 @@ export default function Hero() {
           }}
         >
           <p className="enter enter-1 font-mono text-xs uppercase tracking-[0.22em] text-accent flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_10px_rgba(139,92,246,0.9)]" aria-hidden="true" />
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(166,121,60,0.7)]" aria-hidden="true" />
             Design Engineer
             <span className="caret-blink text-text-secondary" aria-hidden="true">_</span>
           </p>
@@ -104,7 +106,7 @@ export default function Hero() {
             text="Marzia Saidi"
             as="h1"
             delay={150}
-            className="enter enter-1 glow-text font-display text-6xl md:text-8xl leading-[1.02] tracking-[-0.02em] text-text"
+            className="enter enter-1 font-display text-6xl md:text-8xl leading-[1.02] tracking-[-0.02em] text-text"
           />
 
           <p className="enter enter-2 font-serif italic text-2xl md:text-3xl text-text leading-snug max-w-lg">

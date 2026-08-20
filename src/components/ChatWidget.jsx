@@ -171,7 +171,7 @@ export default function ChatWidget() {
               type="submit"
               disabled={!input.trim() || loading}
               aria-label="Send message"
-              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-accent text-text transition-colors hover:bg-accent-secondary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-accent text-white transition-colors hover:bg-accent-secondary disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
@@ -188,7 +188,7 @@ export default function ChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close chat" : "Ask about Marzia"}
         aria-expanded={open}
-        className="hover-lift fixed z-[70] bottom-5 right-4 md:right-6 inline-flex items-center gap-2 h-12 pl-4 pr-5 rounded-full bg-accent text-text shadow-soft-lg hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="hover-lift fixed z-[70] bottom-5 right-4 md:right-6 inline-flex items-center gap-2 h-12 pl-4 pr-5 rounded-full bg-accent text-white shadow-soft-lg hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
           {open ? (

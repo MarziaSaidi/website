@@ -12,7 +12,7 @@ function ExperienceRow({ item }) {
   const ref = useScrollReveal();
 
   return (
-    <li ref={ref} className="reveal border-t border-border py-6 first:border-t-0">
+    <li ref={ref} data-world={item.world} className="reveal border-t border-border py-6 first:border-t-0">
       <details className="group">
         <summary className="flex flex-wrap items-baseline gap-x-4 gap-y-1 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm">
           <span className="font-mono text-xs text-text-secondary tabular-nums w-14 shrink-0">
@@ -71,7 +71,7 @@ function ExperienceRow({ item }) {
                 e.preventDefault();
                 navigateWithTransition(item.caseStudyHref);
               }}
-              className="group/link inline-flex items-center gap-2 text-sm text-accent hover:text-accent-secondary transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+              className="world-link group/link inline-flex items-center gap-2 text-sm transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
             >
               View case study
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5">
