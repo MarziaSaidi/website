@@ -35,7 +35,7 @@ function Placeholder({ label, sub }) {
 
 /* Real screenshot with graceful fallback: shows a labeled slot until the PNG
    exists at `src`, then swaps to the real image automatically. */
-function Screenshot({ src, label, caption }) {
+function Screenshot({ src, label, caption, width, height }) {
   const [failed, setFailed] = useState(false);
   return (
     <figure className="flex flex-col gap-3 w-full max-w-[118px] md:max-w-[150px] mx-auto">
@@ -48,6 +48,8 @@ function Screenshot({ src, label, caption }) {
         <img
           src={src}
           alt={label}
+          width={width}
+          height={height}
           loading="lazy"
           onError={() => setFailed(true)}
           className="w-full h-auto object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.55)]"
@@ -333,26 +335,36 @@ export default function CaseStudySurvue() {
             <Screenshot
               src="/survue/pairing.png"
               label="Final: device pairing"
+              width={625}
+              height={1278}
               caption="Guided pairing: the device, its charge, and a single Connect action."
             />
             <Screenshot
               src="/survue/home-screen.png"
               label="Final: ride monitoring"
+              width={624}
+              height={1277}
               caption="The active-ride view: live rear monitoring with a Gallery / Detection / Settings base."
             />
             <Screenshot
               src="/survue/ride-monitoring.png"
               label="Final: vehicle detected"
+              width={628}
+              height={1278}
               caption="The live alert: red road framing, the vehicle in alert red, and one plain-language risk level, readable in the quarter-second a rider can spare."
             />
             <Screenshot
               src="/survue/recordings.png"
               label="Final: automatic recordings"
+              width={626}
+              height={1277}
               caption="Auto-saved ride clips, timestamped, one tap to keep or delete."
             />
             <Screenshot
               src="/survue/settings.png"
               label="Final: settings"
+              width={625}
+              height={1277}
               caption={
                 <>
                   The settings module I built in .NET MAUI: theme, sound,

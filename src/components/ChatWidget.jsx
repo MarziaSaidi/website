@@ -19,19 +19,30 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
+  const toggleRef = useRef(null);
 
   // Keep the message list scrolled to the newest message.
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
 
-  // Focus the input when the panel opens; close on Escape.
+  // Focus the input when the panel opens; close on Escape and hand focus
+  // back to the toggle button, so a keyboard user isn't dropped onto <body>.
   useEffect(() => {
     if (open) inputRef.current?.focus();
-    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    const onKey = (e) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  const close = () => {
+    setOpen(false);
+    toggleRef.current?.focus();
+  };
 
   const send = async (text) => {
     const trimmed = text.trim();
@@ -82,6 +93,7 @@ export default function ChatWidget() {
             : "opacity-0 translate-y-4 scale-95 pointer-events-none"
         }`}
         role="dialog"
+        aria-modal={open}
         aria-label="Chat with Marzia’s assistant"
         aria-hidden={!open}
       >
@@ -94,7 +106,7 @@ export default function ChatWidget() {
             </div>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={close}
               aria-label="Close chat"
               className="text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-md p-1"
             >
@@ -171,6 +183,7 @@ export default function ChatWidget() {
 
       {/* Floating toggle button */}
       <button
+        ref={toggleRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close chat" : "Ask about Marzia"}

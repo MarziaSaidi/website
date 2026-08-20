@@ -66,6 +66,8 @@ function Frame({ index, title, label, src, children }) {
         <img
           src={src}
           alt={label}
+          width={2880}
+          height={1800}
           loading="lazy"
           onError={() => setFailed(true)}
           className="w-full h-auto rounded-xl border border-border shadow-soft"

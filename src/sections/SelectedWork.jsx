@@ -83,6 +83,8 @@ function ProjectPreview({ project }) {
           <img
             src={project.previewSrc}
             alt={project.previewAlt}
+            width={project.previewWidth}
+            height={project.previewHeight}
             loading="lazy"
             className="w-full h-auto block"
           />
@@ -103,6 +105,8 @@ function ProjectPreview({ project }) {
             <img
               src={project.previewSrc}
               alt={project.previewAlt}
+              width={project.previewWidth}
+              height={project.previewHeight}
               loading="lazy"
               className="w-full h-full object-cover object-top sm:h-auto sm:object-contain block"
             />

@@ -78,6 +78,7 @@ export default function Contact() {
                 id="contact-name"
                 name="name"
                 type="text"
+                autoComplete="name"
                 required
                 placeholder="e.g. John Doe"
                 className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
@@ -92,6 +93,7 @@ export default function Contact() {
                 id="contact-email"
                 name="email"
                 type="email"
+                autoComplete="email"
                 required
                 placeholder="e.g. john@company.com"
                 className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
@@ -107,13 +109,13 @@ export default function Contact() {
                 name="message"
                 required
                 rows={5}
-                placeholder="Hello Marzia, I’d like to talk about..."
+                placeholder="Hello Marzia, I’d like to talk about…"
                 className="w-full border-0 border-b border-border bg-transparent px-1 pb-2 pt-1 text-sm text-text placeholder:text-text-secondary/70 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm resize-y"
               />
             </div>
 
             <Button as="button" type="submit" variant="primary" className="justify-center" disabled={status === "loading"}>
-              {status === "loading" ? "Sending..." : "Send Message"}
+              {status === "loading" ? "Sending…" : "Send Message"}
             </Button>
 
             <div aria-live="polite" className="min-h-[1.5rem]">
