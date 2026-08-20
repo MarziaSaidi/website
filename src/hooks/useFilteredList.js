@@ -102,6 +102,13 @@ export function useFilteredList(items, active, matches, key = (item) => item.id)
 
       const prevRect = rectsRef.current.get(id);
       if (prevRect) {
+        // Consume it: this branch exists to FLIP an item that stayed
+        // mounted across a filter change. Without deleting it here, every
+        // *unrelated* re-render (e.g. MainSite re-rendering as
+        // useActiveSection flips while the user scrolls) would replay this
+        // same stale mount-time rect against the node's current
+        // (now-scrolled) position and animate a bogus jump.
+        rectsRef.current.delete(id);
         const newRect = node.getBoundingClientRect();
         const dx = prevRect.left - newRect.left;
         const dy = prevRect.top - newRect.top;
