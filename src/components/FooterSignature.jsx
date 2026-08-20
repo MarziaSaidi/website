@@ -76,6 +76,11 @@ export default function FooterSignature() {
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
 
+    // Hovering anywhere in the footer triggers the effect now, not just
+    // the small wordmark link — found once, DOM structure is static.
+    // Falls back to the immediate parent if footer isn't found.
+    const footer = wrap.closest("footer") || wrap.parentElement;
+
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coarse = window.matchMedia("(pointer: coarse)").matches;
 
@@ -93,11 +98,11 @@ export default function FooterSignature() {
         outline.style.opacity = "1";
         gold.style.opacity = "0";
       };
-      wrap.addEventListener("pointerenter", onEnter);
-      wrap.addEventListener("pointerleave", onLeave);
+      footer.addEventListener("pointerenter", onEnter);
+      footer.addEventListener("pointerleave", onLeave);
       return () => {
-        wrap.removeEventListener("pointerenter", onEnter);
-        wrap.removeEventListener("pointerleave", onLeave);
+        footer.removeEventListener("pointerenter", onEnter);
+        footer.removeEventListener("pointerleave", onLeave);
       };
     }
 
@@ -107,11 +112,6 @@ export default function FooterSignature() {
 
     const ctx = canvas.getContext("2d");
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    // The canvas covers the whole <footer> (found once, DOM structure is
-    // static), not just this wordmark link — so the dust field has the
-    // full footer to drift through, not just the space right around the
-    // letters. Falls back to the immediate parent if footer isn't found.
-    const footer = wrap.closest("footer") || wrap.parentElement;
 
     let width = 0;
     let height = 0;
@@ -145,11 +145,33 @@ export default function FooterSignature() {
       }));
     }
 
-    // A point anywhere in the footer — the dust drifts in from (and
-    // scatters back out to) the whole footer area, not just a tight
-    // ring around the letters.
+    // A point anywhere in the footer — used as a fallback origin when
+    // there's no real cursor position to anchor to (keyboard focus).
     function haloPoint() {
       return { x: randRange(0, width), y: randRange(0, height) };
+    }
+
+    // True only for a genuine on-canvas pointer position, not the fake
+    // off-screen coordinates onFocus feeds in for keyboard users.
+    function pointerOnCanvas() {
+      return pointer.active && pointer.x >= 0 && pointer.x <= width && pointer.y >= 0 && pointer.y <= height;
+    }
+
+    // A jittered point around the actual cursor — dust should gather
+    // wherever the pointer currently is, not anywhere in the footer, so
+    // it visibly follows the cursor as it moves before streaming into
+    // the letters.
+    function cursorPoint() {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = randRange(0, 60);
+      return {
+        x: pointer.x + Math.cos(angle) * dist,
+        y: pointer.y + Math.sin(angle) * dist,
+      };
+    }
+
+    function spawnOrigin() {
+      return pointerOnCanvas() ? cursorPoint() : haloPoint();
     }
 
     // Perpendicular unit vector to a path, so a particle can sway across
@@ -165,7 +187,7 @@ export default function FooterSignature() {
     function spawnInbound() {
       if (particles.length >= MAX_PARTICLES || glyphPoints.length === 0) return;
       const target = glyphPoints[(Math.random() * glyphPoints.length) | 0];
-      const start = haloPoint();
+      const start = spawnOrigin();
       const vanishEarly = Math.random() < 0.3;
       const { nx, ny } = perp(start.x, start.y, target.x, target.y);
       particles.push({
@@ -349,18 +371,22 @@ export default function FooterSignature() {
     const ro = new ResizeObserver(resize);
     ro.observe(footer);
 
-    wrap.addEventListener("pointerenter", onEnter);
-    wrap.addEventListener("pointermove", onMove);
-    wrap.addEventListener("pointerleave", onLeave);
+    // Hover trigger is the whole footer (dust should react anywhere in
+    // it); focus/blur stay on the wordmark link itself since that's the
+    // only focusable element in here — a keyboard user tabs to the link,
+    // not the footer as a whole.
+    footer.addEventListener("pointerenter", onEnter);
+    footer.addEventListener("pointermove", onMove);
+    footer.addEventListener("pointerleave", onLeave);
     wrap.addEventListener("focus", onFocus);
     wrap.addEventListener("blur", onBlur);
 
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
-      wrap.removeEventListener("pointerenter", onEnter);
-      wrap.removeEventListener("pointermove", onMove);
-      wrap.removeEventListener("pointerleave", onLeave);
+      footer.removeEventListener("pointerenter", onEnter);
+      footer.removeEventListener("pointermove", onMove);
+      footer.removeEventListener("pointerleave", onLeave);
       wrap.removeEventListener("focus", onFocus);
       wrap.removeEventListener("blur", onBlur);
     };
