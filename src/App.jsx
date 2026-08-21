@@ -5,7 +5,9 @@ import ScrollProgress from "./components/layout/ScrollProgress";
 import ChatWidget from "./components/ChatWidget";
 import SystemStatusBar from "./components/SystemStatusBar";
 import CustomCursor from "./components/CustomCursor";
+import IntroLoader from "./components/IntroLoader";
 import Hero from "./sections/Hero";
+import FeaturedWork from "./sections/FeaturedWork";
 import SelectedWork from "./sections/SelectedWork";
 import Experience from "./sections/Experience";
 import About from "./sections/About";
@@ -13,28 +15,24 @@ import Contact from "./sections/Contact";
 import CaseStudySurvue from "./pages/CaseStudySurvue";
 import CaseStudyRelay from "./pages/CaseStudyRelay";
 import CaseStudyGetCampus from "./pages/CaseStudyGetCampus";
+import SimpleCaseStudy from "./pages/SimpleCaseStudy";
 import { useHashRoute } from "./hooks/useHashRoute";
-import { useHashSync } from "./hooks/useHashSync";
-import { useActiveSection } from "./hooks/useActiveSection";
 
-function MainSite() {
-  // When returning from a sub-page via an anchor hash (e.g. "#experience"),
-  // scroll to that section once the main site mounts.
-  useEffect(() => {
-    const h = window.location.hash;
-    if (h && h.length > 1 && !h.startsWith("#/")) {
-      document.getElementById(h.slice(1))?.scrollIntoView();
-    }
-  }, []);
+const PAGE_IDS = ["work", "experience", "about", "contact"];
 
-  // One shared observer: which section is on screen right now. Drives both
-  // the nav's active-state indicator and the URL hash, so a reload always
-  // lands where the user actually was.
-  const activeSection = useActiveSection();
-  useHashSync(activeSection);
+function routeToPageId(route) {
+  const clean = route.replace(/^#\/?/, "");
+  return PAGE_IDS.includes(clean) ? clean : "home";
+}
 
+// Shared chrome for every top-level page — the intro loader, skip link,
+// scroll progress, custom cursor, nav, footer, and chat widget were
+// previously mounted once around the whole single-page site; now each
+// route gets its own instance of this shell around just its own content.
+function Shell({ pageId, children }) {
   return (
     <>
+      <IntroLoader />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent focus:text-background focus:px-4 focus:py-2 focus:rounded-md"
@@ -43,20 +41,78 @@ function MainSite() {
       </a>
       <ScrollProgress />
       <CustomCursor />
-      <Navbar active={activeSection} />
-      <main id="main">
-        <Hero />
-        <SystemStatusBar />
-        <SelectedWork />
-        <Experience />
-        <About />
-        <Contact />
-      </main>
+      <Navbar active={pageId} />
+      <main id="main">{children}</main>
       <Footer />
       <ChatWidget />
     </>
   );
 }
+
+// Every top-level page resets scroll position on mount, matching the
+// existing case-study pages' convention — otherwise navigating between
+// routes preserves whatever scroll offset the previous page was at.
+function useScrollToTop() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+}
+
+function HomePage() {
+  useScrollToTop();
+  return (
+    <Shell pageId="home">
+      <Hero />
+      <SystemStatusBar />
+      <FeaturedWork />
+      <Contact />
+    </Shell>
+  );
+}
+
+function WorkPage() {
+  useScrollToTop();
+  return (
+    <Shell pageId="work">
+      <SelectedWork />
+    </Shell>
+  );
+}
+
+function ExperiencePage() {
+  useScrollToTop();
+  return (
+    <Shell pageId="experience">
+      <Experience />
+    </Shell>
+  );
+}
+
+function AboutPage() {
+  useScrollToTop();
+  return (
+    <Shell pageId="about">
+      <About />
+    </Shell>
+  );
+}
+
+function ContactPage() {
+  useScrollToTop();
+  return (
+    <Shell pageId="contact">
+      <Contact />
+    </Shell>
+  );
+}
+
+const PAGES = {
+  work: WorkPage,
+  experience: ExperiencePage,
+  about: AboutPage,
+  contact: ContactPage,
+  home: HomePage,
+};
 
 export default function App() {
   const route = useHashRoute();
@@ -73,5 +129,18 @@ export default function App() {
     return <CaseStudyGetCampus />;
   }
 
-  return <MainSite />;
+  if (route.startsWith("#/supportiq")) {
+    return <SimpleCaseStudy projectId="supportiq" />;
+  }
+
+  if (route.startsWith("#/quill-pigeon")) {
+    return <SimpleCaseStudy projectId="quill-pigeon" />;
+  }
+
+  if (route.startsWith("#/wildwood")) {
+    return <SimpleCaseStudy projectId="wildwood" />;
+  }
+
+  const Page = PAGES[routeToPageId(route)];
+  return <Page />;
 }

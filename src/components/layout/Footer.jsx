@@ -23,10 +23,24 @@ export default function Footer() {
 
   return (
     <footer className="relative border-t border-border">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-10 pb-4 flex justify-center">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-10 pb-4 flex flex-wrap items-center justify-center sm:justify-between gap-3 sm:gap-4">
         <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-text-secondary">
           Marzia.OS &middot; Status: open to work &middot; Local time {time}
         </p>
+        {/* A footer-level way back to the top of long pages (Home, Work)
+            without hunting for the nav's own scroll-to-top button — sized
+            to actually be noticed, but no button chrome — just text and
+            an icon that shift to the accent color on hover. */}
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="shrink-0 group inline-flex items-center gap-2 font-mono text-sm tracking-[0.2em] uppercase text-text hover:text-accent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+        >
+          Top
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-y-0.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </button>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 md:px-10 pt-6 pb-10 flex flex-col items-center text-center gap-6">

@@ -331,6 +331,28 @@
     }
   }
 
+  /* ---- Intro loader progress bar ---- */
+  @keyframes intro-bar-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .intro-bar-fill {
+    transform-origin: left;
+    animation: intro-bar-fill 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-bar-fill {
+      animation: none;
+      transform: scaleX(1);
+    }
+  }
+
   /* ---- Per-project "world" link color (Selected Work + case studies) ---- */
   .world-link {
     color: var(--world-accent, var(--color-accent));

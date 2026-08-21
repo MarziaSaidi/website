@@ -404,8 +404,8 @@ export default function FooterSignature() {
     <>
       <a
         ref={wrapRef}
-        href="#top"
-        aria-label="Back to top"
+        href="#/"
+        aria-label="Back to home"
         className="relative block w-full pb-6 md:pb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
       >
         <svg viewBox="0 0 1000 200" className="relative z-0 w-full h-auto block" role="presentation" aria-hidden="true">

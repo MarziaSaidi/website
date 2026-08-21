@@ -96,33 +96,25 @@ export default function Hero() {
             transition: "transform 0.2s ease-out",
           }}
         >
-          <p className="enter enter-1 font-mono text-xs uppercase tracking-[0.22em] text-accent flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(166,121,60,0.7)]" aria-hidden="true" />
-            Design Engineer
-            <span className="caret-blink text-text-secondary" aria-hidden="true">_</span>
-          </p>
-
           <ScrambleText
-            text="Marzia Saidi"
+            text="Design Engineer."
             as="h1"
             delay={150}
-            className="enter enter-1 font-display text-6xl md:text-8xl leading-[1.02] tracking-[-0.02em] text-text"
+            className="enter enter-1 font-display font-bold text-6xl md:text-8xl leading-[1.02] tracking-[-0.02em] text-text"
           />
 
-          <p className="enter enter-2 font-serif italic text-2xl md:text-3xl text-text leading-snug max-w-lg">
-            I design and build polished interfaces for complex products.
+          <p className="enter enter-2 text-xl md:text-2xl text-text-secondary leading-snug max-w-lg">
+            Hi I'm Marzia Saidi, a passionate Software Developer &amp; UI/UX Designer.
           </p>
-          <p className="enter enter-3 font-mono text-xs tracking-[0.18em] uppercase text-label">
-            Product design · Frontend engineering · Prototyping
-          </p>
+
           <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-2">
             <Magnetic>
-              <Button href="#selected-work" variant="primary">
+              <Button href="#/work" variant="primary">
                 View Selected Work ↓
               </Button>
             </Magnetic>
             <Magnetic>
-              <Button href="#contact" variant="secondary">
+              <Button href="#/contact" variant="secondary">
                 Get in Touch
               </Button>
             </Magnetic>
@@ -131,8 +123,8 @@ export default function Hero() {
       </div>
 
       <a
-        href="#selected-work"
-        aria-label="Scroll to selected work"
+        href="#/work"
+        aria-label="Go to selected work"
         className="enter enter-5 hidden md:flex flex-col items-center gap-2 absolute bottom-8 left-1/2 -translate-x-1/2 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-full"
       >
         <span className="text-[0.65rem] tracking-[0.25em] uppercase font-mono">Scroll</span>
