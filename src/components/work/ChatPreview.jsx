@@ -28,17 +28,22 @@ export default function ChatPreview() {
   };
 
   return (
-    <BrowserChrome url="app.supportiq.dev/tickets/4521">
+    // Below sm, the full two-turn exchange is genuinely taller than the
+    // preview box — rather than trimming the conversation down, scale the
+    // whole browser-chrome frame to fit, so mobile shows the identical
+    // desktop layout at a smaller size instead of a cut-down version.
+    <div className="w-full scale-[0.65] sm:scale-100">
+      <BrowserChrome url="app.supportiq.dev/tickets/4521">
       <div className="p-2.5 sm:p-4 md:p-5 flex flex-col gap-2 sm:gap-3 bg-background">
         <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
           My order hasn't arrived yet — it's been a week.
         </div>
-        <div className="hidden sm:flex self-start max-w-[90%] flex-col gap-1.5 sm:gap-2">
+        <div className="flex self-start max-w-[90%] flex-col gap-1.5 sm:gap-2">
           <div className="rounded-2xl rounded-bl-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
             I see order #4521 shipped Tuesday and is currently in transit —
             expected Thursday. Want me to send the tracking link?
           </div>
-          <div className="hidden sm:flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-[0.1em] text-label">
+          <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-[0.1em] text-label">
             <span className="w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />
             Cited order #4521 · RAG
           </div>
@@ -49,7 +54,7 @@ export default function ChatPreview() {
             type="button"
             onClick={handleFollowUp}
             disabled={typing}
-            className="hidden sm:inline-flex self-end mt-1 text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze disabled:opacity-60"
+            className="inline-flex self-end mt-1 text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze disabled:opacity-60"
           >
             {typing ? "…" : FOLLOW_UP}
           </button>
@@ -74,7 +79,7 @@ export default function ChatPreview() {
                 refund for now — I can start one automatically if it doesn't
                 arrive by Friday. Sound okay?
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-[0.1em] text-label">
+              <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-[0.1em] text-label">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />
                 Refund policy · shipping status · RAG
               </div>
@@ -82,6 +87,7 @@ export default function ChatPreview() {
           </>
         )}
       </div>
-    </BrowserChrome>
+      </BrowserChrome>
+    </div>
   );
 }

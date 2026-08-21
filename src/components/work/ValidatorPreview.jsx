@@ -22,9 +22,7 @@ export default function ValidatorPreview() {
               {["Nickname", "First", "Last", "Status"].map((h) => (
                 <th
                   key={h}
-                  className={`px-1.5 py-1.5 sm:px-3 sm:py-2 text-[0.6rem] sm:text-[0.65rem] tracking-wide uppercase text-text-secondary font-normal ${
-                    h === "Nickname" ? "hidden sm:table-cell" : ""
-                  }`}
+                  className="px-1.5 py-1.5 sm:px-3 sm:py-2 text-[0.6rem] sm:text-[0.65rem] tracking-wide uppercase text-text-secondary font-normal"
                 >
                   {h}
                 </th>
@@ -34,7 +32,7 @@ export default function ValidatorPreview() {
           <tbody>
             {rows.map((row) => (
               <tr key={row.rowNum} className="border-b border-border last:border-0">
-                <td className="hidden sm:table-cell px-3 py-2.5 text-text-secondary">{row.nickname || "—"}</td>
+                <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5 text-text-secondary">{row.nickname || "—"}</td>
                 <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5 text-text">{row.firstName}</td>
                 <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5 text-text">{row.lastName}</td>
                 <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5">
