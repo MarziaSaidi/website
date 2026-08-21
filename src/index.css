@@ -183,6 +183,19 @@
     transform: translateY(0);
   }
 
+  /* Route line for the About page's "How I work" map — traced in with
+     pathLength="1" so dasharray/dashoffset work in 0-1 units regardless
+     of the path's actual geometry. */
+  .route-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+
+  .reveal-group.is-visible .route-line {
+    stroke-dashoffset: 0;
+  }
+
   @keyframes row-in {
     from {
       opacity: 0;
@@ -207,6 +220,11 @@
     .stagger-item {
       transform: none;
       transition: opacity 0.4s ease;
+    }
+
+    .route-line {
+      transition: none;
+      stroke-dashoffset: 0;
     }
 
     .row-stagger {

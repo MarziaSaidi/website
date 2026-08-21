@@ -1,5 +1,6 @@
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import SkillsCloud from "../components/SkillsCloud";
+import HowIWorkMap from "../components/HowIWorkMap";
 import { education } from "../data/experience";
 
 // The one section that deliberately breaks from the site's cream palette
@@ -42,6 +43,8 @@ export default function About() {
             me in both seats, UX design and full-stack development, often on the same team, in the same sprint.
           </p>
         </div>
+
+        <HowIWorkMap />
 
         <div ref={bodyRef} className="reveal flex flex-col gap-10">
           <div>
