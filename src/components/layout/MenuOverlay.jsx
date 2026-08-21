@@ -11,9 +11,19 @@ const LINKS = [
 // Full-screen nav overlay, opened from Navbar's single menu toggle at every
 // breakpoint. Only mounted while open (simpler and more correct for a11y
 // than hiding via opacity — closed means genuinely out of the DOM and tab
-// order, not just invisible), with a fade+rise entrance via the existing
-// .enter utility. Escape closes it and returns focus to the toggle button,
-// mirroring ChatWidget's established open/close pattern.
+// order, not just invisible). Escape closes it and returns focus to the
+// toggle button, mirroring ChatWidget's established open/close pattern.
+//
+// The backdrop itself is solid the instant it mounts — it does NOT carry
+// the .enter fade. .enter is a full 1s opacity animation, and running it
+// on the same element as bg-background meant the cream backdrop faded in
+// over a page that's also cream-toned: for most of that second the
+// backdrop was nearly invisible (low-contrast fade against a similar
+// color) while the dark link text still read as fully legible even
+// partway through the fade, producing a "text with no background,
+// bleeding into the page behind it" look on every page. Now only the
+// content (links, social row) carries the entrance animation, on top of
+// an already-opaque backdrop.
 export default function MenuOverlay({ open, onClose, active, triggerRef }) {
   const firstLinkRef = useRef(null);
 
@@ -42,9 +52,9 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
       role="dialog"
       aria-modal="true"
       aria-label="Site navigation"
-      className="enter fixed inset-0 z-[90] bg-background"
+      className="fixed inset-0 z-[90] bg-background"
     >
-      <div className="max-w-6xl mx-auto px-6 md:px-10 h-full flex flex-col justify-center gap-4 md:gap-6">
+      <div className="enter max-w-6xl mx-auto px-6 md:px-10 h-full flex flex-col justify-center gap-4 md:gap-6">
         {LINKS.map((link, i) => {
           const isActive = active === link.id;
           return (
@@ -67,7 +77,7 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
         })}
       </div>
 
-      <div className="absolute bottom-8 inset-x-0 px-6 md:px-10 flex items-center justify-center gap-6 text-sm text-text-secondary">
+      <div className="enter enter-2 absolute bottom-8 inset-x-0 px-6 md:px-10 flex items-center justify-center gap-6 text-sm text-text-secondary">
         <Magnetic strength={0.25} max={8}>
           <a
             href="https://www.linkedin.com/in/marzia-saidisoftwareengineer/"
