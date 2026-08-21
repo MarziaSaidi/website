@@ -1,6 +1,6 @@
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import SkillsCloud from "../components/SkillsCloud";
-import HowIWorkMap from "../components/HowIWorkMap";
+import HowIWork from "../components/HowIWork";
 import { education } from "../data/experience";
 
 // The one section that deliberately breaks from the site's cream palette
@@ -13,7 +13,7 @@ export default function About() {
 
   return (
     <section id="about" aria-labelledby="about-heading" className="about-band py-28 md:py-36">
-      <div className="max-w-4xl mx-auto px-6 md:px-10 flex flex-col gap-16">
+      <div className="max-w-4xl mx-auto px-6 md:px-10 flex flex-col gap-20 md:gap-32">
         <div ref={headingRef} className="reveal flex flex-col gap-6">
           <div className="flex items-center gap-3">
             <span className="font-serif text-sm tabular-nums" style={{ color: "rgba(244,241,234,0.5)" }} aria-hidden="true">
@@ -44,7 +44,7 @@ export default function About() {
           </p>
         </div>
 
-        <HowIWorkMap />
+        <HowIWork />
 
         <div ref={bodyRef} className="reveal flex flex-col gap-10">
           <div>
