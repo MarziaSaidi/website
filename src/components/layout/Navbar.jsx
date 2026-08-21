@@ -21,6 +21,13 @@ export default function Navbar({ active }) {
   // shows immediately.
   const showWordmark = active !== "home" || scrolled;
 
+  // The About page's "about-band" section is a permanent near-black band
+  // that ignores the site theme (see index.css) — it's the whole page,
+  // not just a hero strip. The nav is transparent until scrolled, so in
+  // light mode its normally-dark text/icons would sit invisibly on that
+  // dark backdrop; force the cream palette here instead of the theme's.
+  const overDarkBand = active === "about" && !scrolled;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -34,9 +41,10 @@ export default function Navbar({ active }) {
       <div className="max-w-6xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
         <a
           href="#/"
-          className={`font-serif text-2xl text-text tracking-wide transition-opacity duration-300 ${
-            showWordmark ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          className={`font-serif text-2xl tracking-wide transition-opacity duration-300 ${
+            overDarkBand ? "" : "text-text"
+          } ${showWordmark ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          style={overDarkBand ? { color: "#f4f1ea" } : undefined}
           aria-label="Marzia Saidi, back to home"
         >
           Marzia Saidi
@@ -47,7 +55,10 @@ export default function Navbar({ active }) {
             type="button"
             onClick={toggleTheme}
             aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-            className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-border text-text-secondary transition-colors duration-300 hover:text-text hover:border-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className={`inline-flex items-center justify-center w-10 h-10 rounded-full border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+              overDarkBand ? "" : "border-border text-text-secondary hover:text-text hover:border-text-secondary"
+            }`}
+            style={overDarkBand ? { borderColor: "rgba(244,241,234,0.4)", color: "rgba(244,241,234,0.8)" } : undefined}
           >
             {theme === "dark" ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -78,7 +89,10 @@ export default function Navbar({ active }) {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-border text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+            className={`inline-flex items-center justify-center w-10 h-10 rounded-md border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze ${
+              overDarkBand ? "" : "border-border text-text"
+            }`}
+            style={overDarkBand ? { borderColor: "rgba(244,241,234,0.4)", color: "#f4f1ea" } : undefined}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               {menuOpen ? (
