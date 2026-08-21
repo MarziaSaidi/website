@@ -113,10 +113,6 @@ export default function FooterSignature() {
       };
     }
 
-    // Touch/coarse pointers: no hover concept — leave it static, still a
-    // working link with its default (outline) appearance.
-    if (coarse) return;
-
     const ctx = canvas.getContext("2d");
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -379,19 +375,40 @@ export default function FooterSignature() {
     const ro = new ResizeObserver(resize);
     ro.observe(footer);
 
-    // Hover trigger is the whole footer (dust should react anywhere in
-    // it); focus/blur stay on the wordmark link itself since that's the
-    // only focusable element in here — a keyboard user tabs to the link,
-    // not the footer as a whole.
-    footer.addEventListener("pointerenter", onEnter);
-    footer.addEventListener("pointermove", onMove);
-    footer.addEventListener("pointerleave", onLeave);
-    wrap.addEventListener("focus", onFocus);
-    wrap.addEventListener("blur", onBlur);
+    // Coarse (touch) pointers have no hover concept, so there's nothing
+    // to move the cursor and trigger it — instead the reveal plays once,
+    // automatically, the moment the footer scrolls into view, and simply
+    // stays gold rather than reversing back out.
+    let io = null;
+    if (coarse) {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            hovering = true;
+            for (let i = 0; i < 160; i++) spawnInbound();
+            ensureLoop();
+            io.disconnect();
+          }
+        },
+        { threshold: 0.5 }
+      );
+      io.observe(footer);
+    } else {
+      // Hover trigger is the whole footer (dust should react anywhere in
+      // it); focus/blur stay on the wordmark link itself since that's the
+      // only focusable element in here — a keyboard user tabs to the link,
+      // not the footer as a whole.
+      footer.addEventListener("pointerenter", onEnter);
+      footer.addEventListener("pointermove", onMove);
+      footer.addEventListener("pointerleave", onLeave);
+      wrap.addEventListener("focus", onFocus);
+      wrap.addEventListener("blur", onBlur);
+    }
 
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      if (io) io.disconnect();
       footer.removeEventListener("pointerenter", onEnter);
       footer.removeEventListener("pointermove", onMove);
       footer.removeEventListener("pointerleave", onLeave);
