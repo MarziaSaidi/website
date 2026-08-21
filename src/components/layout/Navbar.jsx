@@ -76,7 +76,11 @@ export default function Navbar({ active }) {
             type="button"
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="hidden md:inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-white transition-colors duration-300 hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-hidden={!scrolled}
+            tabIndex={scrolled ? 0 : -1}
+            className={`inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-white transition-all duration-300 hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+              scrolled ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"
+            }`}
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 20V4M6 9l6-6 6 6" />
