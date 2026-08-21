@@ -85,9 +85,23 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Chat panel */}
+      {/* Backdrop — mobile only, where the panel docks as a full-width
+          sheet rather than floating beside the toggle, so a scrim makes
+          it read as a modal and gives a tap-outside-to-close target. */}
       <div
-        className={`fixed z-[70] bottom-24 right-4 md:right-6 w-[calc(100vw-2rem)] max-w-sm origin-bottom-right transition-all duration-300 ${
+        className={`fixed inset-0 z-[69] bg-black/50 transition-opacity duration-300 sm:hidden ${
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={close}
+        aria-hidden="true"
+      />
+
+      {/* Chat panel — a bottom sheet docked to the viewport edge on
+          mobile (full width, capped height so it never eats the whole
+          screen); the original floating card beside the toggle from
+          sm upward. */}
+      <div
+        className={`fixed z-[70] inset-x-0 bottom-0 sm:inset-x-auto sm:bottom-24 sm:right-4 md:right-6 w-full sm:w-[calc(100vw-2rem)] sm:max-w-sm origin-bottom sm:origin-bottom-right transition-all duration-300 ${
           open
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
             : "opacity-0 translate-y-4 scale-95 pointer-events-none"
@@ -97,7 +111,10 @@ export default function ChatWidget() {
         aria-label="Chat with Marzia’s assistant"
         aria-hidden={!open}
       >
-        <div className="flex flex-col h-[28rem] max-h-[70vh] bg-paper border border-border rounded-lg shadow-soft-lg overflow-hidden">
+        <div
+          className="flex flex-col h-[min(30rem,75vh)] sm:h-[28rem] sm:max-h-[70vh] bg-paper border-x border-t sm:border border-border rounded-t-2xl sm:rounded-lg shadow-soft-lg overflow-hidden"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-border bg-background-secondary/40">
             <div className="flex flex-col">
@@ -188,16 +205,16 @@ export default function ChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close chat" : "Ask about Marzia"}
         aria-expanded={open}
-        className="hover-lift fixed z-[70] bottom-5 right-4 md:right-6 inline-flex items-center gap-2 h-12 pl-4 pr-5 rounded-full bg-accent text-white shadow-soft-lg hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="hover-lift fixed z-[70] bottom-5 right-4 md:right-6 inline-flex items-center justify-center gap-2 h-12 w-12 sm:w-auto px-0 sm:pl-4 sm:pr-5 rounded-full bg-accent text-white shadow-soft-lg hover:bg-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="shrink-0">
           {open ? (
             <path strokeLinecap="round" strokeLinejoin="round" d="M7 7l10 10M17 7L7 17" />
           ) : (
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5M21 12a8 8 0 01-11.5 7.2L4 20l1-4.2A8 8 0 1121 12z" />
           )}
         </svg>
-        <span className="text-sm tracking-wide">{open ? "Close" : "Ask about me"}</span>
+        <span className="hidden sm:inline text-sm tracking-wide">{open ? "Close" : "Ask about me"}</span>
       </button>
     </>
   );
