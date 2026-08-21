@@ -30,10 +30,10 @@ export default function ChatPreview() {
   return (
     <BrowserChrome url="app.supportiq.dev/tickets/4521">
       <div className="p-2.5 sm:p-4 md:p-5 flex flex-col gap-2 sm:gap-3 bg-background">
-        <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-accent text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
+        <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
           My order hasn't arrived yet — it's been a week.
         </div>
-        <div className="self-start max-w-[90%] flex flex-col gap-1.5 sm:gap-2">
+        <div className="hidden sm:flex self-start max-w-[90%] flex-col gap-1.5 sm:gap-2">
           <div className="rounded-2xl rounded-bl-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
             I see order #4521 shipped Tuesday and is currently in transit —
             expected Thursday. Want me to send the tracking link?
@@ -49,7 +49,7 @@ export default function ChatPreview() {
             type="button"
             onClick={handleFollowUp}
             disabled={typing}
-            className="self-end mt-1 text-[0.65rem] sm:text-xs text-text-secondary border border-border rounded-full px-2.5 py-1 sm:px-3 sm:py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze disabled:opacity-60"
+            className="hidden sm:inline-flex self-end mt-1 text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze disabled:opacity-60"
           >
             {typing ? "…" : FOLLOW_UP}
           </button>
@@ -65,7 +65,7 @@ export default function ChatPreview() {
 
         {expanded && (
           <>
-            <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-accent text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
+            <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
               {FOLLOW_UP}
             </div>
             <div className="self-start max-w-[90%] flex flex-col gap-1.5 sm:gap-2">

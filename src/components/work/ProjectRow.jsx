@@ -107,7 +107,7 @@ function PrimaryProjectLink({ project }) {
   const secondary = project.href && project.live ? { href: project.live, label: project.liveLabel } : null;
 
   return (
-    <div className="flex items-center gap-3 sm:gap-6 flex-wrap pt-1 sm:pt-2">
+    <div className="mt-auto flex items-center gap-3 sm:gap-6 flex-wrap pt-1 sm:pt-2">
       <a
         href={primary.href}
         target={primary.external ? "_blank" : undefined}
@@ -132,7 +132,7 @@ function PrimaryProjectLink({ project }) {
           href={secondary.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-text-secondary hover:text-[var(--world-accent,var(--color-accent))] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+          className="hidden sm:inline text-sm text-text-secondary hover:text-[var(--world-accent,var(--color-accent))] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
         >
           {secondary.label}
         </a>
@@ -159,21 +159,17 @@ export function ProjectPreview({ project }) {
             width={project.previewWidth}
             height={project.previewHeight}
             loading="lazy"
-            className="w-full h-auto block"
+            className="w-full h-auto max-h-full object-contain block"
           />
         </PhoneFrame>
       );
     case "browser":
-      // Wide desktop screenshots don't just shrink on small viewports — a
-      // 16:10 dashboard scaled to phone width turns its own labels
-      // illegible. Below sm, crop to a wider-than-source strip (object-fit
-      // cover crops the *far* axis from the container's aspect ratio, so a
-      // container wider than the 16:10 source crops height, not width —
-      // keeping the full-width KPI band at the top in frame and trimming
-      // the chart/table below it); at sm+ the image reverts to its natural
-      // aspect ratio, shown in full.
+      // The preview box is now a fixed size (see ProjectRow). The
+      // screenshot sits at its own natural width-driven size (never
+      // stretched to fill the box) with a max-height safety net so it
+      // only ever shrinks, never overflows.
       return (
-        <BrowserChrome url={project.previewUrl}>
+        <BrowserChrome url={project.previewUrl} className="max-w-full max-h-full">
           <div className="aspect-[16/9] sm:aspect-auto overflow-hidden">
             <img
               src={project.previewSrc}
@@ -199,7 +195,7 @@ export function ProjectPreview({ project }) {
 export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   const ref = useScrollReveal();
   const text = (
-    <div className="flex flex-col gap-3 sm:gap-6 md:gap-8 max-w-lg">
+    <div className="h-full flex flex-col gap-3 sm:gap-6 md:gap-8 max-w-lg">
       <OriginTag type={project.type} />
       <h3
         className="font-display font-semibold text-2xl sm:text-4xl md:text-7xl text-text leading-[1.1] md:leading-[1.05] tracking-[-0.01em]"
@@ -217,36 +213,51 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   // oversized numeral that bleeds past the panel's own edge rather than
   // just sitting behind the preview component — a composed corner, not a
   // screenshot floating in space.
+  // Fixed size across every project, at every breakpoint — 145x290 on
+  // mobile, 450x520 from md up. The preview's job is to shrink to fit
+  // that box (see ProjectPreview's object-contain sizing), not the other
+  // way around, so every row reads as the same "frame" regardless of
+  // what real screenshot or UI happens to be inside it.
+  //
+  // The numeral bleeds well past the box's own edge — it needs to sit
+  // OUTSIDE the clipped area, not just visually overlap it, so overflow
+  // lives on an inner wrapper (the tinted panel + its content) while the
+  // numeral is a direct child of the unclipped outer box.
   const preview = (
-    <div
-      className={`relative py-4 px-4 sm:py-8 sm:px-7 md:py-14 md:px-12 rounded-[2px] bg-[var(--world-accent,var(--color-accent))]/[0.07]`}
-      data-cursor="view"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-3 sm:inset-5 md:inset-10 opacity-[0.35] blur-[1px]"
-        style={{
-          transform: `scale(0.94) translate(${reverse ? "10px" : "-10px"}, -8px) rotate(${reverse ? "1deg" : "-1deg"})`,
-        }}
-      >
-        <ProjectPreview project={project} />
+    <div className="relative w-[145px] h-[290px] md:w-[450px] md:h-[520px]" data-cursor="view">
+      <div className="absolute inset-0 p-4 md:p-14 rounded-[2px] bg-[var(--world-accent,var(--color-accent))]/[0.07] overflow-hidden">
+        {/* The echo reads as a soft depth shadow for a rectangular
+            screenshot, but a phone preview is mostly dark UI on a
+            transparent bezel — blurred and offset, that just smears into
+            an unwanted dark shape behind it. Skip it for that one case. */}
+        {project.preview !== "device" && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-4 md:inset-14 opacity-[0.35] blur-[1px] flex items-center justify-center"
+            style={{
+              transform: `scale(0.94) translate(${reverse ? "10px" : "-10px"}, -8px) rotate(${reverse ? "1deg" : "-1deg"})`,
+            }}
+          >
+            <ProjectPreview project={project} />
+          </div>
+        )}
+
+        <div className="reveal-wipe relative z-10 w-full h-full flex items-center justify-center">
+          <ProjectPreview project={project} />
+        </div>
       </div>
 
-      {/* No blend mode — a numeral that visually merges with whatever's
-          beneath it reads as "behind the image," not "on top of it." Solid
-          color, high in the stacking order, unambiguously on top. */}
+      {/* Bleeds past the panel's own edge, unclipped — a numeral standing
+          outside the frame, with real drop-shadow depth, rather than a
+          watermark sitting flush behind the image. */}
       <span
         aria-hidden="true"
-        className={`pointer-events-none select-none absolute -bottom-3 sm:-bottom-6 md:-bottom-14 z-20 font-display font-bold text-3xl sm:text-6xl md:text-[11rem] leading-none text-[var(--world-accent,var(--color-accent))] drop-shadow-[0_2px_10px_rgba(0,0,0,0.12)] ${
-          reverse ? "-right-1 sm:-right-3 md:-right-8" : "-left-1 sm:-left-3 md:-left-8"
+        className={`pointer-events-none select-none absolute -bottom-3 sm:-bottom-6 md:-bottom-16 z-20 font-display font-bold text-4xl sm:text-6xl md:text-[11rem] leading-none text-[var(--world-accent,var(--color-accent))] drop-shadow-[0_12px_28px_rgba(0,0,0,0.35)] ${
+          reverse ? "-right-3 sm:-right-5 md:-right-14" : "-left-3 sm:-left-5 md:-left-14"
         }`}
       >
         {index}
       </span>
-
-      <div className="reveal-wipe relative z-10">
-        <ProjectPreview project={project} />
-      </div>
     </div>
   );
 
@@ -256,7 +267,14 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   // place the two panes correctly regardless of which one comes first in
   // the markup, and apply at every breakpoint now that mobile is a row
   // (image beside text) rather than a stack (image above text).
-  const previewOrder = imageLeft ? "order-1" : "order-2";
+  // Both columns stretch to the row's height (items-stretch below), which
+  // whichever column has the taller natural content — usually the fixed-
+  // size preview panel, but on mobile a long description can out-grow it.
+  // items-end here keeps the panel's own bottom edge pinned to the row's
+  // bottom in either case, so "View project" (pushed down via mt-auto on
+  // the text side) always lines up with the panel's bottom edge exactly,
+  // not just when the panel happens to be the taller column.
+  const previewOrder = imageLeft ? "order-1 flex items-end" : "order-2 flex items-end";
   const textOrder = imageLeft ? "order-2" : "order-1";
 
   return (
@@ -265,7 +283,7 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
           full-width block stacked above the text — an image, name, and
           description read as one row even on a phone, not a scroll of
           separate stacked chunks. */}
-      <div className="grid grid-cols-[0.8fr_1fr] gap-4 sm:gap-8 md:grid-cols-[1.15fr_1fr] md:gap-28 lg:gap-32 items-start md:items-center">
+      <div className="grid grid-cols-[0.8fr_1fr] gap-4 sm:gap-8 md:grid-cols-[1.15fr_1fr] md:gap-28 lg:gap-32 items-stretch">
         {reverse ? (
           <>
             <div className={previewOrder}>{preview}</div>
