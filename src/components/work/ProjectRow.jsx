@@ -199,7 +199,7 @@ export function ProjectPreview({ project }) {
 export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   const ref = useScrollReveal();
   const text = (
-    <div className="flex flex-col gap-3 sm:gap-5 md:gap-6 max-w-lg">
+    <div className="flex flex-col gap-3 sm:gap-6 md:gap-8 max-w-lg">
       <OriginTag type={project.type} />
       <h3
         className="font-display font-semibold text-2xl sm:text-4xl md:text-7xl text-text leading-[1.1] md:leading-[1.05] tracking-[-0.01em]"
@@ -260,12 +260,12 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   const textOrder = imageLeft ? "order-2" : "order-1";
 
   return (
-    <div ref={ref} data-world={project.world} className="reveal py-16 sm:py-24 md:py-40">
+    <div ref={ref} data-world={project.world} className="reveal py-16 sm:py-28 md:py-44 lg:py-52">
       {/* Below md, the preview stays a compact side column instead of a
           full-width block stacked above the text — an image, name, and
           description read as one row even on a phone, not a scroll of
           separate stacked chunks. */}
-      <div className="grid grid-cols-[0.8fr_1fr] gap-4 sm:gap-8 md:grid-cols-[1.15fr_1fr] md:gap-28 items-start md:items-center">
+      <div className="grid grid-cols-[0.8fr_1fr] gap-4 sm:gap-8 md:grid-cols-[1.15fr_1fr] md:gap-28 lg:gap-32 items-start md:items-center">
         {reverse ? (
           <>
             <div className={previewOrder}>{preview}</div>

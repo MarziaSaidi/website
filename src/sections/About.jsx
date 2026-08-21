@@ -12,9 +12,9 @@ export default function About() {
   const bodyRef = useScrollReveal();
 
   return (
-    <section id="about" aria-labelledby="about-heading" className="about-band py-28 md:py-36">
-      <div className="max-w-4xl mx-auto px-6 md:px-10 flex flex-col gap-20 md:gap-32">
-        <div ref={headingRef} className="reveal flex flex-col gap-6">
+    <section id="about" aria-labelledby="about-heading" className="about-band py-28 md:py-44">
+      <div className="max-w-4xl mx-auto px-6 md:px-10 flex flex-col gap-24 md:gap-36">
+        <div ref={headingRef} className="reveal flex flex-col gap-7">
           <div className="flex items-center gap-3">
             <span className="font-serif text-sm tabular-nums" style={{ color: "rgba(244,241,234,0.5)" }} aria-hidden="true">
               03
@@ -46,15 +46,15 @@ export default function About() {
 
         <HowIWork />
 
-        <div ref={bodyRef} className="reveal flex flex-col gap-10">
+        <div ref={bodyRef} className="reveal flex flex-col gap-12">
           <div>
-            <p className="text-xs tracking-[0.2em] uppercase mb-4" style={{ color: "rgba(244,241,234,0.5)" }}>
+            <p className="text-xs tracking-[0.2em] uppercase mb-6" style={{ color: "rgba(244,241,234,0.5)" }}>
               What I work with
             </p>
             <SkillsCloud />
           </div>
 
-          <div className="border-t pt-6 flex flex-col gap-1" style={{ borderColor: "rgba(244,241,234,0.14)" }}>
+          <div className="border-t pt-8 flex flex-col gap-2" style={{ borderColor: "rgba(244,241,234,0.14)" }}>
             <p className="text-xs tracking-[0.2em] uppercase" style={{ color: "rgba(244,241,234,0.5)" }}>
               Education
             </p>

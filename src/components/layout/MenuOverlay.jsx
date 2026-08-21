@@ -44,7 +44,7 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
       aria-label="Site navigation"
       className="enter fixed inset-0 z-[90] bg-background"
     >
-      <div className="max-w-6xl mx-auto px-6 md:px-10 h-full flex flex-col justify-center gap-2 md:gap-3">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 h-full flex flex-col justify-center gap-4 md:gap-6">
         {LINKS.map((link, i) => {
           const isActive = active === link.id;
           return (

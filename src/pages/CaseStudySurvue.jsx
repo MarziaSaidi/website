@@ -68,11 +68,11 @@ function Section({ eyebrow, title, children, wide = false }) {
   return (
     <Reveal
       as="section"
-      className={`mx-auto px-6 md:px-10 py-16 md:py-24 border-t border-border ${wide ? "max-w-5xl" : "max-w-[820px]"}`}
+      className={`mx-auto px-6 md:px-10 py-20 md:py-32 border-t border-border ${wide ? "max-w-5xl" : "max-w-[820px]"}`}
     >
-      <div className="max-w-[820px]">
+      <div className="max-w-[820px] mb-10 md:mb-14">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="font-serif text-3xl md:text-4xl text-text leading-tight mt-3 mb-6">
+        <h2 className="font-serif text-3xl md:text-4xl text-text leading-tight mt-4">
           {title}
         </h2>
       </div>
@@ -148,10 +148,10 @@ export default function CaseStudySurvue() {
       <main>
         {/* HERO */}
         <section className="border-b border-border">
-          <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-24 pb-16 md:pt-32 md:pb-24">
+          <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
             <Eyebrow>Case Study · Mobile UX Design</Eyebrow>
             <h1
-              className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-4 mb-6"
+              className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8"
               style={{ viewTransitionName: "project-title-survue" }}
             >
               Survue
@@ -161,7 +161,7 @@ export default function CaseStudySurvue() {
               alerts a rider can trust while their eyes stay on the road.
             </p>
 
-            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-6 mt-12 border-t border-border pt-8">
+            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-14 border-t border-border pt-10">
               {[
                 ["Role", "Lead UX Designer & Mobile Dev"],
                 ["Team", "3 engineers"],
@@ -179,7 +179,7 @@ export default function CaseStudySurvue() {
 
         {/* AT A GLANCE — the whole case study in three lines */}
         <section className="border-b border-border bg-background-secondary/40">
-          <div className="max-w-[820px] mx-auto px-6 md:px-10 py-10 grid sm:grid-cols-3 gap-8">
+          <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 md:py-16 grid sm:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Problem</p>
               <p className="text-sm text-text leading-relaxed">
@@ -203,7 +203,7 @@ export default function CaseStudySurvue() {
 
         {/* OVERVIEW */}
         <Section eyebrow="Overview" title="Safety you feel, not a screen you watch">
-          <div className="flex flex-col gap-5 text-text-secondary leading-relaxed text-lg">
+          <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
               Survue is a mobile app that warns cyclists about vehicles
               approaching from behind. I led the UX end to end, from user
@@ -245,11 +245,11 @@ export default function CaseStudySurvue() {
 
         {/* CONSTRAINTS */}
         <Section eyebrow="Constraints" title="Designing for the worst-case moment">
-          <p className="text-text-secondary leading-relaxed text-lg mb-10">
+          <p className="text-text-secondary leading-relaxed text-lg mb-12">
             I mapped the real context of use and let its constraints drive the
             design:
           </p>
-          <div className="grid gap-6 sm:grid-cols-3">
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-3">
             {constraints.map((c) => (
               <div key={c.title} className="bg-paper border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
                 <span className="text-accent">{c.icon}</span>
@@ -262,7 +262,7 @@ export default function CaseStudySurvue() {
 
         {/* RESEARCH */}
         <Section eyebrow="Process · Research" title="Mapping the ride, end to end" wide>
-          <p className="text-text-secondary leading-relaxed text-lg mb-10 max-w-[820px]">
+          <p className="text-text-secondary leading-relaxed text-lg mb-12 max-w-[820px]">
             Before designing screens, I mapped the full journey to find where
             design actually mattered. The setup moments (onboarding, pairing)
             could be rich and guided; the in-ride moment had to be nearly
@@ -303,7 +303,7 @@ export default function CaseStudySurvue() {
 
         {/* KEY DECISIONS */}
         <Section eyebrow="Key Decisions" title="Where the design earned its keep" wide>
-          <ol className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
+          <ol className="grid gap-x-12 gap-y-12 md:gap-y-14 sm:grid-cols-2">
             {decisions.map((d) => (
               <li key={d.n} className="flex gap-5">
                 <span className="font-serif text-3xl text-bronze tabular-nums leading-none pt-1">
@@ -326,7 +326,7 @@ export default function CaseStudySurvue() {
             components behaved consistently on every platform while respecting
             each one’s conventions.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-5 gap-y-10 justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-12 md:gap-y-14 justify-items-center">
             <Screenshot
               src="/survue/pairing.png"
               label="Final: device pairing"
@@ -376,14 +376,14 @@ export default function CaseStudySurvue() {
 
         {/* OUTCOME */}
         <Section eyebrow="Outcome & Learnings" title="What shipped, and what it taught me">
-          <div className="flex flex-col gap-8 text-text-secondary leading-relaxed text-lg">
+          <div className="flex flex-col gap-10 text-text-secondary leading-relaxed text-lg">
             <p>
               Collaborating with a three-person engineering team, I translated the
               UX into production-ready features and shipped a settings experience
               with parity across three platforms.
             </p>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               <h3 className="font-serif text-2xl text-text">What I took from it</h3>
               <p>
                 Survue taught me to design from the context of use outward, not
@@ -399,7 +399,7 @@ export default function CaseStudySurvue() {
       </main>
 
       <footer className="border-t border-border">
-        <div className="max-w-[820px] mx-auto px-6 md:px-10 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <p className="text-xs text-text-secondary/80 font-mono uppercase tracking-[0.15em]">
             Case study · Survue · Marzia Saidi
           </p>

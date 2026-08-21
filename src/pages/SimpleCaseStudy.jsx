@@ -41,9 +41,9 @@ function BackLink({ className }) {
 
 function Section({ eyebrow, title, children }) {
   return (
-    <Reveal as="section" className="mx-auto max-w-[820px] px-6 md:px-10 py-16 md:py-24 border-t border-border">
+    <Reveal as="section" className="mx-auto max-w-[820px] px-6 md:px-10 py-20 md:py-32 border-t border-border">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      {title && <h2 className="font-serif text-3xl md:text-4xl text-text leading-tight mt-3 mb-6">{title}</h2>}
+      {title && <h2 className="font-serif text-3xl md:text-4xl text-text leading-tight mt-4 mb-8">{title}</h2>}
       {children}
     </Reveal>
   );
@@ -87,21 +87,21 @@ export default function SimpleCaseStudy({ projectId }) {
         </div>
       </header>
 
-      <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-10">
+      <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-20 md:pt-32 pb-14">
         <Eyebrow>{project.labels.join("  ·  ")}</Eyebrow>
         <h1
-          className="font-serif text-4xl md:text-6xl text-text leading-tight mt-3"
+          className="font-serif text-4xl md:text-6xl text-text leading-tight mt-4"
           style={{ viewTransitionName: `project-title-${project.id}` }}
         >
           {project.name}
         </h1>
-        <p className="text-text-secondary text-lg leading-relaxed mt-5 max-w-xl">{intro}</p>
+        <p className="text-text-secondary text-lg leading-relaxed mt-6 max-w-xl">{intro}</p>
         {project.live && (
           <a
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="world-link group/link inline-flex items-center gap-2 text-sm mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="world-link group/link inline-flex items-center gap-2 text-sm mt-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
           >
             {project.liveLabel || "Visit live site"}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">
@@ -113,7 +113,7 @@ export default function SimpleCaseStudy({ projectId }) {
 
       {glance && (
         <Section eyebrow="At a glance">
-          <div className={`grid gap-8 ${glance.length > 1 ? "sm:grid-cols-3" : ""}`}>
+          <div className={`grid gap-8 md:gap-10 ${glance.length > 1 ? "sm:grid-cols-3" : ""}`}>
             {glance.map((g) => (
               <div key={g.label} className={g.wide ? "sm:max-w-2xl" : undefined}>
                 <p className="text-xs uppercase tracking-wide text-text-secondary mb-1">{g.label}</p>
@@ -126,7 +126,7 @@ export default function SimpleCaseStudy({ projectId }) {
 
       {bullets && (
         <Section eyebrow={bulletsLabel}>
-          <ul className="flex flex-col gap-5">
+          <ul className="flex flex-col gap-6">
             {bullets.map((b, i) => (
               <li key={i} className="flex gap-4 text-text-secondary leading-relaxed">
                 <span className="font-serif text-[var(--world-accent,var(--color-accent))] tabular-nums shrink-0">
@@ -155,7 +155,7 @@ export default function SimpleCaseStudy({ projectId }) {
         </Section>
       )}
 
-      <div className="max-w-[820px] mx-auto px-6 md:px-10 py-16 md:py-24 border-t border-border">
+      <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 border-t border-border">
         <BackLink />
       </div>
     </div>

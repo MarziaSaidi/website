@@ -12,8 +12,8 @@ function FeaturedWorkHeading() {
   return (
     <div ref={ref} className="reveal">
       <div className="border-t border-border" />
-      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-12 md:pb-16">
-        <div className="flex items-center gap-3 mb-6">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-24 md:pt-36 pb-16 md:pb-20">
+        <div className="flex items-center gap-3 mb-8">
           <span className="block h-px w-6 bg-gold divider-draw" aria-hidden="true" />
           <p className="text-xs tracking-[0.25em] uppercase text-text-secondary">Selected Work</p>
         </div>
@@ -28,7 +28,7 @@ function FeaturedWorkHeading() {
 function ViewAllLink() {
   const ref = useScrollReveal();
   return (
-    <div ref={ref} className="reveal max-w-6xl mx-auto px-6 md:px-10 pt-16 md:pt-24">
+    <div ref={ref} className="reveal max-w-6xl mx-auto px-6 md:px-10 pt-20 md:pt-32">
       <a
         href="#/work"
         className="group inline-flex flex-col gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
@@ -58,7 +58,7 @@ export default function FeaturedWork() {
   const featured = FEATURED_IDS.map((id) => work.find((p) => p.id === id)).filter(Boolean);
 
   return (
-    <section id="featured-work" aria-labelledby="featured-work-heading" className="pb-24 md:pb-32">
+    <section id="featured-work" aria-labelledby="featured-work-heading" className="pb-28 md:pb-40">
       <FeaturedWorkHeading />
       <div className="max-w-6xl mx-auto px-6 md:px-10 flex flex-col gap-2">
         {featured.map((project, i) => (

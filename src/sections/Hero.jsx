@@ -68,7 +68,7 @@ export default function Hero() {
       id="top"
       aria-label="Introduction"
       style={{ "--mx": 0, "--my": 0, "--sx": "50%", "--sy": "50%" }}
-      className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden bg-background"
+      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background"
     >
       <HeroField sectionRef={sectionRef} />
       <HeroObject />
@@ -90,7 +90,7 @@ export default function Hero() {
         style={{ willChange: "transform, opacity" }}
       >
         <div
-          className="flex flex-col gap-6 max-w-2xl"
+          className="flex flex-col gap-8 md:gap-10 max-w-2xl"
           style={{
             transform: "translate3d(calc(var(--mx) * 16px), calc(var(--my) * 12px), 0)",
             transition: "transform 0.2s ease-out",
@@ -107,7 +107,7 @@ export default function Hero() {
             Hi I'm Marzia Saidi, a passionate Software Developer &amp; UI/UX Designer.
           </p>
 
-          <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-2">
+          <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-4">
             <Magnetic>
               <Button href="#/work" variant="primary">
                 View Selected Work ↓

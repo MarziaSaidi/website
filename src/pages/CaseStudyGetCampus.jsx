@@ -26,11 +26,11 @@ function Section({ eyebrow, title, children, wide = false }) {
   return (
     <Reveal
       as="section"
-      className={`mx-auto px-6 md:px-10 py-16 md:py-24 border-t border-border ${wide ? "max-w-5xl" : "max-w-[820px]"}`}
+      className={`mx-auto px-6 md:px-10 py-20 md:py-32 border-t border-border ${wide ? "max-w-5xl" : "max-w-[820px]"}`}
     >
-      <div className="max-w-[820px]">
+      <div className="max-w-[820px] mb-10 md:mb-14">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="font-serif text-3xl md:text-4xl text-text leading-tight mt-3 mb-6">
+        <h2 className="font-serif text-3xl md:text-4xl text-text leading-tight mt-4">
           {title}
         </h2>
       </div>
@@ -45,12 +45,12 @@ function Section({ eyebrow, title, children, wide = false }) {
 function Frame({ index, title, label, src, children }) {
   const [failed, setFailed] = useState(false);
   return (
-    <figure className="flex flex-col gap-5">
+    <figure className="flex flex-col gap-6">
       <figcaption className="flex gap-4 items-baseline max-w-[820px]">
         <span className="font-serif text-2xl md:text-3xl text-bronze tabular-nums leading-none">
           {index}
         </span>
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <h3 className="font-serif text-xl md:text-2xl text-text leading-snug">{title}</h3>
           <p className="text-text-secondary leading-relaxed">{children}</p>
         </div>
@@ -181,10 +181,10 @@ export default function CaseStudyGetCampus() {
       <main>
         {/* HERO */}
         <section className="border-b border-border">
-          <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-24 pb-16 md:pt-32 md:pb-24">
+          <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
             <Eyebrow>Case Study · Product Design (Internship)</Eyebrow>
             <h1
-              className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-4 mb-6"
+              className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8"
               style={{ viewTransitionName: "project-title-get-campus" }}
             >
               Get Campus
@@ -196,7 +196,7 @@ export default function CaseStudyGetCampus() {
               founders and engineers.
             </p>
 
-            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-6 mt-12 border-t border-border pt-8">
+            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-14 border-t border-border pt-10">
               {[
                 ["Role", "Product Designer (Internship)"],
                 ["Team", "Founders + engineers"],
@@ -214,7 +214,7 @@ export default function CaseStudyGetCampus() {
 
         {/* AT A GLANCE — the whole case study in three lines */}
         <section className="border-b border-border bg-background-secondary/40">
-          <div className="max-w-[820px] mx-auto px-6 md:px-10 py-10 grid sm:grid-cols-3 gap-8">
+          <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 md:py-16 grid sm:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Problem</p>
               <p className="text-sm text-text leading-relaxed">
@@ -238,7 +238,7 @@ export default function CaseStudyGetCampus() {
 
         {/* OVERVIEW */}
         <Section eyebrow="Overview" title="The employer side of a two-sided marketplace">
-          <div className="flex flex-col gap-5 text-text-secondary leading-relaxed text-lg">
+          <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
               Get Campus connects students to gig work, and employers to
               student talent, a two-sided platform with a companion
@@ -282,7 +282,7 @@ export default function CaseStudyGetCampus() {
 
         {/* PRINCIPLES */}
         <Section eyebrow="How I Worked" title="Four habits that kept design and build in sync">
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-2">
             {principles.map((p) => (
               <div key={p.title} className="bg-paper border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
                 <span className="text-accent">{p.icon}</span>
@@ -295,13 +295,13 @@ export default function CaseStudyGetCampus() {
 
         {/* THE FRAMES */}
         <Section eyebrow="The Platform" title="Four surfaces, one employer workflow" wide>
-          <p className="text-text-secondary leading-relaxed text-lg mb-14 max-w-[820px]">
+          <p className="text-text-secondary leading-relaxed text-lg mb-16 max-w-[820px]">
             The employer platform comes together across four core screens,
             each owning one part of hiring: see the state of your listings,
             review who applied, go find who hasn't applied yet, and pay the
             students you hire.
           </p>
-          <div className="flex flex-col gap-16">
+          <div className="flex flex-col gap-20">
             {frames.map((f) => (
               <Frame key={f.index} index={f.index} title={f.title} label={f.label} src={f.src}>
                 {f.body}
@@ -312,7 +312,7 @@ export default function CaseStudyGetCampus() {
 
         {/* KEY DECISIONS */}
         <Section eyebrow="Key Decisions" title="Where the design earned its keep" wide>
-          <ol className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
+          <ol className="grid gap-x-12 gap-y-12 md:gap-y-14 sm:grid-cols-2">
             {decisions.map((d) => (
               <li key={d.n} className="flex gap-5">
                 <span className="font-serif text-3xl text-bronze tabular-nums leading-none pt-1">
@@ -329,7 +329,7 @@ export default function CaseStudyGetCampus() {
 
         {/* LEARNINGS */}
         <Section eyebrow="Learnings" title="What designing Get Campus taught me">
-          <div className="flex flex-col gap-5 text-text-secondary leading-relaxed text-lg">
+          <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
               Working this close to the founders, with requirements shifting
               as they learned the market, taught me how directly a technical
@@ -350,7 +350,7 @@ export default function CaseStudyGetCampus() {
       </main>
 
       <footer className="border-t border-border">
-        <div className="max-w-[820px] mx-auto px-6 md:px-10 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <p className="text-xs text-text-secondary/80 font-mono uppercase tracking-[0.15em]">
             Case study · Get Campus · Marzia Saidi
           </p>

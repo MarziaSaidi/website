@@ -41,9 +41,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="py-24 md:py-32 bg-background-secondary/40">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-start">
-        <div className="flex flex-col gap-10">
+    <section id="contact" aria-labelledby="contact-heading" className="py-28 md:py-44 bg-background-secondary/40">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 md:gap-20 lg:gap-24 items-start">
+        <div className="flex flex-col gap-10 md:gap-12">
           <SectionHeading
             index="04"
             eyebrow="Let’s Connect"
@@ -65,7 +65,7 @@ export default function Contact() {
         </div>
 
         <Card>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
             <input type="hidden" name="subject" value="New message from your portfolio site" />
             <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" />

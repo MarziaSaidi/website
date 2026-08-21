@@ -12,7 +12,7 @@ function ExperienceRow({ item }) {
   const ref = useScrollReveal();
 
   return (
-    <li ref={ref} data-world={item.world} className="reveal border-t border-border py-6 first:border-t-0">
+    <li ref={ref} data-world={item.world} className="reveal border-t border-border py-9 md:py-11 first:border-t-0">
       <details className="group">
         <summary className="flex flex-wrap items-baseline gap-x-4 gap-y-1 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm">
           <span className="font-mono text-xs text-text-secondary tabular-nums w-14 shrink-0">
@@ -34,7 +34,7 @@ function ExperienceRow({ item }) {
           </svg>
         </summary>
 
-        <div className="mt-4 pl-[4.5rem] flex flex-col gap-4">
+        <div className="mt-5 pl-[4.5rem] flex flex-col gap-5">
           <p className="text-text-secondary text-sm">{item.location}</p>
 
           {item.intro && (
@@ -87,7 +87,7 @@ function ExperienceRow({ item }) {
 
 export default function Experience() {
   return (
-    <section id="experience" aria-labelledby="experience-heading" className="py-24 md:py-32">
+    <section id="experience" aria-labelledby="experience-heading" className="py-28 md:py-44">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
           index="02"
@@ -95,7 +95,7 @@ export default function Experience() {
           title="Four internships, on real teams"
           description="Year, role, and company at a glance. Open any row for the detail."
           headingId="experience-heading"
-          className="mb-16"
+          className="mb-16 md:mb-24"
         />
 
         <ol className="max-w-3xl">

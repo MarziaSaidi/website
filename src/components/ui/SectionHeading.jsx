@@ -13,8 +13,8 @@ export default function SectionHeading({
   const alignClass = align === "center" ? "items-center text-center mx-auto" : "items-start text-left";
 
   return (
-    <div ref={ref} className={`reveal flex flex-col gap-5 max-w-xl ${alignClass} ${className}`}>
-      <div className="flex items-center gap-3 border-t border-border pt-4 w-full">
+    <div ref={ref} className={`reveal flex flex-col gap-6 max-w-xl ${alignClass} ${className}`}>
+      <div className="flex items-center gap-3 border-t border-border pt-6 w-full">
         <span className="font-serif text-sm text-label tabular-nums" aria-hidden="true">
           {index}
         </span>
