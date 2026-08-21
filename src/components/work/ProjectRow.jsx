@@ -213,7 +213,7 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   // oversized numeral that bleeds past the panel's own edge rather than
   // just sitting behind the preview component — a composed corner, not a
   // screenshot floating in space.
-  // Fixed size across every project, at every breakpoint — 145x290 on
+  // Fixed size across every project, at every breakpoint — 160x350 on
   // mobile, 450x520 from md up. The preview's job is to shrink to fit
   // that box (see ProjectPreview's object-contain sizing), not the other
   // way around, so every row reads as the same "frame" regardless of
@@ -224,7 +224,7 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   // lives on an inner wrapper (the tinted panel + its content) while the
   // numeral is a direct child of the unclipped outer box.
   const preview = (
-    <div className="relative w-[145px] h-[290px] md:w-[450px] md:h-[520px]" data-cursor="view">
+    <div className="relative w-[160px] h-[350px] md:w-[450px] md:h-[520px]" data-cursor="view">
       <div className="absolute inset-0 p-4 md:p-14 rounded-[2px] bg-[var(--world-accent,var(--color-accent))]/[0.07] overflow-hidden">
         {/* The echo reads as a soft depth shadow for a rectangular
             screenshot, but a phone preview is mostly dark UI on a
