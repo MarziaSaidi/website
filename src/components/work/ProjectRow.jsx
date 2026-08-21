@@ -120,7 +120,7 @@ function PrimaryProjectLink({ project }) {
               }
             : undefined
         }
-        className="group/link relative overflow-hidden inline-flex items-center gap-2 sm:gap-3 pl-3.5 pr-3 py-1.5 sm:pl-6 sm:pr-5 sm:py-3 md:pl-7 md:pr-6 md:py-3.5 rounded-full border border-border font-display text-xs sm:text-sm md:text-base font-medium text-text transition-[color,border-color] duration-500 hover:text-white hover:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+        className="group/link relative overflow-hidden inline-flex items-center gap-2 sm:gap-3 pl-3.5 pr-3 py-1.5 sm:pl-6 sm:pr-5 sm:py-3 md:pl-7 md:pr-6 md:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-medium text-text transition-colors duration-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
       >
         {/* Sits behind the label as a small circle the same size as the
             pill's own rounded end — reads as a modest accent at rest, not
