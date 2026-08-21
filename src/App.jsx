@@ -3,7 +3,6 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import ChatWidget from "./components/ChatWidget";
-import SystemStatusBar from "./components/SystemStatusBar";
 import CustomCursor from "./components/CustomCursor";
 import IntroLoader from "./components/IntroLoader";
 import Hero from "./sections/Hero";
@@ -63,7 +62,6 @@ function HomePage() {
   return (
     <Shell pageId="home">
       <Hero />
-      <SystemStatusBar />
       <FeaturedWork />
       <Contact />
     </Shell>
