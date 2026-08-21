@@ -120,10 +120,21 @@ function PrimaryProjectLink({ project }) {
               }
             : undefined
         }
-        className="group/link inline-flex items-center gap-2 sm:gap-3 pl-3.5 pr-3 py-1.5 sm:pl-6 sm:pr-5 sm:py-3 md:pl-7 md:pr-6 md:py-3.5 rounded-full border border-border bg-background-secondary font-display text-xs sm:text-sm md:text-base font-medium text-text transition-colors duration-300 hover:text-white hover:border-transparent hover:bg-[var(--world-accent,var(--color-accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+        className="group/link relative overflow-hidden inline-flex items-center gap-2 sm:gap-3 pl-3.5 pr-3 py-1.5 sm:pl-6 sm:pr-5 sm:py-3 md:pl-7 md:pr-6 md:py-3.5 rounded-full border border-border font-display text-xs sm:text-sm md:text-base font-medium text-text transition-[color,border-color] duration-500 hover:text-white hover:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
       >
-        {primary.label}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="shrink-0 sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover/link:translate-x-1">
+        {/* Sits behind the label as a small circle the same size as the
+            pill's own rounded end — reads as a modest accent at rest, not
+            a filled button. Scaling it up from that left-anchored point
+            (rather than animating the container's own background) is what
+            makes it sweep across as one continuous fill instead of a flat
+            cross-fade, and the pill's overflow-hidden keeps it clipped to
+            the capsule shape the whole way through. */}
+        <span
+          aria-hidden="true"
+          className="absolute left-0 top-0 h-full aspect-square rounded-full bg-[var(--world-accent,var(--color-accent))] origin-left scale-100 transition-transform duration-500 ease-out group-hover/link:scale-[6]"
+        />
+        <span className="relative z-10">{primary.label}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="relative z-10 shrink-0 sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover/link:translate-x-1">
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
         </svg>
       </a>
