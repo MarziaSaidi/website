@@ -4,5 +4,5 @@
 // screenshot that uses this (Survue's) already has a device frame baked
 // into the image itself, so an outer CSS border would just double it.
 export default function PhoneFrame({ children, className = "" }) {
-  return <div className={`w-full max-w-[220px] max-h-full mx-auto ${className}`}>{children}</div>;
+  return <div className={`w-full max-w-[160px] md:max-w-[220px] max-h-full mx-auto ${className}`}>{children}</div>;
 }
