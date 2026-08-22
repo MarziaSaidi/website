@@ -94,6 +94,12 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
+    /* Reserves the scrollbar's own width permanently, so locking body
+       scroll (the nav menu, the chat panel) never removes it and shifts
+       the whole page sideways for the instant it's open — a real,
+       browser-native cause of "menu glitch" that only shows on desktop
+       browsers with a reserved-space scrollbar. */
+    scrollbar-gutter: stable;
   }
 
   body {
