@@ -25,15 +25,15 @@ export default function SkillsCloud() {
               onPointerLeave={() => setActive((a) => (a === skill.name ? null : a))}
               onFocus={() => setActive(skill.name)}
               onBlur={() => setActive((a) => (a === skill.name ? null : a))}
-              style={{ transform: `translateY(${offsetFor(i)}px)`, borderColor: "rgba(244,241,234,0.2)", color: "#f4f1ea" }}
-              className="rounded-full border px-4 py-2 text-sm transition-colors duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              style={{ transform: `translateY(${offsetFor(i)}px)` }}
+              className="rounded-full border border-border text-text px-4 py-2 text-sm transition-colors duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               {skill.name}
             </button>
           </Magnetic>
         ))}
       </div>
-      <p className="min-h-[1.5rem] text-sm" style={{ color: "rgba(244,241,234,0.65)" }} aria-live="polite">
+      <p className="min-h-[1.5rem] text-sm text-text-secondary" aria-live="polite">
         {activeSkill ? activeSkill.note : "Hover or focus a skill for detail."}
       </p>
     </div>

@@ -18,10 +18,10 @@ export default function HowIWork() {
   return (
     <div ref={ref} className="reveal-group flex flex-col gap-10 md:gap-14">
       <div className="flex flex-col gap-6 md:gap-8 max-w-2xl">
-        <p className="text-xs tracking-[0.2em] uppercase" style={{ color: "rgba(244,241,234,0.5)" }}>
+        <p className="text-xs tracking-[0.2em] uppercase text-text-secondary">
           How I work
         </p>
-        <p className="text-lg md:text-xl leading-relaxed" style={{ color: "rgba(244,241,234,0.8)" }}>
+        <p className="text-lg md:text-xl leading-relaxed text-text">
           {workLeadIn}
         </p>
       </div>
@@ -32,8 +32,8 @@ export default function HowIWork() {
         className="stagger-item border-l-2 pl-6 md:pl-10 max-w-3xl"
         style={{ borderColor: "var(--color-accent)" }}
       >
-        <p className="font-serif italic text-3xl md:text-5xl leading-[1.3]" style={{ color: "#f4f1ea" }}>
-          “{workPhilosophy}”
+        <p className="font-serif italic text-3xl md:text-5xl leading-[1.3] text-text">
+          "{workPhilosophy}"
         </p>
       </blockquote>
 
@@ -42,8 +42,7 @@ export default function HowIWork() {
             one; the animated arrow nudges sideways to read as "drag me,"
             not just decoration. */}
         <div
-          className="md:hidden inline-flex items-center gap-2 self-start rounded-full border px-3 py-1.5"
-          style={{ borderColor: "rgba(244,241,234,0.22)", color: "rgba(244,241,234,0.6)" }}
+          className="md:hidden inline-flex items-center gap-2 self-start rounded-full border border-border px-3 py-1.5 text-text-secondary"
           aria-hidden="true"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="swipe-hint-icon">
@@ -89,10 +88,9 @@ export default function HowIWork() {
                   }}
                 >
                   <div
-                    className="flex items-center justify-center w-9 h-9 md:w-12 md:h-12 rounded-full border shrink-0"
+                    className="flex items-center justify-center w-9 h-9 md:w-12 md:h-12 rounded-full border shrink-0 bg-background"
                     style={{
                       borderColor: "rgba(166,121,60,0.6)",
-                      backgroundColor: "#101010",
                       boxShadow: "0 0 18px rgba(166,121,60,0.35)",
                       color: "var(--color-accent)",
                     }}
@@ -101,10 +99,10 @@ export default function HowIWork() {
                     <span className="font-serif text-sm md:text-base tabular-nums">{i + 1}</span>
                   </div>
                   <div className="flex flex-col gap-1.5 md:gap-2.5">
-                    <h3 className="font-serif text-lg md:text-2xl" style={{ color: "#f4f1ea" }}>
+                    <h3 className="font-serif text-lg md:text-2xl text-text">
                       {step.title}
                     </h3>
-                    <p className="text-xs md:text-base leading-relaxed" style={{ color: "rgba(244,241,234,0.65)" }}>
+                    <p className="text-xs md:text-base leading-relaxed text-text-secondary">
                       {step.body}
                     </p>
                   </div>

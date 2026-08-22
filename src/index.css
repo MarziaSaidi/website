@@ -348,9 +348,7 @@
     }
   }
 
-  /* Scoped to the About section's dark-inverted band — the one place on the
-     page that reintroduces a near-black backdrop, where a glow reads as
-     intentional rather than a leftover from the old dark theme. */
+  /* Subtle bronze glow behind the About page's heading. */
   .glow-text {
     text-shadow: 0 0 40px rgba(166, 121, 60, 0.3);
   }
@@ -418,14 +416,6 @@
       clip-path: inset(0 0 0 0);
       transition: none;
     }
-  }
-
-  /* ---- About section's dark-inverted band: a deliberate one-off "night"
-     contrast beat, not a second theme, so its colors stay hardcoded here
-     rather than living in the shared @theme token set. ---- */
-  .about-band {
-    background-color: #101010;
-    color: #f4f1ea;
   }
 
   /* ---- Custom cursor: augments the native pointer, never replaces it ---- */
