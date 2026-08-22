@@ -189,29 +189,22 @@
     transform: translateY(0);
   }
 
-  /* Route line for the About page's "How I work" map — traced in with
-     pathLength="1" so dasharray/dashoffset work in 0-1 units regardless
-     of the path's actual geometry. */
-  .route-line {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  /* Travelling point on the About page's "How I work" rail — sits at the
+     leading edge of the scroll-progress fill (see HowIWork.jsx's
+     --path-progress) and breathes gently so it reads as "live," not just
+     a static marker. */
+  .path-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px rgba(166, 121, 60, 0.16), 0 0 16px 2px rgba(166, 121, 60, 0.45);
+    animation: path-dot-pulse 2.4s ease-in-out infinite;
   }
 
-  .reveal-group.is-visible .route-line {
-    stroke-dashoffset: 0;
-  }
-
-  /* Swipe hint for the About page's horizontally-scrolling "How I work"
-     map on narrow viewports — the arrow nudges sideways so it reads as
-     "drag me," not static decoration. */
-  @keyframes swipe-hint {
-    0%, 100% { transform: translateX(0); opacity: 0.6; }
-    50% { transform: translateX(5px); opacity: 1; }
-  }
-
-  .swipe-hint-icon {
-    animation: swipe-hint 1.6s ease-in-out infinite;
+  @keyframes path-dot-pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
   }
 
   @keyframes row-in {
@@ -229,7 +222,29 @@
     animation: row-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
+  /* About page's skill explorer: replays on every switch because the
+     active skill's name is used as the content's React key, remounting it
+     — a quick settle rather than the slower page-entrance .enter. */
+  @keyframes skill-detail-in {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .skill-detail-enter {
+    animation: skill-detail-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .skill-detail-enter {
+      animation: none;
+    }
+
     .divider-draw {
       transition: none;
       transform: scaleX(1);
@@ -240,13 +255,9 @@
       transition: opacity 0.4s ease;
     }
 
-    .route-line {
-      transition: none;
-      stroke-dashoffset: 0;
-    }
-
-    .swipe-hint-icon {
+    .path-dot {
       animation: none;
+      transform: translate(-50%, -50%);
     }
 
     .row-stagger {
