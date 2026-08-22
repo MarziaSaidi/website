@@ -1,15 +1,8 @@
-// Minimal phone bezel for mobile project previews — same visual language
-// as the .NET MAUI settings simulator's device frame, extracted so it can
-// wrap a static screenshot too. Sits at its own natural, capped size
-// (never stretched to fill the fixed preview panel it's centered in —
-// see ProjectRow) with a max-height safety net for the rare case where
-// that natural size would still be taller than the panel allows. No fill
-// on the bezel itself — the tinted panel behind it shows through the
-// border, instead of a stark white frame around a dark screenshot.
+// Sizing wrapper for mobile project previews — caps and centers a
+// screenshot within the fixed preview panel it sits in (see ProjectRow),
+// at its own natural size, never stretched. No bezel drawn here: the one
+// screenshot that uses this (Survue's) already has a device frame baked
+// into the image itself, so an outer CSS border would just double it.
 export default function PhoneFrame({ children, className = "" }) {
-  return (
-    <div className={`w-full max-w-[220px] max-h-full mx-auto rounded-[2rem] border border-border p-3 shadow-soft ${className}`}>
-      <div className="rounded-[1.5rem] overflow-hidden">{children}</div>
-    </div>
-  );
+  return <div className={`w-full max-w-[220px] max-h-full mx-auto ${className}`}>{children}</div>;
 }
