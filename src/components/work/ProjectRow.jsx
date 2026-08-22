@@ -175,22 +175,20 @@ export function ProjectPreview({ project }) {
         </PhoneFrame>
       );
     case "browser":
-      // The preview box is now a fixed size (see ProjectRow). The
-      // screenshot sits at its own natural width-driven size (never
-      // stretched to fill the box) with a max-height safety net so it
-      // only ever shrinks, never overflows.
+      // The preview box is full width below md and a fixed size from md up
+      // (see ProjectRow) — either way, the screenshot sits at its own
+      // natural width-driven size (never stretched, never cropped) with a
+      // max-height safety net so it only ever shrinks, never overflows.
       return (
         <BrowserChrome url={project.previewUrl} className="max-w-full max-h-full">
-          <div className="aspect-[16/9] sm:aspect-auto overflow-hidden">
-            <img
-              src={project.previewSrc}
-              alt={project.previewAlt}
-              width={project.previewWidth}
-              height={project.previewHeight}
-              loading="lazy"
-              className="w-full h-full object-cover object-top sm:h-auto sm:object-contain block"
-            />
-          </div>
+          <img
+            src={project.previewSrc}
+            alt={project.previewAlt}
+            width={project.previewWidth}
+            height={project.previewHeight}
+            loading="lazy"
+            className="w-full h-auto object-contain block"
+          />
         </BrowserChrome>
       );
     default:
@@ -224,19 +222,21 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   // oversized numeral that bleeds past the panel's own edge rather than
   // just sitting behind the preview component — a composed corner, not a
   // screenshot floating in space.
-  // Fixed size across every project, at every breakpoint — 160x350 on
-  // mobile, 450x520 from md up. The preview's job is to shrink to fit
-  // that box (see ProjectPreview's object-contain sizing), not the other
-  // way around, so every row reads as the same "frame" regardless of
-  // what real screenshot or UI happens to be inside it.
+  // Fixed size at md+ — 450x520, same "frame" for every project regardless
+  // of what real screenshot or UI is inside it. Below md there's no room
+  // for a fixed box to also stay legible next to text on a phone screen —
+  // full width instead (auto height, from the preview's own content), so
+  // every screenshot (including the ones that are themselves a MacBook
+  // mockup image) renders at its natural, uncropped, actually-readable
+  // size instead of being squeezed into a box built for something else.
   //
   // The numeral bleeds well past the box's own edge — it needs to sit
   // OUTSIDE the clipped area, not just visually overlap it, so overflow
   // lives on an inner wrapper (the tinted panel + its content) while the
   // numeral is a direct child of the unclipped outer box.
   const preview = (
-    <div className="relative w-[160px] h-[350px] md:w-[450px] md:h-[520px]" data-cursor="view">
-      <div className="absolute inset-0 p-4 md:p-14 rounded-[2px] bg-[var(--world-accent,var(--color-accent))]/[0.07] overflow-hidden">
+    <div className="relative w-full md:w-[450px] md:h-[520px]" data-cursor="view">
+      <div className="relative md:absolute md:inset-0 p-4 md:p-14 rounded-[2px] bg-[var(--world-accent,var(--color-accent))]/[0.07] overflow-hidden">
         {/* The echo reads as a soft depth shadow for a rectangular
             screenshot, but a phone preview is mostly dark UI on a
             transparent bezel — blurred and offset, that just smears into
@@ -272,29 +272,21 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
     </div>
   );
 
-  // Left/right placement is controlled independently of `reverse` (which
-  // only flavors the preview's own internal styling — echo tilt direction,
-  // which corner the numeral bleeds into) — order-1/order-2 here always
-  // place the two panes correctly regardless of which one comes first in
-  // the markup, and apply at every breakpoint now that mobile is a row
-  // (image beside text) rather than a stack (image above text).
-  // Both columns stretch to the row's height (items-stretch below), which
-  // whichever column has the taller natural content — usually the fixed-
-  // size preview panel, but on mobile a long description can out-grow it.
-  // items-end here keeps the panel's own bottom edge pinned to the row's
-  // bottom in either case, so "View project" (pushed down via mt-auto on
-  // the text side) always lines up with the panel's bottom edge exactly,
-  // not just when the panel happens to be the taller column.
-  const previewOrder = imageLeft ? "order-1 flex items-end" : "order-2 flex items-end";
-  const textOrder = imageLeft ? "order-2" : "order-1";
+  // Below md, the preview always comes first and text follows — a plain
+  // top-to-bottom read, regardless of `reverse`. `reverse` still flavors
+  // the preview's own internal styling (echo tilt direction, which corner
+  // the numeral bleeds into), just not which one is on top on a phone.
+  // From md up, order-1/order-2 alternate which side the preview sits on
+  // as before; items-end there keeps the panel's own bottom edge pinned to
+  // the row's bottom so "View project" (pushed down via mt-auto on the
+  // text side) lines up with it exactly, not just when the panel happens
+  // to be the taller column.
+  const previewOrder = `order-1 md:flex md:items-end ${imageLeft ? "md:order-1" : "md:order-2"}`;
+  const textOrder = `order-2 ${imageLeft ? "md:order-2" : "md:order-1"}`;
 
   return (
     <div ref={ref} data-world={project.world} className="reveal py-16 sm:py-28 md:py-44 lg:py-52">
-      {/* Below md, the preview stays a compact side column instead of a
-          full-width block stacked above the text — an image, name, and
-          description read as one row even on a phone, not a scroll of
-          separate stacked chunks. */}
-      <div className="grid grid-cols-[0.8fr_1fr] gap-4 sm:gap-8 md:grid-cols-[1.15fr_1fr] md:gap-28 lg:gap-32 items-stretch">
+      <div className="flex flex-col gap-8 sm:gap-10 md:grid md:grid-cols-[1.15fr_1fr] md:gap-28 lg:gap-32 md:items-stretch">
         {reverse ? (
           <>
             <div className={previewOrder}>{preview}</div>
