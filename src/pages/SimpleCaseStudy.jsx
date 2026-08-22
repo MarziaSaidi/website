@@ -89,10 +89,7 @@ export default function SimpleCaseStudy({ projectId }) {
 
       <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-20 md:pt-32 pb-14">
         <Eyebrow>{project.labels.join("  ·  ")}</Eyebrow>
-        <h1
-          className="font-serif text-4xl md:text-6xl text-text leading-tight mt-4"
-          style={{ viewTransitionName: `project-title-${project.id}` }}
-        >
+        <h1 className="font-serif text-4xl md:text-6xl text-text leading-tight mt-4">
           {project.name}
         </h1>
         <p className="text-text-secondary text-lg leading-relaxed mt-6 max-w-xl">{intro}</p>

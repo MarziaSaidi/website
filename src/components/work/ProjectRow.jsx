@@ -1,5 +1,4 @@
 import { useScrollReveal } from "../../hooks/useScrollReveal";
-import { navigateWithTransition } from "../../utils/viewTransition";
 import BrowserChrome from "./BrowserChrome";
 import PhoneFrame from "./PhoneFrame";
 import ChatPreview from "./ChatPreview";
@@ -8,13 +7,6 @@ import ValidatorPreview from "./ValidatorPreview";
 // Shared between Selected Work's flagship rows and Home's featured-project
 // preview, so both stay visually identical rather than drifting apart —
 // same numeral treatment, same preview dispatch, same link styling.
-
-// Case-study links get a real view transition instead of a hard cut; the
-// project's title carries a matching viewTransitionName so it morphs into
-// the case-study hero (see the "Back to portfolio" link on those pages).
-export function isCaseStudyHref(href) {
-  return typeof href === "string" && href.startsWith("#/");
-}
 
 export function ProjectLabels({ labels, className = "" }) {
   return (
@@ -55,20 +47,11 @@ function OriginTag({ type }) {
 // instead for its single big pill CTA.
 export function ProjectLinks({ project }) {
   if (!project.href && !project.live) return null;
-  const isCaseStudy = isCaseStudyHref(project.href);
   return (
     <div className="flex items-center gap-5 pt-1 flex-wrap">
       {project.href && (
         <a
           href={project.href}
-          onClick={
-            isCaseStudy
-              ? (e) => {
-                  e.preventDefault();
-                  navigateWithTransition(project.href);
-                }
-              : undefined
-          }
           className="world-link group/link inline-flex items-center gap-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
         >
           {project.hrefLabel}
@@ -102,8 +85,8 @@ function PrimaryProjectLink({ project }) {
   if (!project.href && !project.live) return null;
 
   const primary = project.href
-    ? { href: project.href, label: project.hrefLabel, isCaseStudy: true, external: false }
-    : { href: project.live, label: project.liveLabel, isCaseStudy: false, external: true };
+    ? { href: project.href, label: project.hrefLabel, external: false }
+    : { href: project.live, label: project.liveLabel, external: true };
   const secondary = project.href && project.live ? { href: project.live, label: project.liveLabel } : null;
 
   return (
@@ -112,14 +95,6 @@ function PrimaryProjectLink({ project }) {
         href={primary.href}
         target={primary.external ? "_blank" : undefined}
         rel={primary.external ? "noopener noreferrer" : undefined}
-        onClick={
-          primary.isCaseStudy
-            ? (e) => {
-                e.preventDefault();
-                navigateWithTransition(primary.href);
-              }
-            : undefined
-        }
         className="group/link relative overflow-hidden inline-flex items-center gap-2 sm:gap-3 pl-3.5 pr-3 py-1.5 sm:pl-6 sm:pr-5 sm:py-3 md:pl-7 md:pr-6 md:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-medium text-text transition-colors duration-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
       >
         {/* Sits behind the label as a small circle the same size as the
@@ -206,10 +181,7 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   const text = (
     <div className="h-full flex flex-col gap-3 sm:gap-6 md:gap-8 max-w-lg">
       <OriginTag type={project.type} />
-      <h3
-        className="font-display font-semibold text-2xl sm:text-4xl md:text-7xl text-text leading-[1.1] md:leading-[1.05] tracking-[-0.01em]"
-        style={isCaseStudyHref(project.href) ? { viewTransitionName: `project-title-${project.id}` } : undefined}
-      >
+      <h3 className="font-display font-semibold text-2xl sm:text-4xl md:text-7xl text-text leading-[1.1] md:leading-[1.05] tracking-[-0.01em]">
         {project.name}
       </h3>
       <ProjectLabels labels={project.labels} />

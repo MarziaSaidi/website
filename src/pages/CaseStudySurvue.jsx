@@ -150,10 +150,7 @@ export default function CaseStudySurvue() {
         <section className="border-b border-border">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
             <Eyebrow>Case Study · Mobile UX Design</Eyebrow>
-            <h1
-              className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8"
-              style={{ viewTransitionName: "project-title-survue" }}
-            >
+            <h1 className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8">
               Survue
             </h1>
             <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">

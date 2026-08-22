@@ -183,10 +183,7 @@ export default function CaseStudyGetCampus() {
         <section className="border-b border-border">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
             <Eyebrow>Case Study · Product Design (Internship)</Eyebrow>
-            <h1
-              className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8"
-              style={{ viewTransitionName: "project-title-get-campus" }}
-            >
+            <h1 className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8">
               Get Campus
             </h1>
             <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
