@@ -110,7 +110,7 @@ export default function Hero() {
           <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-4">
             <Magnetic>
               <Button href="#/work" variant="primary">
-                View all works
+                View all works ↓
               </Button>
             </Magnetic>
           </div>
