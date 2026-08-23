@@ -1,10 +1,21 @@
 import { useEffect, useRef } from "react";
 
 const TEXT = "Marzia Saidi";
-// A darker gold scoped to this signature only — not the shared
-// --color-gold token used elsewhere on the site (project labels, etc.).
-const FOOTER_GOLD = "#b8752e";
-const DUST = "184, 117, 46"; // FOOTER_GOLD, as an rgba() component string
+// The SVG text fill below uses var(--color-accent) directly (SVG
+// presentation attributes resolve CSS custom properties, so it repaints
+// with the theme automatically). The canvas particles can't: Canvas2D's
+// fillStyle needs a literal color string, so DUST is read live from the
+// current theme (same technique as HeroField's darkBoost()) — light and
+// dark need different lightness values to read as a solid dust color:
+// the light-mode accent-secondary is dark enough on warm ivory, the
+// dark-mode accent is light enough on near-black, and no single hex
+// does both.
+const DUST_LIGHT = "95, 82, 58"; // light --color-accent-secondary, as rgb components
+const DUST_DARK = "164, 154, 135"; // dark --color-accent, as rgb components
+
+function currentDust() {
+  return document.documentElement.getAttribute("data-theme") === "dark" ? DUST_DARK : DUST_LIGHT;
+}
 
 // Roughly the sequence described: dust gathers in the space around the
 // letters, drifts inward, fades as it blends into the glyphs, and the
@@ -269,6 +280,10 @@ export default function FooterSignature() {
       ctx.clearRect(0, 0, width, height);
       ctx.globalCompositeOperation = "lighter";
 
+      // Read once per frame, not per particle — cheap either way, but no
+      // reason to read it hundreds of times when it can't change mid-frame.
+      const dust = currentDust();
+
       particles = particles.filter((p) => {
         p.t += dt / p.duration;
         if (p.t >= p.vanishAt) return false;
@@ -299,7 +314,7 @@ export default function FooterSignature() {
         const alpha = Math.max(0, p.peak * lifeShape + boost) * 0.9;
 
         if (alpha > 0.015) {
-          ctx.fillStyle = `rgba(${DUST}, ${alpha})`;
+          ctx.fillStyle = `rgba(${dust}, ${alpha})`;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
           ctx.fill();
@@ -452,7 +467,7 @@ export default function FooterSignature() {
             textLength="980"
             lengthAdjust="spacingAndGlyphs"
             fontSize="170"
-            fill={FOOTER_GOLD}
+            fill="var(--color-accent)"
             className="font-display font-semibold"
             style={{ opacity: 0 }}
           >

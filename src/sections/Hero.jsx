@@ -80,7 +80,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
           background:
-            "radial-gradient(600px circle at var(--sx) var(--sy), rgba(166, 121, 60, 0.06), transparent 60%)",
+            "radial-gradient(600px circle at var(--sx) var(--sy), color-mix(in srgb, var(--color-accent) 6%, transparent), transparent 60%)",
         }}
       />
 
@@ -110,12 +110,7 @@ export default function Hero() {
           <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-4">
             <Magnetic>
               <Button href="#/work" variant="primary">
-                View Selected Work ↓
-              </Button>
-            </Magnetic>
-            <Magnetic>
-              <Button href="#/contact" variant="secondary">
-                Get in Touch
+                View all works
               </Button>
             </Magnetic>
           </div>

@@ -1,25 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  /* Warm, muted "alive" palette — cream/near-black base with a subdued
-     amber/mustard primary accent and a muted sage-green alt accent used
-     only by the per-project "worlds" system (see [data-world] below).
-     Deliberately low-saturation throughout: minimalist, nothing neon. */
-  --color-background: #f4f1ea;
-  --color-background-secondary: #eae4d6;
+  /* Quiet-luxury palette built from four foundation tones — warm ivory
+     (#E8E5DF), warm taupe (#A49A87), olive-gray (#A5A58D), and stone
+     (#968F83). Every token below is either one of those four hexes
+     verbatim or a lightness/saturation adjustment of the same hue, so
+     light and dark stay one visual identity rather than two. Light mode
+     leans on true black/white for contrast and negative space; dark mode
+     leans on the palette's own mid-tones (already light enough to read on
+     near-black) rather than brightened or saturated stand-ins — see the
+     dark-mode block below for why nothing here needs a "boosted" twin.
+     --color-accent-contrast is the text/icon color for content painted on
+     top of --color-accent (e.g. white-on-button); it forwards to
+     --color-background because that's the token deliberately kept at the
+     opposite end of the contrast scale from accent in both themes. */
+  --color-background: #e8e5df;
+  --color-background-secondary: #dad4c8;
   --color-paper: #ffffff;
-  --color-text: #101010;
-  --color-text-secondary: #5c574c;
-  --color-accent: #a6793c;
-  --color-accent-secondary: #8b6530;
-  --color-accent-alt: #4b6b4e;
-  --color-accent-alt-secondary: #37503a;
-  --color-gold: #b8af98;
-  --color-bronze: #6e6152;
-  --color-label: #4a4438;
+  --color-text: #151411;
+  --color-text-secondary: #575042;
+  --color-accent: #7c6d50;
+  --color-accent-secondary: #5f523a;
+  --color-accent-contrast: var(--color-background);
+  --color-accent-alt: #968f83;
+  --color-accent-alt-secondary: #776e5f;
+  --color-gold: #a5a58d;
+  --color-bronze: #7d7364;
+  --color-label: #766e60;
   /* Translucent near-black rather than a fixed hex so the hairline stays
      legible over both --color-background and the lighter --color-paper. */
-  --color-border: rgba(16, 16, 16, 0.12);
+  --color-border: rgba(21, 20, 17, 0.12);
+
+  /* Buttons: deliberately a separate, stricter track from the general
+     accent system above — a flat foreground/background swap rather than
+     a tinted accent fill, so the primary CTA reads as a solid typographic
+     surface (near-black on ivory) instead of another "colored UI chip."
+     Exact hexes per spec, not derived from --color-text/-background,
+     since those are tuned for body text and drift slightly from #111111/
+     #E8E5DF — buttons get their own fixed values so they don't move if
+     the text tokens are ever retuned. --color-button-secondary-border is
+     the same #968f83 in both themes, so it's set once here and left
+     alone in the dark block below. */
+  --color-button-primary-bg: #111111;
+  --color-button-primary-text: #e8e5df;
+  --color-button-primary-hover: #968f83;
+  --color-button-secondary-border: #968f83;
+  --color-button-secondary-text: var(--color-button-primary-bg);
+  --color-button-secondary-hover-bg: var(--color-background);
 
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -28,13 +55,16 @@
   --radius-md: 12px;
   --radius-lg: 16px;
 
-  --shadow-soft: 0 4px 20px rgba(16, 16, 16, 0.06), 0 0 0 1px rgba(16, 16, 16, 0.05);
-  --shadow-soft-lg: 0 16px 36px rgba(166, 121, 60, 0.14), 0 10px 26px rgba(16, 16, 16, 0.1);
+  --shadow-soft: 0 4px 20px rgba(21, 20, 17, 0.06), 0 0 0 1px rgba(21, 20, 17, 0.05);
+  --shadow-soft-lg: 0 16px 36px color-mix(in srgb, var(--color-accent) 14%, transparent),
+    0 10px 26px rgba(21, 20, 17, 0.1);
 }
 
 /* Per-project "worlds": each Selected Work project, case-study page, and the
    one Experience row with a case study carries a data-world attribute that
-   retints its links/labels via these scoped custom properties. */
+   retints its links/labels via these scoped custom properties. Both tracks
+   now draw from the same four-color family (gold = taupe/accent, green =
+   stone/accent-alt) rather than an unrelated amber-vs-sage split. */
 [data-world="gold"] {
   --world-accent: var(--color-accent);
   --world-accent-strong: var(--color-accent-secondary);
@@ -44,8 +74,12 @@
   --world-accent-strong: var(--color-accent-alt-secondary);
 }
 
-/* Dark theme: same warm, muted character, inverted. Follows system
-   preference by default; an explicit choice (via the nav toggle) is
+/* Dark theme: not an inversion of light — a deliberately more restrained
+   reading of the same four tones. Near-black/graphite surfaces, warm-ivory
+   text, and the taupe/olive/stone accents used closer to their raw values
+   (they're already light enough to clear contrast on near-black without
+   brightening or saturating them, which would read as "glowing"). Follows
+   system preference by default; an explicit choice (via the nav toggle) is
    recorded as data-theme on <html> and wins either direction. Values are
    plain custom-property overrides layered on top of the @theme block
    above — Tailwind's generated utilities read the property at paint time,
@@ -53,37 +87,50 @@
    it with no per-class dark: variants needed. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-background: #100e0b;
-    --color-background-secondary: #1c1914;
-    --color-paper: #17140f;
-    --color-text: #f2ede3;
-    --color-text-secondary: #b0a58e;
-    /* Accent tokens are intentionally NOT redefined here: #a6793c already
-       clears ~4.9:1 against this near-black background (fine for text/
-       links) and swapping in a brighter dark-mode amber would drop white
-       button text below 3:1 — see Button.jsx's white text. One accent
-       value that works against both backdrops beats two that don't. */
-    --color-gold: #c9bfa0;
-    --color-bronze: #96876a;
-    --color-label: #cdc4ad;
-    --color-border: rgba(244, 237, 227, 0.12);
+    --color-background: #100f0c;
+    --color-background-secondary: #1d1a16;
+    --color-paper: #23211c;
+    --color-text: #eae7e1;
+    --color-text-secondary: #adad99;
+    --color-accent: #a49a87;
+    --color-accent-secondary: #a5a58d;
+    --color-accent-alt: #968f83;
+    --color-accent-alt-secondary: #756e61;
+    --color-gold: #a5a58d;
+    --color-bronze: #968f83;
+    --color-label: #968f83;
+    --color-border: rgba(234, 231, 225, 0.12);
+    --color-button-primary-bg: #e8e5df;
+    --color-button-primary-text: #111111;
+    --color-button-primary-hover: #a49a87;
+    --color-button-secondary-hover-bg: var(--color-background-secondary);
     --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
-    --shadow-soft-lg: 0 16px 40px rgba(166, 121, 60, 0.2), 0 10px 28px rgba(0, 0, 0, 0.5);
+    --shadow-soft-lg: 0 16px 40px color-mix(in srgb, var(--color-accent) 20%, transparent),
+      0 10px 28px rgba(0, 0, 0, 0.5);
   }
 }
 
 :root[data-theme="dark"] {
-  --color-background: #100e0b;
-  --color-background-secondary: #1c1914;
-  --color-paper: #17140f;
-  --color-text: #f2ede3;
-  --color-text-secondary: #b0a58e;
-  --color-gold: #c9bfa0;
-  --color-bronze: #96876a;
-  --color-label: #cdc4ad;
-  --color-border: rgba(244, 237, 227, 0.12);
+  --color-background: #100f0c;
+  --color-background-secondary: #1d1a16;
+  --color-paper: #23211c;
+  --color-text: #eae7e1;
+  --color-text-secondary: #adad99;
+  --color-accent: #a49a87;
+  --color-accent-secondary: #a5a58d;
+  --color-accent-alt: #968f83;
+  --color-accent-alt-secondary: #756e61;
+  --color-gold: #a5a58d;
+  --color-bronze: #968f83;
+  --color-label: #968f83;
+  --color-border: rgba(234, 231, 225, 0.12);
+  --color-button-primary-bg: #e8e5df;
+  --color-button-primary-text: #111111;
+  --color-button-primary-hover: #a49a87;
+  --color-button-secondary-hover-bg: var(--color-background-secondary);
   --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-soft-lg: 0 16px 40px rgba(166, 121, 60, 0.2), 0 10px 28px rgba(0, 0, 0, 0.5);
+  --shadow-soft-lg: 0 16px 40px color-mix(in srgb, var(--color-accent) 20%, transparent),
+    0 10px 28px rgba(0, 0, 0, 0.5);
 }
 
 @layer base {
@@ -198,7 +245,8 @@
     height: 10px;
     border-radius: 999px;
     background: var(--color-accent);
-    box-shadow: 0 0 0 4px rgba(166, 121, 60, 0.16), 0 0 16px 2px rgba(166, 121, 60, 0.45);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 16%, transparent),
+      0 0 16px 2px color-mix(in srgb, var(--color-accent) 45%, transparent);
     animation: path-dot-pulse 2.4s ease-in-out infinite;
   }
 
@@ -359,9 +407,9 @@
     }
   }
 
-  /* Subtle bronze glow behind the About page's heading. */
+  /* Subtle accent-toned glow behind the About page's heading. */
   .glow-text {
-    text-shadow: 0 0 40px rgba(166, 121, 60, 0.3);
+    text-shadow: 0 0 40px color-mix(in srgb, var(--color-accent) 30%, transparent);
   }
 
   @keyframes caret-blink {
@@ -400,6 +448,15 @@
       animation: none;
       transform: scaleX(1);
     }
+  }
+
+  /* Halo around the "How I Work" rail's active-step marker. A plain CSS
+     class rather than a Tailwind arbitrary shadow-[...] value: nested
+     commas inside color-mix() confuse Tailwind's arbitrary-value parser
+     (it splits the bracket contents on every comma), so the class never
+     compiled — this sidesteps that entirely. */
+  .marker-active-glow {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-accent) 16%, transparent);
   }
 
   /* ---- Per-project "world" link color (Selected Work + case studies) ---- */

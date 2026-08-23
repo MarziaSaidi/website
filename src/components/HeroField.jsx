@@ -1,7 +1,11 @@
 import { useEffect, useRef } from "react";
 
-const GLOW = "166, 121, 60";
-const GLOW_VIOLET = "75, 107, 78";
+// Both drawn from the site's four-color foundation: a warm taupe glow and
+// a cooler olive-gray counterpart, rather than an unrelated amber/violet
+// pairing — see src/index.css's --color-accent / --color-gold for the
+// same hues used as solid UI color.
+const GLOW = "124, 109, 80";
+const GLOW_OLIVE = "122, 122, 82";
 
 /*
  * Full-bleed hero backdrop: two layers on one canvas.
@@ -38,8 +42,8 @@ export default function HeroField({ sectionRef }) {
 
     const blobs = [
       { rx: 0.28, ry: 0.32, r: 0.42, color: GLOW, period: 22, phase: 0 },
-      { rx: 0.72, ry: 0.28, r: 0.36, color: GLOW_VIOLET, period: 27, phase: 2.1 },
-      { rx: 0.5, ry: 0.75, r: 0.4, color: GLOW_VIOLET, period: 31, phase: 4.4 },
+      { rx: 0.72, ry: 0.28, r: 0.36, color: GLOW_OLIVE, period: 27, phase: 2.1 },
+      { rx: 0.5, ry: 0.75, r: 0.4, color: GLOW_OLIVE, period: 31, phase: 4.4 },
     ];
 
     function build() {
@@ -116,7 +120,7 @@ export default function HeroField({ sectionRef }) {
         ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
         const alpha = Math.min(1, (0.1 + d.s * 0.4) * boost);
         ctx.fillStyle = d.s > 0.5
-          ? `rgba(${GLOW_VIOLET}, ${alpha})`
+          ? `rgba(${GLOW_OLIVE}, ${alpha})`
           : `rgba(${GLOW}, ${alpha})`;
         ctx.fill();
       }

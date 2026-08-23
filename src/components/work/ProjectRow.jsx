@@ -95,18 +95,24 @@ function PrimaryProjectLink({ project }) {
         href={primary.href}
         target={primary.external ? "_blank" : undefined}
         rel={primary.external ? "noopener noreferrer" : undefined}
-        className="group/link relative overflow-hidden inline-flex items-center gap-2 sm:gap-3 pl-3.5 pr-3 py-1.5 sm:pl-6 sm:pr-5 sm:py-3 md:pl-7 md:pr-6 md:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-medium text-text transition-colors duration-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+        className="group/link relative overflow-hidden inline-flex items-center gap-2 sm:gap-3 pl-3.5 pr-3 py-1.5 sm:pl-6 sm:pr-5 sm:py-3 md:pl-7 md:pr-6 md:py-3.5 rounded-full font-display text-xs sm:text-sm md:text-base font-medium text-text transition-colors duration-500 hover:text-button-primary-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
       >
         {/* Sits behind the label as a small circle the same size as the
-            pill's own rounded end — reads as a modest accent at rest, not
-            a filled button. Scaling it up from that left-anchored point
-            (rather than animating the container's own background) is what
-            makes it sweep across as one continuous fill instead of a flat
-            cross-fade, and the pill's overflow-hidden keeps it clipped to
-            the capsule shape the whole way through. */}
+            pill's own rounded end — reads as a modest stone accent at
+            rest, not a filled button. Scaling it up from that left-
+            anchored point (rather than animating the container's own
+            background) is what makes it sweep across as one continuous
+            fill instead of a flat cross-fade, and the pill's
+            overflow-hidden keeps it clipped to the capsule shape the
+            whole way through. Also crossfades color as it grows — stone
+            (#968f83, same value both themes) at rest reads as a quiet
+            accent against text-text without the stark black-on-black
+            overlap a static near-black circle caused; button-primary-bg
+            on hover matches the label's hover:text-button-primary-text
+            once the fill fully covers the pill. */}
         <span
           aria-hidden="true"
-          className="absolute left-0 top-0 h-full aspect-square rounded-full bg-[var(--world-accent,var(--color-accent))] origin-left scale-100 transition-transform duration-500 ease-out group-hover/link:scale-[6]"
+          className="absolute left-0 top-0 h-full aspect-square rounded-full bg-button-secondary-border origin-left scale-100 transition-[transform,background-color] duration-500 ease-out group-hover/link:scale-[6] group-hover/link:bg-button-primary-bg"
         />
         <span className="relative z-10">{primary.label}</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="relative z-10 shrink-0 sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover/link:translate-x-1">

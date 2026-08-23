@@ -114,7 +114,7 @@ export default function Contact() {
               />
             </div>
 
-            <Button as="button" type="submit" variant="primary" className="justify-center" disabled={status === "loading"}>
+            <Button as="button" type="submit" variant="primary" className="self-start" disabled={status === "loading"}>
               {status === "loading" ? "Sending…" : "Send Message"}
             </Button>
 

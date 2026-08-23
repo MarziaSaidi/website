@@ -70,7 +70,7 @@ const TONE = {
     rule: "bg-accent w-8",
     title: "text-text",
     body: "text-text-secondary",
-    marker: "border-accent bg-accent shadow-[0_0_0_6px_rgba(166,121,60,0.16)]",
+    marker: "border-accent bg-accent marker-active-glow",
   },
   next: {
     number: "text-text-secondary",
@@ -151,7 +151,7 @@ export default function HowIWork() {
                   className="absolute inset-0 -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
                     background:
-                      "radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), rgba(166, 121, 60, 0.06), transparent 65%)",
+                      "radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), color-mix(in srgb, var(--color-accent) 6%, transparent), transparent 65%)",
                   }}
                 />
 

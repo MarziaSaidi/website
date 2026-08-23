@@ -193,7 +193,7 @@ export default function CaseStudyRelay() {
               href="https://author-sync-40384662.figma.site/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-accent text-white border border-accent rounded-full px-6 py-3 text-sm tracking-wide hover:bg-accent-secondary hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               View live prototype
               <span className="text-text/70">
