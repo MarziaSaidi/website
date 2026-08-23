@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import Button from "../components/ui/Button";
-import Magnetic from "../components/ui/Magnetic";
-import HeroField from "../components/HeroField";
-import HeroObject from "../components/HeroObject";
-import ScrambleText from "../components/ScrambleText";
-import { subscribeScrollY } from "../hooks/useScrollY";
+import Button from "../../components/ui/Button";
+import Magnetic from "../../components/ui/Magnetic";
+import ScrambleText from "../../components/ui/ScrambleText";
+import HeroField from "./HeroField";
+import HeroObject from "./HeroObject";
+import { subscribeScrollY } from "../../hooks/useScrollY";
 
 // Pointer parallax + spotlight, and scroll-out fade — all driven by CSS
 // custom properties set directly on refs (no React re-renders per frame).

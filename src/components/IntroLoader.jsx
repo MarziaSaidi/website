@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ScrambleText from "./ScrambleText";
+import ScrambleText from "./ui/ScrambleText";
 
 const SESSION_KEY = "marzia-intro-shown";
 // Keep in sync with the .intro-bar-fill animation-duration in index.css.

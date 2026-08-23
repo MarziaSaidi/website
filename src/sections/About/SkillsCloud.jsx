@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useScrollReveal } from "../hooks/useScrollReveal";
-import { skillGroups } from "../data/skills";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { skillGroups } from "../../data/skills";
 
 const DEFAULT_SKILL = "React";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import FooterSignature from "../FooterSignature";
+import FooterSignature from "./FooterSignature";
 import Magnetic from "../ui/Magnetic";
 
 function useLocalTime() {

@@ -1,7 +1,7 @@
-import { useScrollReveal } from "../hooks/useScrollReveal";
-import SkillsCloud from "../components/SkillsCloud";
-import HowIWork from "../components/HowIWork";
-import { education } from "../data/experience";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
+import SkillsCloud from "./SkillsCloud";
+import HowIWork from "./HowIWork";
+import { education } from "../../data/experience";
 
 export default function About() {
   const headingRef = useScrollReveal();

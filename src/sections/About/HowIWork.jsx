@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useScrollReveal } from "../hooks/useScrollReveal";
-import { subscribeScrollY } from "../hooks/useScrollY";
-import { howIWork, workLeadIn, workPhilosophy } from "../data/howIWork";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { subscribeScrollY } from "../../hooks/useScrollY";
+import { howIWork, workLeadIn, workPhilosophy } from "../../data/howIWork";
 
 // One continuous progress value (0-1) for the whole steps list, derived
 // from the list's position in the viewport: 0 when its top reaches the

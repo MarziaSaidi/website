@@ -5,8 +5,9 @@
 // (Settings → Environment Variables). Get a free key at https://aistudio.google.com/apikey
 
 import { experience, education } from "../src/data/experience.js";
-import { choreBoard, soloEats } from "../src/data/projects.js";
-import { skillCategories } from "../src/data/skills.js";
+import { work } from "../src/data/work.js";
+import { personalProjects } from "../src/data/personalProjects.js";
+import { skillGroups } from "../src/data/skills.js";
 
 // Free-tier Gemini models, tried in order. Whichever your API key allows on the
 // free tier gets used. Reorder to set a preference.
@@ -28,9 +29,16 @@ function buildSystemPrompt() {
     })
     .join("\n");
 
-  const skills = skillCategories
-    .map((c) => `${c.title}: ${c.skills.join(", ")}`)
+  const skills = skillGroups
+    .map((g) => `${g.label}: ${g.skills.map((s) => s.name).join(", ")}`)
     .join(" | ");
+
+  const projects = work.map((p) => `- ${p.name}: ${p.description}`).join("\n");
+
+  const flagship = personalProjects[0];
+  const flagshipDetail = flagship
+    ? `\n\n${flagship.label.toUpperCase()} SPOTLIGHT\n${flagship.intro} ${flagship.bullets.join(" ")} Tech: ${flagship.techStack.join(", ")}.`
+    : "";
 
   return `You are a friendly, professional assistant embedded on Marzia Saidi's portfolio website. Your only job is to answer visitors' questions about Marzia — her background, experience, projects, and skills — to help recruiters and collaborators get to know her.
 
@@ -44,8 +52,7 @@ EXPERIENCE
 ${jobs}
 
 FEATURED PROJECTS
-- ${choreBoard.name}: ${choreBoard.tagline}. ${choreBoard.bullets.join("; ")}. Tech: ${choreBoard.tags.join(", ")}. Live: ${choreBoard.url}
-- ${soloEats.name}: ${soloEats.tagline}. ${soloEats.description} Features: ${soloEats.bullets.join(", ")}.
+${projects}${flagshipDetail}
 
 SKILLS
 ${skills}
