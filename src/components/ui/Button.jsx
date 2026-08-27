@@ -14,7 +14,10 @@ export default function Button({
   // width still tracks each button's own label ("View all works" vs.
   // "Send Message") instead of being forced to one fixed size.
   const base =
-    "hover-lift active:scale-[0.97] group/btn relative overflow-hidden inline-flex items-center gap-2 px-8 py-1.5 sm:py-3 md:py-3.5 text-xs sm:text-sm md:text-base tracking-wide rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "group/btn relative inline-flex items-center gap-2 tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+
+  const pill =
+    "hover-lift active:scale-[0.97] overflow-hidden px-8 py-1.5 sm:py-3 md:py-3.5 text-xs sm:text-sm md:text-base rounded-full";
 
   const variants = {
     // Same growing-circle sweep as the project cards' CTA pill: a quiet
@@ -26,9 +29,15 @@ export default function Button({
     // primary Button is, on purpose (see the self-start on Contact's
     // "Send Message" call site; a stretched, centered button left the
     // circle stranded away from the text it's meant to sit behind).
-    primary: "text-text transition-colors duration-500 hover:text-button-primary-text",
-    secondary:
-      "bg-transparent text-button-secondary-text border border-button-secondary-border hover:bg-button-secondary-hover-bg",
+    primary: `${pill} text-text transition-colors duration-500 hover:text-button-primary-text`,
+    secondary: `${pill} bg-transparent text-button-secondary-text border border-button-secondary-border hover:bg-button-secondary-hover-bg`,
+    // No fill, no pill — a plain underlined text CTA. The label ripples
+    // letter-by-letter on hover/focus (.wave-letter, paired with
+    // WaveLabel), and the underline beneath it retreats to nothing then
+    // redraws from the left on a single hover-triggered pass
+    // (.underline-arrow) — a full disappear-and-return, not a
+    // continuous fill.
+    link: "pb-2.5 text-sm sm:text-base text-text-secondary transition-colors duration-300 hover:text-text",
   };
 
   return (
@@ -40,6 +49,7 @@ export default function Button({
         />
       )}
       <span className="relative z-10">{children}</span>
+      {variant === "link" && <span aria-hidden="true" className="underline-arrow" />}
     </Tag>
   );
 }

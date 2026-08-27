@@ -41,7 +41,13 @@ export default function CustomCursor() {
       const interactive = e.target.closest?.(
         'a, button, [role="button"], input, textarea, [data-cursor]'
       );
-      el.style.setProperty("--cursor-scale", interactive ? "1.7" : "1");
+      // "view" targets (project previews) get their own bigger ring with a
+      // label riding inside it — a plain link/button just grows, this one
+      // becomes a small button of its own, since it's the thing being
+      // looked at rather than a generic clickable.
+      const cursorValue = e.target.closest?.("[data-cursor]")?.getAttribute("data-cursor");
+      el.style.setProperty("--cursor-scale", cursorValue === "view" ? "2.4" : interactive ? "1.7" : "1");
+      el.style.setProperty("--cursor-label", cursorValue === "view" ? '"VIEW"' : '""');
 
       pending = { x: e.clientX, y: e.clientY };
       if (reduce) {

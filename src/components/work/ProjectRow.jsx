@@ -213,7 +213,7 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
   // lives on an inner wrapper (the tinted panel + its content) while the
   // numeral is a direct child of the unclipped outer box.
   const preview = (
-    <div className="relative w-full md:w-[450px] md:h-[520px]" data-cursor="view">
+    <div className="group relative w-full md:w-[450px] md:h-[520px]" data-cursor="view">
       <div className="relative md:absolute md:inset-0 p-4 md:p-14 rounded-[2px] bg-[var(--world-accent,var(--color-accent))]/[0.07] overflow-hidden">
         {/* The echo reads as a soft depth shadow for a rectangular
             screenshot, but a phone preview is mostly dark UI on a
@@ -231,17 +231,22 @@ export function ProjectRow({ project, index, reverse, imageLeft = !reverse }) {
           </div>
         )}
 
-        <div className="reveal-wipe relative z-10 w-full h-full flex items-center justify-center">
+        {/* Controlled zoom on hover — scales this wrapper, never the
+            image/UI itself, so nothing distorts; clipped by the panel's
+            own overflow-hidden above. */}
+        <div className="reveal-wipe relative z-10 w-full h-full flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
           <ProjectPreview project={project} />
         </div>
       </div>
 
       {/* Bleeds past the panel's own edge, unclipped — a numeral standing
           outside the frame, with real drop-shadow depth, rather than a
-          watermark sitting flush behind the image. */}
+          watermark sitting flush behind the image. Nudges on hover too,
+          but far less than the image itself — a supporting element,
+          not the thing being looked at. */}
       <span
         aria-hidden="true"
-        className={`pointer-events-none select-none absolute -bottom-3 sm:-bottom-6 md:-bottom-16 z-20 font-display font-bold text-4xl sm:text-6xl md:text-[11rem] leading-none text-[var(--world-accent,var(--color-accent))] drop-shadow-[0_12px_28px_rgba(0,0,0,0.35)] ${
+        className={`pointer-events-none select-none absolute -bottom-3 sm:-bottom-6 md:-bottom-16 z-20 font-display font-bold text-4xl sm:text-6xl md:text-[11rem] leading-none text-[var(--world-accent,var(--color-accent))] drop-shadow-[0_12px_28px_rgba(0,0,0,0.35)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0 ${
           reverse ? "-right-3 sm:-right-5 md:-right-14" : "-left-3 sm:-left-5 md:-left-14"
         }`}
       >

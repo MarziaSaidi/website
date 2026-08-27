@@ -3,9 +3,9 @@ import Reveal from "../components/ui/Reveal";
 
 /* ---- small building blocks ---- */
 
-function Eyebrow({ children }) {
+function Eyebrow({ children, className = "" }) {
   return (
-    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))]">
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))] ${className}`}>
       {children}
     </p>
   );
@@ -180,11 +180,11 @@ export default function CaseStudyRelay() {
         {/* HERO */}
         <section className="border-b border-border">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
-            <Eyebrow>Case Study · Product Design (Self-Directed)</Eyebrow>
-            <h1 className="font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8">
+            <Eyebrow className="enter enter-1">Case Study · Product Design (Self-Directed)</Eyebrow>
+            <h1 className="enter enter-2 font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8">
               Relay
             </h1>
-            <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
+            <p className="enter enter-3 text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
               Designing a last-mile delivery operations console: a high-density,
               real-time surface a dispatcher can scan and operate under pressure.
             </p>
@@ -193,7 +193,7 @@ export default function CaseStudyRelay() {
               href="https://author-sync-40384662.figma.site/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="enter enter-4 hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               View live prototype
               <span className="text-text/70">
@@ -204,7 +204,7 @@ export default function CaseStudyRelay() {
               </svg>
             </a>
 
-            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-12 border-t border-border pt-10">
+            <dl className="enter enter-5 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-12 border-t border-border pt-10">
               {[
                 ["Role", "Product Designer (self-directed)"],
                 ["Type", "Personal project"],

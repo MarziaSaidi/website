@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
  * springing back on leave. Skipped for touch pointers (no hover to chase)
  * and reduced-motion users.
  */
-export default function Magnetic({ children, strength = 0.35, max = 14 }) {
+export default function Magnetic({ children, strength = 0.35, max = 14, className = "" }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function Magnetic({ children, strength = 0.35, max = 14 }) {
   }, [strength, max]);
 
   return (
-    <div ref={ref} className="magnetic inline-flex">
+    <div ref={ref} className={`magnetic inline-flex ${className}`}>
       {children}
     </div>
   );

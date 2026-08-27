@@ -17,9 +17,9 @@ const PREVIEW_COMPONENTS = {
   validator: ValidatorPreview,
 };
 
-function Eyebrow({ children }) {
+function Eyebrow({ children, className = "" }) {
   return (
-    <p className="font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))]">
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))] ${className}`}>
       {children}
     </p>
   );
@@ -88,17 +88,17 @@ export default function SimpleCaseStudy({ projectId }) {
       </header>
 
       <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-20 md:pt-32 pb-14">
-        <Eyebrow>{project.labels.join("  ·  ")}</Eyebrow>
-        <h1 className="font-serif text-4xl md:text-6xl text-text leading-tight mt-4">
+        <Eyebrow className="enter enter-1">{project.labels.join("  ·  ")}</Eyebrow>
+        <h1 className="enter enter-2 font-serif text-4xl md:text-6xl text-text leading-tight mt-4">
           {project.name}
         </h1>
-        <p className="text-text-secondary text-lg leading-relaxed mt-6 max-w-xl">{intro}</p>
+        <p className="enter enter-3 text-text-secondary text-lg leading-relaxed mt-6 max-w-xl">{intro}</p>
         {project.live && (
           <a
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="world-link group/link inline-flex items-center gap-2 text-sm mt-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="enter enter-4 world-link group/link inline-flex items-center gap-2 text-sm mt-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
           >
             {project.liveLabel || "Visit live site"}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">

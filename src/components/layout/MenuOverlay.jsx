@@ -54,7 +54,7 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
       aria-label="Site navigation"
       className="fixed inset-0 z-[90] bg-background"
     >
-      <div className="enter max-w-6xl mx-auto px-6 md:px-10 h-full flex flex-col justify-center gap-4 md:gap-6">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 h-full flex flex-col justify-center gap-4 md:gap-6">
         {LINKS.map((link, i) => {
           const isActive = active === link.id;
           return (
@@ -64,14 +64,17 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
               href={link.href}
               onClick={onClose}
               aria-current={isActive ? "page" : undefined}
-              className={`group flex items-baseline gap-4 md:gap-6 font-serif text-4xl md:text-6xl leading-[1.2] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm w-fit ${
+              className={`group/btn enter enter-${i + 1} flex items-baseline gap-4 md:gap-6 font-serif text-4xl md:text-6xl leading-[1.2] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm w-fit ${
                 isActive ? "text-accent" : "text-text hover:text-accent"
               }`}
             >
               <span className="font-mono text-xs md:text-sm text-text-secondary tabular-nums">
                 {String(i).padStart(2, "0")}
               </span>
-              {link.label}
+              <span className="relative pb-2 md:pb-3">
+                {link.label}
+                <span aria-hidden="true" className="underline-arrow" />
+              </span>
             </a>
           );
         })}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import SectionHeading from "../components/ui/SectionHeading";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
+import WaveLabel from "../components/ui/WaveLabel";
 
 const WEB3FORMS_ACCESS_KEY = "8eebed3f-f81a-4b38-92de-83f5c2d8b7c1";
 
@@ -114,8 +115,8 @@ export default function Contact() {
               />
             </div>
 
-            <Button as="button" type="submit" variant="primary" className="self-start" disabled={status === "loading"}>
-              {status === "loading" ? "Sending…" : "Send Message"}
+            <Button as="button" type="submit" variant="link" className="self-start" disabled={status === "loading"}>
+              <WaveLabel text={status === "loading" ? "Sending…" : "Send Message"} />
             </Button>
 
             <div aria-live="polite" className="min-h-[1.5rem]">

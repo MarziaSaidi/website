@@ -100,6 +100,8 @@ export default function Hero() {
             text="Design Engineer."
             as="h1"
             delay={150}
+            charDelay={50}
+            scrambleTicks={11}
             className="enter enter-1 font-display font-bold text-6xl md:text-8xl leading-[1.02] tracking-[-0.02em] text-text"
           />
 

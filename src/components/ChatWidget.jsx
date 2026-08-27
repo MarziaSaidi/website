@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Magnetic from "./ui/Magnetic";
 
 const GREETING = {
   role: "assistant",
@@ -198,24 +199,42 @@ export default function ChatWidget() {
         </div>
       </div>
 
-      {/* Floating toggle button */}
-      <button
-        ref={toggleRef}
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close chat" : "Ask about Marzia"}
-        aria-expanded={open}
-        className="hover-lift fixed z-[70] bottom-5 right-4 md:right-6 inline-flex items-center justify-center gap-2 h-12 w-12 sm:w-auto px-0 sm:pl-4 sm:pr-5 rounded-full bg-button-primary-bg text-button-primary-text shadow-soft-lg hover:bg-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="shrink-0">
-          {open ? (
-            <path strokeLinecap="round" strokeLinejoin="round" d="M7 7l10 10M17 7L7 17" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5M21 12a8 8 0 01-11.5 7.2L4 20l1-4.2A8 8 0 1121 12z" />
-          )}
-        </svg>
-        <span className="hidden sm:inline text-sm tracking-wide">{open ? "Close" : "Ask about me"}</span>
-      </button>
+      {/* Floating toggle button — a magnetic pull (same system as Hero's
+          CTA) carries the whole button toward the cursor within its
+          radius; the icon and label each carry their own smaller, faster
+          motion on top of that so the content doesn't move as one flat
+          slab. All three transitions spring back on their own terms when
+          the cursor leaves, rather than snapping to rest. */}
+      <Magnetic strength={0.3} max={10} className="fixed z-[70] bottom-5 right-4 md:right-6">
+        <button
+          ref={toggleRef}
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close chat" : "Ask about Marzia"}
+          aria-expanded={open}
+          className="group/fab inline-flex items-center justify-center gap-2 h-12 w-12 sm:w-auto px-0 sm:pl-4 sm:pr-5 rounded-full bg-button-primary-bg text-button-primary-text shadow-soft-lg hover:bg-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-hidden="true"
+            className="shrink-0 transition-transform duration-[280ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/fab:scale-110 group-hover/fab:-translate-y-px group-focus-visible/fab:scale-110 group-focus-visible/fab:-translate-y-px motion-reduce:transition-none motion-reduce:group-hover/fab:scale-100 motion-reduce:group-hover/fab:translate-y-0"
+          >
+            {open ? (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7 7l10 10M17 7L7 17" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5M21 12a8 8 0 01-11.5 7.2L4 20l1-4.2A8 8 0 1121 12z" />
+            )}
+          </svg>
+          <span className="hidden sm:inline text-sm tracking-wide transition-transform duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/fab:translate-x-0.5 group-focus-visible/fab:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover/fab:translate-x-0">
+            {open ? "Close" : "Ask about me"}
+          </span>
+        </button>
+      </Magnetic>
     </>
   );
 }
