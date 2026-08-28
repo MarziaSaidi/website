@@ -1,6 +1,14 @@
 import { useEffect, useRef } from "react";
 
-export function useScrollReveal(options = {}) {
+// Options are destructured to primitives rather than kept as an object,
+// because the previous `options = {}` default allocated a fresh object on
+// every render and sat in the dependency array — so the effect tore down and
+// rebuilt the IntersectionObserver on every single re-render of every
+// revealing component, instead of once on mount.
+export function useScrollReveal({
+  threshold = 0.15,
+  rootMargin = "0px 0px -60px 0px",
+} = {}) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -14,12 +22,12 @@ export function useScrollReveal(options = {}) {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px", ...options }
+      { threshold, rootMargin }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [options]);
+  }, [threshold, rootMargin]);
 
   return ref;
 }

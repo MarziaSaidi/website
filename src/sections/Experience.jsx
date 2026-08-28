@@ -1,4 +1,5 @@
 import SectionHeading from "../components/ui/SectionHeading";
+import Button from "../components/ui/Button";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { experience } from "../data/experience";
 
@@ -64,15 +65,9 @@ function ExperienceRow({ item }) {
           </p>
 
           {item.caseStudyHref && (
-            <a
-              href={item.caseStudyHref}
-              className="world-link group/link inline-flex items-center gap-2 text-sm transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
-            >
+            <Button href={item.caseStudyHref} variant="quiet" className="w-fit">
               View case study
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </a>
+            </Button>
           )}
         </div>
       </details>

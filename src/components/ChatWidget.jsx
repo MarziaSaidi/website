@@ -126,7 +126,7 @@ export default function ChatWidget() {
               type="button"
               onClick={close}
               aria-label="Close chat"
-              className="text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-md p-1"
+              className="inline-flex items-center justify-center w-11 h-11 -mr-3 text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-md"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 7l10 10M17 7L7 17" />
@@ -165,7 +165,7 @@ export default function ChatWidget() {
                     key={s}
                     type="button"
                     onClick={() => send(s)}
-                    className="text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+                    className="inline-flex items-center min-h-9 text-xs text-text-secondary border border-border rounded-full px-3.5 py-2 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
                   >
                     {s}
                   </button>
@@ -189,7 +189,7 @@ export default function ChatWidget() {
               type="submit"
               disabled={!input.trim() || loading}
               aria-label="Send message"
-              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-button-primary-bg text-button-primary-text transition-colors hover:bg-button-primary-hover disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-button-primary-bg text-button-primary-text transition-colors hover:bg-button-primary-hover disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />

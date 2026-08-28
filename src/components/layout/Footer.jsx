@@ -24,7 +24,7 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-border">
       <div className="max-w-6xl mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-4 flex items-center justify-center">
-        <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-text-secondary">
+        <p className="font-mono text-[0.65rem] tracking-eyebrow uppercase text-text-secondary">
           Marzia.OS &middot; Status: open to work &middot; Local time {time}
         </p>
       </div>
@@ -38,7 +38,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/marzia-saidisoftwareengineer/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+                className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
               >
                 LinkedIn
               </a>
@@ -46,7 +46,7 @@ export default function Footer() {
             <Magnetic strength={0.25} max={8}>
               <a
                 href="mailto:marzia.saidi67@gmail.com"
-                className="hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+                className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
               >
                 Email
               </a>
