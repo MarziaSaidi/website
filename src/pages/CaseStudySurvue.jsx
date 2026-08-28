@@ -5,7 +5,7 @@ import Reveal from "../components/ui/Reveal";
 
 function Eyebrow({ children, className = "" }) {
   return (
-    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))] ${className}`}>
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-label))] ${className}`}>
       {children}
     </p>
   );
@@ -26,7 +26,7 @@ function Placeholder({ label, sub }) {
   return (
     <div className="w-full max-w-[180px] mx-auto aspect-[9/19] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary px-4 text-center">
       <ImageIcon />
-      <span className="font-mono text-[0.62rem] uppercase tracking-[0.16em]">{label}</span>
+      <span className="font-mono text-[0.62rem] uppercase tracking-meta">{label}</span>
       {sub && <span className="text-[0.7rem] leading-relaxed text-text-secondary/80">{sub}</span>}
     </div>
   );
@@ -41,7 +41,7 @@ function Screenshot({ src, label, caption, width, height }) {
       {failed ? (
         <div className="w-full aspect-[9/19] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2 text-text-secondary px-2 text-center">
           <ImageIcon />
-          <span className="font-mono text-[0.55rem] uppercase tracking-[0.12em]">{label}</span>
+          <span className="font-mono text-[0.55rem] uppercase tracking-meta">{label}</span>
         </div>
       ) : (
         <img
@@ -166,7 +166,7 @@ export default function CaseStudySurvue() {
                 ["Timeline", "Sep to Dec 2024"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
-                  <dt className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">{k}</dt>
+                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-label">{k}</dt>
                   <dd className="text-sm text-text leading-snug">{v}</dd>
                 </div>
               ))}
@@ -178,19 +178,19 @@ export default function CaseStudySurvue() {
         <section className="border-b border-border bg-background-secondary/40">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 md:py-16 grid sm:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Problem</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Problem</p>
               <p className="text-sm text-text leading-relaxed">
                 A rear-vehicle alert has to be absorbed without taking a rider’s eyes off the road.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">What I did</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
               <p className="text-sm text-text leading-relaxed">
                 Led UX for the full app and built the cross-platform settings module in .NET MAUI.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Result</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
               <p className="text-sm text-text leading-relaxed">
                 Shipped to production across iOS, Android, and Windows with full feature parity.
               </p>
@@ -397,7 +397,7 @@ export default function CaseStudySurvue() {
 
       <footer className="border-t border-border">
         <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <p className="text-xs text-text-secondary/80 font-mono uppercase tracking-[0.15em]">
+          <p className="text-xs text-text-secondary/80 font-mono uppercase tracking-meta">
             Case study · Survue · Marzia Saidi
           </p>
           <a

@@ -96,12 +96,18 @@ export default function Hero() {
             transition: "transform 0.2s ease-out",
           }}
         >
+          {/* Timing is deliberately much faster than a "showcase" scramble:
+              the last character used to start decoding at 900ms and settle
+              around 1.15s, which left the single most important line on the
+              site unreadable for over a second. At 18ms/char and 4 ticks the
+              whole headline resolves in ~360ms — still reads as a decode,
+              but it never delays comprehension. */}
           <ScrambleText
             text="Design Engineer."
             as="h1"
-            delay={150}
-            charDelay={50}
-            scrambleTicks={11}
+            delay={0}
+            charDelay={18}
+            scrambleTicks={4}
             className="enter enter-1 font-display font-bold text-6xl md:text-8xl leading-[1.02] tracking-[-0.02em] text-text"
           />
 
@@ -111,8 +117,8 @@ export default function Hero() {
 
           <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-4">
             <Magnetic>
-              <Button href="#/work" variant="primary">
-                View all works ↓
+              <Button href="#/work" variant="primary" icon="down">
+                View all works
               </Button>
             </Magnetic>
           </div>
@@ -124,7 +130,7 @@ export default function Hero() {
         aria-label="Go to selected work"
         className="enter enter-5 hidden md:flex flex-col items-center gap-2 absolute bottom-8 left-1/2 -translate-x-1/2 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-full"
       >
-        <span className="text-[0.65rem] tracking-[0.25em] uppercase font-mono">Scroll</span>
+        <span className="text-[0.65rem] tracking-eyebrow uppercase font-mono">Scroll</span>
         <span className="scroll-cue-dot" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M6 13l6 6 6-6" />

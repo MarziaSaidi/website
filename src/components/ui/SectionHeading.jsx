@@ -19,7 +19,7 @@ export default function SectionHeading({
           {index}
         </span>
         <span className="block h-px w-6 bg-gold divider-draw" aria-hidden="true" />
-        <p className="text-xs tracking-[0.25em] uppercase text-text-secondary">
+        <p className="text-xs tracking-eyebrow uppercase text-text-secondary">
           {eyebrow}
         </p>
       </div>

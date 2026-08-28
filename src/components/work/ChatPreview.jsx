@@ -43,7 +43,7 @@ export default function ChatPreview() {
             I see order #4521 shipped Tuesday and is currently in transit —
             expected Thursday. Want me to send the tracking link?
           </div>
-          <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-[0.1em] text-label">
+          <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-label">
             <span className="w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />
             Cited order #4521 · RAG
           </div>
@@ -79,7 +79,7 @@ export default function ChatPreview() {
                 refund for now — I can start one automatically if it doesn't
                 arrive by Friday. Sound okay?
               </div>
-              <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-[0.1em] text-label">
+              <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-label">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />
                 Refund policy · shipping status · RAG
               </div>

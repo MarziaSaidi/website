@@ -104,7 +104,7 @@ export default function HowIWork() {
   return (
     <div ref={ref} className="reveal-group flex flex-col gap-16 md:gap-24">
       <div className="flex flex-col gap-6 md:gap-8 max-w-2xl">
-        <p className="text-xs tracking-[0.2em] uppercase text-text-secondary">How I work</p>
+        <p className="text-xs tracking-eyebrow uppercase text-text-secondary">How I work</p>
         <p className="stagger-item text-lg md:text-xl leading-relaxed text-text">{workLeadIn}</p>
       </div>
 
@@ -162,7 +162,7 @@ export default function HowIWork() {
                 />
 
                 <div className="stagger-item flex items-center gap-3" style={{ transitionDelay: `${stepDelay}ms` }}>
-                  <span className={`font-mono text-xs tracking-[0.15em] tabular-nums transition-colors duration-500 ${tone.number}`}>
+                  <span className={`font-mono text-xs tracking-meta tabular-nums transition-colors duration-500 ${tone.number}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className={`h-px transition-all duration-500 ${tone.rule}`} aria-hidden="true" />

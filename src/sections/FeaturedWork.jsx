@@ -15,7 +15,7 @@ function FeaturedWorkHeading() {
       <div className="max-w-6xl mx-auto px-6 md:px-10 pt-24 md:pt-36 pb-16 md:pb-20">
         <div className="flex items-center gap-3 mb-8">
           <span className="block h-px w-6 bg-gold divider-draw" aria-hidden="true" />
-          <p className="text-xs tracking-[0.25em] uppercase text-text-secondary">Selected Work</p>
+          <p className="text-xs tracking-eyebrow uppercase text-text-secondary">Selected Work</p>
         </div>
         <h2 id="featured-work-heading" className="text-4xl md:text-6xl text-text leading-[1.05] max-w-2xl">
           A few things I've designed and built
@@ -29,13 +29,21 @@ function ViewAllLink() {
   const ref = useScrollReveal();
   return (
     <div ref={ref} className="reveal max-w-6xl mx-auto px-6 md:px-10 pt-20 md:pt-32">
+      {/* Keeps its own editorial scale and long rule-arrow, but borrows the
+          site's shared hover choreography (label swap + sweeping rule) so
+          it reads as the same interaction language as the pill CTAs. */}
       <a
         href="#/work"
-        className="group inline-flex flex-col gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+        className="btn btn--quiet group/more inline-flex flex-col gap-3 [--btn-leading:1.3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
       >
-        <span className="text-xs tracking-[0.25em] uppercase text-text-secondary">There's more</span>
-        <span className="inline-flex items-center gap-4 font-serif text-4xl md:text-6xl text-text leading-tight group-hover:text-accent transition-colors duration-300">
-          View all projects
+        <span className="text-xs tracking-eyebrow uppercase text-text-secondary">There's more</span>
+        <span className="relative inline-flex items-center gap-4 pb-3 font-serif text-4xl md:text-6xl text-text leading-tight">
+          <span className="btn__label">
+            <span className="btn__label-base">View all projects</span>
+            <span className="btn__label-hover" aria-hidden="true">
+              View all projects
+            </span>
+          </span>
           <svg
             width="44"
             height="16"
@@ -44,10 +52,11 @@ function ViewAllLink() {
             stroke="currentColor"
             strokeWidth="1.5"
             aria-hidden="true"
-            className="transition-transform duration-300 group-hover:translate-x-2"
+            className="relative z-[2] shrink-0 transition-transform duration-[var(--dur-travel)] ease-[var(--ease-exit)] group-hover/more:translate-x-3"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M0 8h44M38 2l6 6-6 6" />
           </svg>
+          <span aria-hidden="true" className="btn__rule" />
         </span>
       </a>
     </div>

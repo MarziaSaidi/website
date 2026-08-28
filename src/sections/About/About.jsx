@@ -16,7 +16,7 @@ export default function About() {
               03
             </span>
             <span className="block h-px w-6 bg-accent divider-draw" aria-hidden="true" />
-            <p className="text-xs tracking-[0.25em] uppercase text-text-secondary">
+            <p className="text-xs tracking-eyebrow uppercase text-text-secondary">
               So — who builds all this?
             </p>
           </div>
@@ -43,14 +43,14 @@ export default function About() {
 
         <div ref={bodyRef} className="reveal flex flex-col gap-12">
           <div>
-            <p className="text-xs tracking-[0.2em] uppercase mb-6 text-text-secondary">
+            <p className="text-xs tracking-eyebrow uppercase mb-6 text-text-secondary">
               What I work with
             </p>
             <SkillsCloud />
           </div>
 
           <div className="border-t border-border pt-8 flex flex-col gap-2">
-            <p className="text-xs tracking-[0.2em] uppercase text-text-secondary">
+            <p className="text-xs tracking-eyebrow uppercase text-text-secondary">
               Education
             </p>
             <h3 className="font-serif text-2xl text-text">

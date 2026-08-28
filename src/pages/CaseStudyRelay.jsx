@@ -5,7 +5,7 @@ import Reveal from "../components/ui/Reveal";
 
 function Eyebrow({ children, className = "" }) {
   return (
-    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))] ${className}`}>
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-label))] ${className}`}>
       {children}
     </p>
   );
@@ -58,7 +58,7 @@ function Frame({ index, title, label, src, children }) {
       {failed ? (
         <div className="w-full aspect-[16/10] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary text-center px-6">
           <ImageIcon />
-          <span className="font-mono text-[0.62rem] uppercase tracking-[0.16em]">{label}</span>
+          <span className="font-mono text-[0.62rem] uppercase tracking-meta">{label}</span>
           <span className="text-[0.62rem] text-text-secondary/70">{src}</span>
         </div>
       ) : (
@@ -212,7 +212,7 @@ export default function CaseStudyRelay() {
                 ["Focus", "Real-time information design"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
-                  <dt className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">{k}</dt>
+                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-label">{k}</dt>
                   <dd className="text-sm text-text leading-snug">{v}</dd>
                 </div>
               ))}
@@ -224,19 +224,19 @@ export default function CaseStudyRelay() {
         <section className="border-b border-border bg-background-secondary/40">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 md:py-16 grid sm:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Problem</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Problem</p>
               <p className="text-sm text-text leading-relaxed">
                 A dispatcher has to track a live fleet and spot the one thing about to go wrong.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">What I did</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
               <p className="text-sm text-text leading-relaxed">
                 Self-directed: designed the full information hierarchy for a dense, real-time console.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-label">Result</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
               <p className="text-sm text-text leading-relaxed">
                 A complete four-screen design, published as a live, interactive prototype.
               </p>
@@ -355,7 +355,7 @@ export default function CaseStudyRelay() {
 
       <footer className="border-t border-border">
         <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <p className="text-xs text-text-secondary/80 font-mono uppercase tracking-[0.15em]">
+          <p className="text-xs text-text-secondary/80 font-mono uppercase tracking-meta">
             Case study · Relay · Marzia Saidi
           </p>
           <a

@@ -19,7 +19,7 @@ const PREVIEW_COMPONENTS = {
 
 function Eyebrow({ children, className = "" }) {
   return (
-    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-[0.22em] text-[var(--world-accent,var(--color-label))] ${className}`}>
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-label))] ${className}`}>
       {children}
     </p>
   );

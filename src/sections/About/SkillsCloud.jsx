@@ -49,7 +49,7 @@ export default function SkillsCloud() {
           >
             <div className="flex items-center gap-2.5 shrink-0 md:w-24">
               <span className="block h-px w-4 bg-border" aria-hidden="true" />
-              <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-text-secondary/70">
+              <p className="font-mono text-[0.65rem] tracking-eyebrow uppercase text-text-secondary/70">
                 {group.label}
               </p>
             </div>
