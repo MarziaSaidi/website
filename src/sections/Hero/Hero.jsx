@@ -202,20 +202,30 @@ export default function Hero() {
                 Hi I'm Marzia Saidi, a passionate Software Developer &amp; UI/UX Designer.
               </p>
 
-              <div className="enter enter-4 flex flex-wrap items-center gap-4 pt-1">
-                <Magnetic>
-                  <Button
-                    as="button"
-                    type="button"
-                    onClick={scrollIntoStory}
-                    variant="primary"
-                    icon="down"
-                    className="scroll-prompt-btn"
-                  >
-                    Scroll to see how I work
-                  </Button>
-                </Magnetic>
-              </div>
+              {/* A guidance cue, not a CTA — no pill, no fill, no hover
+                  sweep. The arrow is the part doing the work (it's the
+                  thing that keeps moving), the text is just there to say
+                  why; reversed weighting from every other button on the
+                  site, which is why this isn't built on top of Button. */}
+              <button
+                type="button"
+                onClick={scrollIntoStory}
+                className="enter enter-4 flex items-center gap-3 pt-1 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+              >
+                <span className="text-sm md:text-base tracking-wide">Scroll to see how I work</span>
+                <svg
+                  className="scroll-prompt-arrow"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M6 13l6 6 6-6" />
+                </svg>
+              </button>
             </div>
 
             <div

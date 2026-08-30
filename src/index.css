@@ -883,23 +883,20 @@
   }
 
   /* ---- Hero "scroll to see how I work" prompt: a continuously bobbing
-     arrow, not just the hover swap every other button already has, since
-     this one specific button's job is to signal "scroll" at rest, before
-     any hover happens. Scoped to :not(:hover):not(:focus-visible) so the
-     bounce cleanly hands off to the existing hover-travel animation
-     instead of fighting it over the same `transform` property — both
-     animate the icon, but never at the same time. ---- */
+     arrow — the arrow is the actual signal here, the text just explains
+     it, so the animation runs constantly rather than only resting before
+     a hover swap (there's no pill/fill to swap into any more). ---- */
   @keyframes scroll-prompt-bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(4px); }
   }
 
-  .scroll-prompt-btn:not(:hover):not(:focus-visible) .btn__icon-base {
+  .scroll-prompt-arrow {
     animation: scroll-prompt-bounce 1.4s ease-in-out infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .scroll-prompt-btn .btn__icon-base {
+    .scroll-prompt-arrow {
       animation: none;
     }
   }
