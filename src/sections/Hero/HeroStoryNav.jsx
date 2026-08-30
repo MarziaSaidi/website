@@ -76,7 +76,7 @@ export default function HeroStoryNav({ wrapperRef, reduced }) {
         ))}
       </nav>
 
-      <div className="stage-card relative w-full sm:flex-1 sm:min-w-0 min-h-[10.5rem] border border-border px-7 py-6">
+      <div className="stage-card relative w-full sm:flex-1 sm:min-w-0 min-h-[10.5rem] px-7 py-6">
         {STAGES.map((s, i) => (
           <div key={s.key} ref={(el) => (cardRefs.current[i] = el)} className={`card-panel ${i === defaultActive ? "is-active" : ""}`}>
             <h2 className="font-serif text-2xl md:text-[1.7rem] font-semibold tracking-[-0.01em] text-text">{s.label}</h2>
