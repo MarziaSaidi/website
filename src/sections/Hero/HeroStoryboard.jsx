@@ -130,7 +130,7 @@ export default function HeroStoryboard({ wrapperRef, reduced }) {
   // avoid a blank flash before the first scroll-driven frame lands.
   return (
     <div
-      className="hero-storyboard w-full max-w-md mx-auto mt-14 lg:mt-0 lg:mx-0 lg:max-w-none lg:w-[42%] lg:shrink-0 xl:w-[38%] h-[50vh] sm:h-[56vh] lg:h-[64vh] xl:h-[68vh]"
+      className="hero-storyboard w-full max-w-md mx-auto mt-14 lg:mt-0 lg:mx-0 lg:max-w-none lg:w-[60%] lg:shrink-0 h-[58vh] sm:h-[64vh] lg:h-[78vh] xl:h-[82vh]"
       aria-hidden="true"
     >
       <svg viewBox="0 0 1400 764" className="block w-full h-full" preserveAspectRatio="xMidYMid meet">
