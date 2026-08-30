@@ -22,8 +22,27 @@ export function usePrefersReducedMotion() {
 // has ~20 animatable SVG nodes, so `onProgress` is expected to mutate refs
 // directly (matching Hero.jsx's existing useHeroMotion pattern) instead of
 // triggering a re-render on every scroll tick.
+//
+// The value handed to onProgress is damped, not the raw scroll-derived
+// number — a fast flick or trackpad-momentum scroll can jump the raw ratio
+// by 10-20% between two rAF ticks, and every consumer here (opacity
+// staggers, the nav's active-stage switch) was built to read as motion
+// happening in between, not as a value that teleports. Chasing `target`
+// with an exponential lerp every frame (the same trick GSAP's ScrollTrigger
+// `scrub` option does) turns that teleport into a short, continuous catch-
+// up animation instead — pieces are always seen arriving, never just
+// suddenly present. SMOOTH is a per-frame catch-up fraction, not a
+// duration: at 60fps it settles within roughly 200-250ms of a scroll
+// stopping, quick enough to still feel scroll-driven rather than laggy.
+const SMOOTH = 0.16;
+const SNAP_EPSILON = 0.0004;
+
 export function useHeroScrollProgress(wrapperRef, onProgress, { disabled = false } = {}) {
   const measureRef = useRef({ top: 0, range: 1 });
+  const targetRef = useRef(0);
+  const currentRef = useRef(0);
+  const rafRef = useRef(0);
+  const primedRef = useRef(false);
 
   // A plain effect, deliberately not useLayoutEffect: `wrapperRef` is
   // attached to an ANCESTOR of whatever calls this hook (Hero.jsx's outer
@@ -47,9 +66,38 @@ export function useHeroScrollProgress(wrapperRef, onProgress, { disabled = false
       };
     }
 
+    function tick() {
+      const target = targetRef.current;
+      const diff = target - currentRef.current;
+      if (Math.abs(diff) < SNAP_EPSILON) {
+        currentRef.current = target;
+        rafRef.current = 0;
+        onProgress(currentRef.current);
+        return;
+      }
+      currentRef.current += diff * SMOOTH;
+      rafRef.current = requestAnimationFrame(tick);
+      onProgress(currentRef.current);
+    }
+
+    function ensureTicking() {
+      if (!rafRef.current) rafRef.current = requestAnimationFrame(tick);
+    }
+
     function onScroll(y) {
       const { top, range } = measureRef.current;
-      onProgress(Math.min(1, Math.max(0, (y - top) / range)));
+      targetRef.current = Math.min(1, Math.max(0, (y - top) / range));
+      // The very first measurement (page load, or a hash-route remount)
+      // should land exactly on the real scroll position — only scroll
+      // deltas *after* that get smoothed, so nothing animates in from a
+      // stale 0 on first paint.
+      if (!primedRef.current) {
+        primedRef.current = true;
+        currentRef.current = targetRef.current;
+        onProgress(currentRef.current);
+        return;
+      }
+      ensureTicking();
     }
 
     // Re-measuring alone doesn't repaint anything — without also replaying
@@ -74,6 +122,7 @@ export function useHeroScrollProgress(wrapperRef, onProgress, { disabled = false
       ro.disconnect();
       window.removeEventListener("resize", remeasure);
       unsubscribe();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [wrapperRef, onProgress, disabled]);
 }

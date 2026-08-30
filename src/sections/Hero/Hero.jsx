@@ -20,23 +20,32 @@ function smoothstep(t) {
 // at all, not even hidden-but-present, and the reverse is true once
 // scrolling starts: the headline/copy view disappears completely rather
 // than lingering alongside the storyboard. introView and storyboardView
-// are two full views stacked in the same grid cell (see Hero()'s JSX),
-// cross-fading into each other over a short window. The prompt button
-// lives inside introView (it just fades with its parent, no separate
-// timing of its own); "View all works" lives inside storyboardView but
-// still needs its own ref, since it appears partway through — long after
-// storyboardView itself is already fully visible. A third, independent
-// subscription to the same shared progress the art and nav/card already
-// use, matching this file's existing pattern rather than threading state
-// between three separate components.
+// are two full views stacked in the same grid cell (see Hero()'s JSX).
+// The switch between them is a hard cut, not a cross-fade: the instant
+// progress leaves 0, introView is gone (no low-opacity lingering) and
+// storyboardView is fully in. The prompt button lives inside introView
+// (it just disappears with its parent, no separate timing of its own);
+// "View all works" lives inside storyboardView but still needs its own
+// ref, since it appears partway through — long after storyboardView
+// itself is already fully visible. A third, independent subscription to
+// the same shared progress the art and nav/card already use, matching
+// this file's existing pattern rather than threading state between
+// three separate components.
 function useHeroIntroReveal(wrapperRef, refs, reduced) {
   const { finalCtaRef, introViewRef, storyboardViewRef } = refs;
 
   const applyProgress = useMemo(
     () => (progress) => {
-      const REVEAL_END = 0.05;
       const CTA_START = 0.9;
-      const storyIn = smoothstep(progress / REVEAL_END);
+      // introOut fires on the very first pixel of scroll (hard cut, no
+      // fade), but storyIn only fires once progress clears BLANK_GAP —
+      // the gap between the two thresholds is a beat of plain background
+      // (HeroField's aurora/dots, nothing else) between intro disappearing
+      // and the storyboard cutting in, rather than one replacing the
+      // other on the same frame.
+      const BLANK_GAP = 0.05;
+      const introOut = progress > 0 ? 1 : 0;
+      const storyIn = progress >= BLANK_GAP ? 1 : 0;
       const ctaIn = smoothstep((progress - CTA_START) / (1 - CTA_START));
 
       if (finalCtaRef.current) {
@@ -44,8 +53,8 @@ function useHeroIntroReveal(wrapperRef, refs, reduced) {
         finalCtaRef.current.style.pointerEvents = ctaIn > 0.5 ? "auto" : "none";
       }
       if (introViewRef.current) {
-        introViewRef.current.style.opacity = String(1 - storyIn);
-        introViewRef.current.style.pointerEvents = storyIn > 0.5 ? "none" : "auto";
+        introViewRef.current.style.opacity = String(1 - introOut);
+        introViewRef.current.style.pointerEvents = introOut > 0.5 ? "none" : "auto";
       }
       if (storyboardViewRef.current) {
         storyboardViewRef.current.style.opacity = String(storyIn);
