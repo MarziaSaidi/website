@@ -6,6 +6,26 @@
 
 export const work = [
   {
+    id: "qalin",
+    name: "Qalin",
+    tier: 1,
+    world: "gold",
+    type: "solo-design",
+    category: "design",
+    labels: ["Design", "Mobile", "Ecommerce"],
+    description:
+      "Mobile marketplace for hand-knotted rugs and carpets, designed to build trust in a five-figure purchase through a phone screen.",
+    preview: "poster",
+    previewSrc: "/qalin/showcase.png",
+    previewWidth: 1728,
+    previewHeight: 1117,
+    previewAlt: "A layered showcase of Qalin's home, product, catalog, checkout, and search screens",
+    href: "#/qalin",
+    hrefLabel: "View project",
+    live: "https://www.figma.com/proto/q4P5mnsLxtcWBoRE3RM35B/Qalin?node-id=1-325&t=lPzof9zPT2ddRhA3-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A325",
+    liveLabel: "Live prototype",
+  },
+  {
     id: "supportiq",
     name: "SupportIQ",
     tier: 1,

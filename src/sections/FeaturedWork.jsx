@@ -2,10 +2,12 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 import { work } from "../data/work";
 import { ProjectRow } from "../components/work/ProjectRow";
 
-// A hand-picked trio shown on Home, using the same ProjectRow the full
+// A hand-picked lineup shown on Home, using the same ProjectRow the full
 // Selected Work page uses — not a separate visual system, just a smaller
-// dose of it, closing with a link out to the full list.
-const FEATURED_IDS = ["supportiq", "quill-pigeon", "survue"];
+// dose of it, closing with a link out to the full list. Qalin leads as the
+// newest project and gets a "NEW" marker instead of a numeral; the rest
+// keep the 01/02/03 numbering they had before it was added.
+const FEATURED_IDS = ["qalin", "supportiq", "quill-pigeon", "survue"];
 
 function FeaturedWorkHeading() {
   const ref = useScrollReveal();
@@ -73,11 +75,12 @@ export default function FeaturedWork() {
         {featured.map((project, i) => (
           // reverse controls mobile stacking only (unchanged); imageLeft is
           // the independent desktop left/right control — project 1 and 3
-          // both image-left, project 2 the alternate.
+          // both image-left, project 2 the alternate. Qalin (i === 0) shows
+          // "NEW" instead of a numeral; the rest number from 01 as before.
           <ProjectRow
             key={project.id}
             project={project}
-            index={String(i + 1).padStart(2, "0")}
+            index={project.id === "qalin" ? "NEW" : String(i).padStart(2, "0")}
             reverse={i % 2 === 1}
             imageLeft={i % 2 === 0}
           />

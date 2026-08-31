@@ -169,6 +169,25 @@ export function ProjectPreview({ project }) {
           />
         </BrowserChrome>
       );
+    case "poster":
+      // For a preview image that's already a composed piece of art (e.g. a
+      // multi-screen showcase collage) rather than a single literal screen —
+      // no browser or phone chrome, since neither metaphor applies. Framed
+      // the same way BrowserChrome's outer shell is (border, rounded, soft
+      // shadow) so it still reads as one of this row's "real interface"
+      // previews, just without the traffic-light bar on top.
+      return (
+        <div className="rounded-xl border border-border bg-paper shadow-soft overflow-hidden max-w-full max-h-full">
+          <img
+            src={project.previewSrc}
+            alt={project.previewAlt}
+            width={project.previewWidth}
+            height={project.previewHeight}
+            loading="lazy"
+            className="w-full h-auto object-contain block"
+          />
+        </div>
+      );
     default:
       return null;
   }
