@@ -77,7 +77,7 @@ export default function SimpleCaseStudy({ projectId }) {
   const bullets = exp?.bullets || solo?.bullets;
   const lesson = exp?.lesson || solo?.lesson;
 
-  useDocumentMeta(`${project.name} — Marzia Saidi`, intro);
+  useDocumentMeta(`${project.name} | Marzia Saidi`, intro);
 
   return (
     <div data-world={project.world} className="min-h-screen bg-background text-text">

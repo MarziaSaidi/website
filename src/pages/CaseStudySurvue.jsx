@@ -108,17 +108,17 @@ function SunIcon() {
 
 const constraints = [
   { icon: <EyeOff />, title: "Eyes off the screen", body: "The rider is watching traffic. Information has to land through glance, sound, or feel, not reading." },
-  { icon: <HandsIcon />, title: "Hands occupied", body: "On the handlebars. Any in-ride interaction must be near-zero, ideally none at all." },
-  { icon: <SunIcon />, title: "Harsh conditions", body: "Bright sun, motion, gloves. High contrast and large targets aren’t optional; they’re safety-critical." },
+  { icon: <HandsIcon />, title: "Hands occupied", body: "On the handlebars. Any in ride interaction must be near zero, ideally none at all." },
+  { icon: <SunIcon />, title: "Harsh conditions", body: "Bright sun, motion, gloves. High contrast and large targets aren’t optional; they’re safety critical." },
 ];
 
 const journey = ["Onboarding", "Device pairing", "Start ride", "Vehicle detected", "Safety alert"];
 
 const decisions = [
   { n: "01", title: "The alert speaks before it shows", body: "The primary channel is sound and haptics; the screen is the backup, not the point. A rider is warned whether or not they ever glance down. The visual just confirms what they already felt." },
-  { n: "02", title: "One glance = one meaning", body: "The visual alert is a single high-contrast state a rider can decode instantly, with no text to parse and no ambiguity. Designed to survive sunlight, motion, and a quarter-second look." },
-  { n: "03", title: "Zero in-ride interaction", body: "Nothing to tap while riding. All configuration lives in setup and settings, so the ride experience stays fully hands-free." },
-  { n: "04", title: "Make pairing feel safe, not technical", body: "Connecting hardware is where users abandon. I designed the pairing flow to be guided and reassuring, turning a technical step into a confidence-building one." },
+  { n: "02", title: "One glance = one meaning", body: "The visual alert is a single high contrast state a rider can decode instantly, with no text to parse and no ambiguity. Designed to survive sunlight, motion, and a quarter second look." },
+  { n: "03", title: "Zero in ride interaction", body: "Nothing to tap while riding. All configuration lives in setup and settings, so the ride experience stays fully hands free." },
+  { n: "04", title: "Make pairing feel safe, not technical", body: "Connecting hardware is where users abandon. I designed the pairing flow to be guided and reassuring, turning a technical step into a confidence building one." },
 ];
 
 export default function CaseStudySurvue() {
@@ -126,8 +126,8 @@ export default function CaseStudySurvue() {
     window.scrollTo(0, 0);
   }, []);
   useDocumentMeta(
-    "Survue — Marzia Saidi",
-    "Leading UX for a cyclist-safety app: designing calm, glanceable alerts a rider can trust while their eyes stay on the road."
+    "Survue | Marzia Saidi",
+    "Leading UX for a cyclist safety app: designing calm, glanceable alerts a rider can trust while their eyes stay on the road."
   );
 
   return (
@@ -159,7 +159,7 @@ export default function CaseStudySurvue() {
               Survue
             </h1>
             <p className="enter enter-3 text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">
-              Leading UX for a cyclist-safety app: designing calm, glanceable
+              Leading UX for a cyclist safety app: designing calm, glanceable
               alerts a rider can trust while their eyes stay on the road.
             </p>
 
@@ -185,13 +185,13 @@ export default function CaseStudySurvue() {
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Problem</p>
               <p className="text-sm text-text leading-relaxed">
-                A rear-vehicle alert has to be absorbed without taking a rider’s eyes off the road.
+                A rear vehicle alert has to be absorbed without taking a rider’s eyes off the road.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
               <p className="text-sm text-text leading-relaxed">
-                Led UX for the full app and built the cross-platform settings module in .NET MAUI.
+                Led UX for the full app and built the cross platform settings module in .NET MAUI.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
@@ -210,7 +210,7 @@ export default function CaseStudySurvue() {
               Survue is a mobile app that warns cyclists about vehicles
               approaching from behind. I led the UX end to end, from user
               journeys through onboarding, device pairing, ride monitoring, and
-              the safety alerts themselves, and built the cross-platform settings
+              the safety alerts themselves, and built the cross platform settings
               module in .NET MAUI.
             </p>
             <p>
@@ -238,7 +238,7 @@ export default function CaseStudySurvue() {
               </p>
             </blockquote>
             <p>
-              That reframed the whole project. This wasn’t a screen-design
+              That reframed the whole project. This wasn’t a screen design
               problem; it was a problem of designing for divided attention under
               real stakes.
             </p>
@@ -246,7 +246,7 @@ export default function CaseStudySurvue() {
         </Section>
 
         {/* CONSTRAINTS */}
-        <Section eyebrow="Constraints" title="Designing for the worst-case moment">
+        <Section eyebrow="Constraints" title="Designing for the worst case moment">
           <p className="text-text-secondary leading-relaxed text-lg mb-12">
             I mapped the real context of use and let its constraints drive the
             design:
@@ -267,7 +267,7 @@ export default function CaseStudySurvue() {
           <p className="text-text-secondary leading-relaxed text-lg mb-12 max-w-[820px]">
             Before designing screens, I mapped the full journey to find where
             design actually mattered. The setup moments (onboarding, pairing)
-            could be rich and guided; the in-ride moment had to be nearly
+            could be rich and guided; the in ride moment had to be nearly
             invisible. Naming that split up front kept the whole team aligned on
             where to spend effort.
           </p>
@@ -297,8 +297,8 @@ export default function CaseStudySurvue() {
           <p className="text-text-secondary leading-relaxed text-lg">
             I explored the setup flows as conventional guided screens, then spent
             most of my exploration on the hardest surface: the alert. I sketched
-            multiple alert modalities (full-screen color, directional indicator,
-            audio-led, haptic-led) and weighed each against the one question that
+            multiple alert modalities (full screen color, directional indicator,
+            audio led, haptic led) and weighed each against the one question that
             mattered: can a rider act on this in under a second without looking?
           </p>
         </Section>
@@ -341,21 +341,21 @@ export default function CaseStudySurvue() {
               label="Final: ride monitoring"
               width={624}
               height={1277}
-              caption="The active-ride view: live rear monitoring with a Gallery / Detection / Settings base."
+              caption="The active ride view: live rear monitoring with a Gallery / Detection / Settings base."
             />
             <Screenshot
               src="/survue/ride-monitoring.webp"
               label="Final: vehicle detected"
               width={628}
               height={1278}
-              caption="The live alert: red road framing, the vehicle in alert red, and one plain-language risk level, readable in the quarter-second a rider can spare."
+              caption="The live alert: red road framing, the vehicle in alert red, and one plain language risk level, readable in the quarter second a rider can spare."
             />
             <Screenshot
               src="/survue/recordings.webp"
               label="Final: automatic recordings"
               width={626}
               height={1277}
-              caption="Auto-saved ride clips, timestamped, one tap to keep or delete."
+              caption="Auto saved ride clips, timestamped, one tap to keep or delete."
             />
             <Screenshot
               src="/survue/settings.webp"
@@ -380,8 +380,8 @@ export default function CaseStudySurvue() {
         <Section eyebrow="Outcome & Learnings" title="What shipped, and what it taught me">
           <div className="flex flex-col gap-10 text-text-secondary leading-relaxed text-lg">
             <p>
-              Collaborating with a three-person engineering team, I translated the
-              UX into production-ready features and shipped a settings experience
+              Collaborating with a three person engineering team, I translated the
+              UX into production ready features and shipped a settings experience
               with parity across three platforms.
             </p>
 

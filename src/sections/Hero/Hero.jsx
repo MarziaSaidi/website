@@ -100,7 +100,7 @@ export default function Hero() {
           />
 
           <p className="enter enter-2 text-lg md:text-xl text-text-secondary leading-snug max-w-lg">
-            Hi, I'm Marzia Saidi — I design interfaces and ship the production code behind them.
+            Hi, I'm Marzia Saidi. I design interfaces and ship the production code behind them.
           </p>
         </div>
       </div>

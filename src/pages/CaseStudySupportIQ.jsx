@@ -68,17 +68,17 @@ function PipelineIcon() {
 }
 
 const principles = [
-  { icon: <TargetIcon />, title: "Ground every answer in real data", body: "The assistant runs on a RAG pipeline — embeddings, vector search, function calling against the order database — so a reply cites an actual order instead of generating a plausible-sounding guess." },
-  { icon: <LockIcon />, title: "Isolate tenants everywhere, not just at the door", body: "JWT auth and role-based access control run on every request, not just login — a support agent from one tenant can't reach another tenant's tickets by changing a URL or guessing an ID." },
-  { icon: <CheckShieldIcon />, title: "Test the paths that can't fail silently", body: "Auth and data-access logic are the two places a quiet bug becomes a real incident, so those are exactly where the JUnit and Mockito coverage lives, not spread evenly across the codebase." },
-  { icon: <PipelineIcon />, title: "Ship it the way a real product ships", body: "Docker plus a GitHub Actions pipeline deploys the platform on its own — the same bar a team engineering org would hold this to, applied to a project built by one person." },
+  { icon: <TargetIcon />, title: "Ground every answer in real data", body: "The assistant runs on a RAG pipeline (embeddings, vector search, function calling against the order database) so a reply cites an actual order instead of generating a plausible sounding guess." },
+  { icon: <LockIcon />, title: "Isolate tenants everywhere, not just at the door", body: "JWT auth and role based access control run on every request, not just login. A support agent from one tenant can't reach another tenant's tickets by changing a URL or guessing an ID." },
+  { icon: <CheckShieldIcon />, title: "Test the paths that can't fail silently", body: "Auth and data access logic are the two places a quiet bug becomes a real incident, so those are exactly where the JUnit and Mockito coverage lives, not spread evenly across the codebase." },
+  { icon: <PipelineIcon />, title: "Ship it the way a real product ships", body: "Docker plus a GitHub Actions pipeline deploys the platform on its own, the same bar a team engineering org would hold this to, applied to a project built by one person." },
 ];
 
 const decisions = [
-  { n: "01", title: "RAG grounded in real data, not free-form generation", body: "Function calling pulls the actual order record before the model answers — \"I see order #4521 shipped Tuesday\" is a database read, not a guess dressed up as one. That distinction is the entire trust argument for an AI support tool." },
-  { n: "02", title: "JWT + role-based access as the tenant boundary", body: "Multi-tenant SaaS lives or dies on this one guarantee. Every API route checks role and tenant on the token, not just at the login screen — the boundary has to hold on every request, not just the first one." },
-  { n: "03", title: "Automated tests where a silent failure is expensive", body: "JUnit and Mockito cover auth and data-access first — the paths where a passing build with a broken guarantee is far worse than a build that fails loudly." },
-  { n: "04", title: "A pipeline that deploys itself", body: "Docker and GitHub Actions turn \"it works on my machine\" into a repeatable deploy — the same infrastructure discipline a production team would expect, built and run by one person." },
+  { n: "01", title: "RAG grounded in real data, not free form generation", body: "Function calling pulls the actual order record before the model answers: \"I see order #4521 shipped Tuesday\" is a database read, not a guess dressed up as one. That distinction is the entire trust argument for an AI support tool." },
+  { n: "02", title: "JWT + role based access as the tenant boundary", body: "Multi tenant SaaS lives or dies on this one guarantee. Every API route checks role and tenant on the token, not just at the login screen. The boundary has to hold on every request, not just the first one." },
+  { n: "03", title: "Automated tests where a silent failure is expensive", body: "JUnit and Mockito cover auth and data access first: the paths where a passing build with a broken guarantee is far worse than a build that fails loudly." },
+  { n: "04", title: "A pipeline that deploys itself", body: "Docker and GitHub Actions turn \"it works on my machine\" into a repeatable deploy: the same infrastructure discipline a production team would expect, built and run by one person." },
 ];
 
 export default function CaseStudySupportIQ() {
@@ -86,8 +86,8 @@ export default function CaseStudySupportIQ() {
     window.scrollTo(0, 0);
   }, []);
   useDocumentMeta(
-    "SupportIQ — Marzia Saidi",
-    "Building a multi-tenant AI support platform alone, end to end: a RAG assistant that answers from real order data, behind auth and access control built to hold up in production."
+    "SupportIQ | Marzia Saidi",
+    "Building a multi tenant AI support platform alone, end to end: a RAG assistant that answers from real order data, behind auth and access control built to hold up in production."
   );
 
   return (
@@ -114,14 +114,14 @@ export default function CaseStudySupportIQ() {
         {/* HERO */}
         <section className="border-b border-border">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
-            <Eyebrow className="enter enter-1">Case Study · AI · Full-Stack (Solo Build)</Eyebrow>
+            <Eyebrow className="enter enter-1">Case Study · AI · Full Stack (Solo Build)</Eyebrow>
             <h1 className="enter enter-2 font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8">
               SupportIQ
             </h1>
             <p className="enter enter-3 text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
-              Building a multi-tenant AI support platform alone, end to end: a
+              Building a multi tenant AI support platform alone, end to end: a
               RAG assistant that answers from real order data, behind auth and
-              access control built to hold up in production — not just a demo.
+              access control built to hold up in production, not just a demo.
             </p>
 
             <a
@@ -138,10 +138,10 @@ export default function CaseStudySupportIQ() {
 
             <dl className="enter enter-5 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-12 border-t border-border pt-10">
               {[
-                ["Role", "Full-stack engineer & designer (solo)"],
+                ["Role", "Full stack engineer & designer (solo)"],
                 ["Type", "Personal project"],
                 ["Stack", "Java · Spring Boot · React · Next.js"],
-                ["Focus", "Production-grade multi-tenant SaaS"],
+                ["Focus", "Production grade multi tenant SaaS"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
                   <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-label">{k}</dt>
@@ -165,14 +165,14 @@ export default function CaseStudySupportIQ() {
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
               <p className="text-sm text-text leading-relaxed">
-                Solo — no team, no handoff: designed and built the full
+                Solo, no team, no handoff: designed and built the full
                 stack, the RAG pipeline, auth, and the deploy pipeline.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
               <p className="text-sm text-text leading-relaxed">
-                A live, tested, CI/CD-deployed multi-tenant platform —
+                A live, tested, CI/CD deployed multi tenant platform,
                 shipped, not just prototyped.
               </p>
             </div>
@@ -183,14 +183,14 @@ export default function CaseStudySupportIQ() {
         <Section eyebrow="Overview" title="A platform, not a screen">
           <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
-              SupportIQ is an AI-powered, multi-tenant customer support
+              SupportIQ is an AI powered, multi tenant customer support
               platform: Java and Spring Boot on the backend, React and
               Next.js on the front, talking through secured REST APIs, with a
               RAG pipeline on the OpenAI API answering from real order data
               instead of guessing.
             </p>
             <p>
-              I built it on my own — no team, no handoff — specifically to
+              I built it on my own (no team, no handoff) specifically to
               prove I could take a product from idea to something actually
               deployed. That meant the scope wasn't just "design a support
               chat UI." It was the whole system: the database, the tenant
@@ -205,11 +205,11 @@ export default function CaseStudySupportIQ() {
           <div className="flex flex-col gap-8 text-text-secondary leading-relaxed text-lg">
             <p>
               A support AI that answers confidently and wrong is a liability,
-              not a feature — a customer asking about order #4521 needs an
-              answer sourced from order #4521, not a fluent-sounding
-              hallucination. And a multi-tenant platform that lets one
+              not a feature. A customer asking about order #4521 needs an
+              answer sourced from order #4521, not a fluent sounding
+              hallucination. And a multi tenant platform that lets one
               tenant's data leak into another's isn't a bug, it's the product
-              failing at its one non-negotiable job.
+              failing at its one non negotiable job.
             </p>
             <blockquote className="border-l-2 border-bronze pl-6 py-1">
               <p className="font-serif text-2xl md:text-3xl text-accent leading-snug italic">
@@ -218,10 +218,10 @@ export default function CaseStudySupportIQ() {
               </p>
             </blockquote>
             <p>
-              So the build had two non-negotiables from the start: every
+              So the build had two non negotiables from the start: every
               answer has to be traceable to a real record, and every request
               has to be checked against who's actually asking. Everything
-              else — the interface, the chat flow, the tenant dashboard — sits
+              else (the interface, the chat flow, the tenant dashboard) sits
               on top of those two guarantees.
             </p>
           </div>
@@ -243,7 +243,7 @@ export default function CaseStudySupportIQ() {
         {/* THE SYSTEM */}
         <Section eyebrow="The System" title="One assistant, three layers underneath it" wide>
           <p className="text-text-secondary leading-relaxed text-lg mb-14 max-w-[820px]">
-            SupportIQ isn't a multi-screen interface tour — it's one focused
+            SupportIQ isn't a multi screen interface tour. It's one focused
             surface (the ticket assistant) sitting on top of a stack most
             visitors never see: the access boundary that keeps tenants apart,
             and the pipeline that ships changes to it. The assistant below is
@@ -258,8 +258,8 @@ export default function CaseStudySupportIQ() {
             <div className="flex flex-col gap-2">
               <h3 className="font-serif text-xl text-text">The access boundary</h3>
               <p className="text-text-secondary leading-relaxed">
-                JWT auth and role-based access control sit in front of every
-                API route — the layer that decides what a request is even
+                JWT auth and role based access control sit in front of every
+                API route: the layer that decides what a request is even
                 allowed to touch before the RAG pipeline runs at all.
               </p>
             </div>
@@ -268,7 +268,7 @@ export default function CaseStudySupportIQ() {
               <p className="text-text-secondary leading-relaxed">
                 Docker packages the app the same way in every environment;
                 GitHub Actions runs the JUnit/Mockito suite and deploys on a
-                push — the part of "shipping software" that has nothing to
+                push: the part of "shipping software" that has nothing to
                 do with the interface at all.
               </p>
             </div>
@@ -296,7 +296,7 @@ export default function CaseStudySupportIQ() {
         <Section eyebrow="Learnings" title="What building SupportIQ taught me">
           <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
-              Owning this end to end — backend, frontend, deployment — showed
+              Owning this end to end (backend, frontend, deployment) showed
               me I don't just design interfaces. I can ship the product
               behind them too.
             </p>

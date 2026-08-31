@@ -120,42 +120,42 @@ const frames = [
     title: "Dispatch overview",
     label: "Frame: dispatch overview",
     src: "/relay/dispatch-overview.webp",
-    body: "The command surface. A live map with driver and order pins, an order queue grouped by status, a fleet strip, a KPI bar (on-time %, active drivers, average time), and exception alerts, all readable in one glance.",
+    body: "The command surface. A live map with driver and order pins, an order queue grouped by status, a fleet strip, a KPI bar (on time %, active drivers, average time), and exception alerts, all readable in one glance.",
   },
   {
     index: "02",
     title: "Order & assignment",
     label: "Frame: order & assignment",
     src: "/relay/order-assignment.webp",
-    body: "One order in focus: an SLA countdown, a ranked list of suggested drivers with the reasons behind the ranking, a one-click assign action, and a full event timeline.",
+    body: "One order in focus: an SLA countdown, a ranked list of suggested drivers with the reasons behind the ranking, a one click assign action, and a full event timeline.",
   },
   {
     index: "03",
     title: "Driver detail",
     label: "Frame: driver detail",
     src: "/relay/driver-detail.webp",
-    body: "A single driver’s live route and stops, remaining capacity, and on-time record, so the dispatcher can trust a reassignment before they make it.",
+    body: "A single driver’s live route and stops, remaining capacity, and on time record, so the dispatcher can trust a reassignment before they make it.",
   },
   {
     index: "04",
     title: "Exceptions queue",
     label: "Frame: exceptions queue",
     src: "/relay/exceptions-queue.webp",
-    body: "Problems as a triage table, ranked by severity and SLA-breach risk, with resolve actions inline. The riskiest items rise to the top so nothing slips.",
+    body: "Problems as a triage table, ranked by severity and SLA breach risk, with resolve actions inline. The riskiest items rise to the top so nothing slips.",
   },
 ];
 
 const decisions = [
   { n: "01", title: "Status as one system", body: "Orders, drivers, and exceptions all speak the same visual language for state: a consistent pairing of shape, color, and label. Learn it once, read it everywhere." },
-  { n: "02", title: "SLA as the spine", body: "Time-to-breach is the organizing signal across the whole console. The closest-to-breaking items surface first in every view, so attention goes where it matters." },
-  { n: "03", title: "Assignment as a ranked decision", body: "Instead of a raw driver list, the console suggests the best options and shows why (proximity, capacity, on-time record). The dispatcher confirms judgment rather than doing the math." },
+  { n: "02", title: "SLA as the spine", body: "Time to breach is the organizing signal across the whole console. The closest to breaking items surface first in every view, so attention goes where it matters." },
+  { n: "03", title: "Assignment as a ranked decision", body: "Instead of a raw driver list, the console suggests the best options and shows why (proximity, capacity, on time record). The dispatcher confirms judgment rather than doing the math." },
   { n: "04", title: "Exceptions as a queue, not alarms", body: "Problems don’t pile up as popups fighting for attention. They land in a triaged queue with clear next actions, so a bad moment stays manageable." },
 ];
 
 export default function CaseStudyRelay() {
   useDocumentMeta(
-    "Relay — Marzia Saidi",
-    "Designing a last-mile delivery operations console: a high-density, real-time surface a dispatcher can scan and operate under pressure."
+    "Relay | Marzia Saidi",
+    "Designing a last mile delivery operations console: a high density, real time surface a dispatcher can scan and operate under pressure."
   );
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -185,13 +185,13 @@ export default function CaseStudyRelay() {
         {/* HERO */}
         <section className="border-b border-border">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
-            <Eyebrow className="enter enter-1">Case Study · Product Design (Self-Directed)</Eyebrow>
+            <Eyebrow className="enter enter-1">Case Study · Product Design (Self Directed)</Eyebrow>
             <h1 className="enter enter-2 font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8">
               Relay
             </h1>
             <p className="enter enter-3 text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
-              Designing a last-mile delivery operations console: a high-density,
-              real-time surface a dispatcher can scan and operate under pressure.
+              Designing a last mile delivery operations console: a high density,
+              real time surface a dispatcher can scan and operate under pressure.
             </p>
 
             <a
@@ -211,10 +211,10 @@ export default function CaseStudyRelay() {
 
             <dl className="enter enter-5 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-12 border-t border-border pt-10">
               {[
-                ["Role", "Product Designer (self-directed)"],
+                ["Role", "Product Designer (self directed)"],
                 ["Type", "Personal project"],
                 ["Surface", "Desktop operations console"],
-                ["Focus", "Real-time information design"],
+                ["Focus", "Real time information design"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
                   <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-label">{k}</dt>
@@ -237,13 +237,13 @@ export default function CaseStudyRelay() {
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
               <p className="text-sm text-text leading-relaxed">
-                Self-directed: designed the full information hierarchy for a dense, real-time console.
+                Self directed: designed the full information hierarchy for a dense, real time console.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
               <p className="text-sm text-text leading-relaxed">
-                A complete four-screen design, published as a live, interactive prototype.
+                A complete four screen design, published as a live, interactive prototype.
               </p>
             </div>
           </div>
@@ -253,15 +253,15 @@ export default function CaseStudyRelay() {
         <Section eyebrow="Overview" title="An operation you can run at a glance">
           <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
-              Relay is a self-directed exploration of one of the hardest problems
-              in interface design: a last-mile delivery operations console. A
+              Relay is a self directed exploration of one of the hardest problems
+              in interface design: a last mile delivery operations console. A
               dispatcher watches dozens of live orders, a fleet of drivers, and
               SLAs ticking down, while things constantly go wrong: delays, failed
               drops, traffic.
             </p>
             <p>
               The console has to show the whole operation at a glance and let the
-              dispatcher act in seconds. High density, real-time state, and fast
+              dispatcher act in seconds. High density, real time state, and fast
               decisions under pressure, all on one screen. I took it on because
               it’s exactly the kind of surface where information design either
               works or falls apart.
@@ -350,7 +350,7 @@ export default function CaseStudyRelay() {
             </p>
             <p>
               It’s the craft I most want to keep sharpening: taking a dense,
-              real-time, high-stakes surface and making it feel calm, scannable,
+              real time, high stakes surface and making it feel calm, scannable,
               and genuinely operable. That’s where interface design stops being
               decoration and starts being infrastructure.
             </p>

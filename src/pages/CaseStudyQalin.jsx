@@ -108,17 +108,17 @@ function ShieldIcon() {
 }
 
 const principles = [
-  { icon: <FrameIcon />, title: "Let the object sell itself", body: "Full-bleed rug photography carries the home page, the grid, and the product page. Copy stays minimal, because pattern and craftsmanship are the actual argument." },
+  { icon: <FrameIcon />, title: "Let the object sell itself", body: "Full bleed rug photography carries the home page, the grid, and the product page. Copy stays minimal, because pattern and craftsmanship are the actual argument." },
   { icon: <LayersIcon />, title: "Filter by feel, not just facet", body: "Traditional, Modern, Transitional, Abstract, Irregular sit above material and size in the filter menu, because a buyer pictures a room's mood before they picture a knot count." },
-  { icon: <TagIcon />, title: "Price with its reason", body: "Construction — hand-knotted wool, hand-tufted, pure silk — sits next to every price, everywhere in the app, so a $48,263 rug reads as earned value, not sticker shock." },
+  { icon: <TagIcon />, title: "Price with its reason", body: "Construction (hand knotted wool, hand tufted, pure silk) sits next to every price, everywhere in the app, so a $48,263 rug reads as earned value, not sticker shock." },
   { icon: <ShieldIcon />, title: "A calm, short path to buy", body: "Cart, checkout, and confirmation stay to three uninterrupted screens, with sizing and payment specifics visible the whole way. Restraint reads as trustworthy at this price point." },
 ];
 
 const decisions = [
-  { n: "01", title: "Photography does the persuading, not the copy", body: "Home's hero banner is the rug photograph itself. The product page backs it with a four-shot detail gallery — weave, corner, motif, fringe — instead of one hero image, because texture and knot density are what a buyer needs to trust sight-unseen." },
-  { n: "02", title: "Style-first navigation, layered over category", body: "The filter menu organizes by design language first, with Carpet / Rug / Cushion product type as its own, secondary tab set — so someone browsing for “something modern” never has to first decide what kind of object they're even looking for." },
-  { n: "03", title: "Construction stays paired with price, always", body: "Every card, everywhere in the catalog, shows material and technique directly under the price. That pairing is what turns a five-figure number into a legible decision instead of a moment of sticker shock." },
-  { n: "04", title: "Checkout stays boring on purpose", body: "One address, one saved card, one line item, one total, one button. No multi-step wizard, no upsell modules. At this price point, restraint reads as trustworthy, not as a missed opportunity." },
+  { n: "01", title: "Photography does the persuading, not the copy", body: "Home's hero banner is the rug photograph itself. The product page backs it with a four shot detail gallery (weave, corner, motif, fringe) instead of one hero image, because texture and knot density are what a buyer needs to trust sight unseen." },
+  { n: "02", title: "Style first navigation, layered over category", body: "The filter menu organizes by design language first, with Carpet / Rug / Cushion product type as its own, secondary tab set, so someone browsing for “something modern” never has to first decide what kind of object they're even looking for." },
+  { n: "03", title: "Construction stays paired with price, always", body: "Every card, everywhere in the catalog, shows material and technique directly under the price. That pairing is what turns a five figure number into a legible decision instead of a moment of sticker shock." },
+  { n: "04", title: "Checkout stays boring on purpose", body: "One address, one saved card, one line item, one total, one button. No multi step wizard, no upsell modules. At this price point, restraint reads as trustworthy, not as a missed opportunity." },
 ];
 
 export default function CaseStudyQalin() {
@@ -126,8 +126,8 @@ export default function CaseStudyQalin() {
     window.scrollTo(0, 0);
   }, []);
   useDocumentMeta(
-    "Qalin — Marzia Saidi",
-    "Designing a mobile marketplace for hand-knotted rugs and carpets: a shopping flow that has to build trust in an object worth thousands, through nothing but a phone screen."
+    "Qalin | Marzia Saidi",
+    "Designing a mobile marketplace for hand knotted rugs and carpets: a shopping flow that has to build trust in an object worth thousands, through nothing but a phone screen."
   );
 
   return (
@@ -154,12 +154,12 @@ export default function CaseStudyQalin() {
         {/* HERO */}
         <section className="border-b border-border">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 pt-28 pb-20 md:pt-40 md:pb-28">
-            <Eyebrow className="enter enter-1">Case Study · Mobile UX Design (Self-Directed)</Eyebrow>
+            <Eyebrow className="enter enter-1">Case Study · Mobile UX Design (Self Directed)</Eyebrow>
             <h1 className="enter enter-2 font-serif text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-8">
               Qalin
             </h1>
             <p className="enter enter-3 text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
-              Designing a mobile marketplace for hand-knotted rugs and carpets:
+              Designing a mobile marketplace for hand knotted rugs and carpets:
               a shopping flow that has to build trust in an object worth
               thousands, through nothing but a phone screen.
             </p>
@@ -178,7 +178,7 @@ export default function CaseStudyQalin() {
 
             <dl className="enter enter-5 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-12 border-t border-border pt-10">
               {[
-                ["Role", "Product Designer (self-directed)"],
+                ["Role", "Product Designer (self directed)"],
                 ["Type", "Personal project"],
                 ["Platform", "iOS · mobile commerce"],
                 ["Focus", "Trust design at a high price point"],
@@ -205,14 +205,14 @@ export default function CaseStudyQalin() {
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
               <p className="text-sm text-text leading-relaxed">
-                Self-directed: designed the full ten-screen shopping
+                Self directed: designed the full ten screen shopping
                 experience, from discovery through checkout.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
               <p className="text-sm text-text leading-relaxed">
-                A complete, photography-led purchase flow, published as a
+                A complete, photography led purchase flow, published as a
                 live, interactive prototype.
               </p>
             </div>
@@ -223,11 +223,11 @@ export default function CaseStudyQalin() {
         <Section eyebrow="Overview" title="Ecommerce at the top of the price ladder">
           <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
-              Qalin is a self-directed exploration of mobile commerce for
-              hand-knotted wool and silk rugs and carpets, priced anywhere
-              from $720 to $86,000 and up. I designed the full ten-screen
-              experience — home, browse, search, style filtering, product
-              detail, cart, checkout, and confirmation — as a live,
+              Qalin is a self directed exploration of mobile commerce for
+              hand knotted wool and silk rugs and carpets, priced anywhere
+              from $720 to $86,000 and up. I designed the full ten screen
+              experience (home, browse, search, style filtering, product
+              detail, cart, checkout, and confirmation) as a live,
               interactive prototype.
             </p>
             <p>
@@ -241,12 +241,12 @@ export default function CaseStudyQalin() {
         </Section>
 
         {/* PROBLEM */}
-        <Section eyebrow="The Problem" title="A five-figure tap needs evidence, not persuasion">
+        <Section eyebrow="The Problem" title="A five figure tap needs evidence, not persuasion">
           <div className="flex flex-col gap-8 text-text-secondary leading-relaxed text-lg">
             <p>
               A shopper can't run a hand across a rug's pile through a phone
-              screen, can't gauge how a $48,263 hand-knotted piece will
-              actually sit in their dining room, and has no in-store expert
+              screen, can't gauge how a $48,263 hand knotted piece will
+              actually sit in their dining room, and has no in store expert
               standing next to them. At the price points Qalin sells at,
               hesitation isn't a UX inconvenience, it's the sale.
             </p>
@@ -259,8 +259,8 @@ export default function CaseStudyQalin() {
             <p>
               So the design question wasn't “how do we get someone to check
               out faster.” It was “what does someone need to see, and in what
-              order, before a five-figure tap feels reasonable.” That
-              reframing shaped everything from the home page's full-bleed
+              order, before a five figure tap feels reasonable.” That
+              reframing shaped everything from the home page's full bleed
               photography to the checkout screen's total silence on anything
               but the order itself.
             </p>
@@ -298,7 +298,7 @@ export default function CaseStudyQalin() {
                   label="Home"
                   width={633}
                   height={1280}
-                  caption="The rug itself is the hero image, with a single Explore Collection action — no scrolling required to see something worth thousands."
+                  caption="The rug itself is the hero image, with a single Explore Collection action. No scrolling required to see something worth thousands."
                 />
                 <Screenshot
                   src="/qalin/2.webp"
@@ -312,7 +312,7 @@ export default function CaseStudyQalin() {
                   label="Style filter menu"
                   width={633}
                   height={1280}
-                  caption="Filters run by design language — Traditional, Modern, Abstract, Irregular — because that's how a buyer pictures a room first."
+                  caption="Filters run by design language: Traditional, Modern, Abstract, Irregular, because that's how a buyer pictures a room first."
                 />
                 <Screenshot
                   src="/qalin/9.webp"
@@ -339,14 +339,14 @@ export default function CaseStudyQalin() {
                   label="Full catalog grid"
                   width={633}
                   height={1280}
-                  caption="Construction and price sit together on every card — hand-knotted wool at $48,263 next to hand-tufted wool at $720 — value legible before a tap."
+                  caption="Construction and price sit together on every card: hand knotted wool at $48,263 next to hand tufted wool at $720, so value is legible before a tap."
                 />
                 <Screenshot
                   src="/qalin/6.webp"
                   label="Product detail"
                   width={633}
                   height={1280}
-                  caption="A four-shot detail gallery — weave, corner, motif, fringe — plus exact rug size in feet and centimeters, above one Add to Basket action."
+                  caption="A four shot detail gallery (weave, corner, motif, fringe) plus exact rug size in feet and centimeters, above one Add to Basket action."
                 />
               </div>
             </div>
@@ -359,21 +359,21 @@ export default function CaseStudyQalin() {
                   label="Cart"
                   width={633}
                   height={1280}
-                  caption="Quantity steppers and a plain subtotal, with a note that shipping and tax resolve at checkout — the number shown is incomplete, never wrong."
+                  caption="Quantity steppers and a plain subtotal, with a note that shipping and tax resolve at checkout: the number shown is incomplete, never wrong."
                 />
                 <Screenshot
                   src="/qalin/8.webp"
                   label="Checkout"
                   width={633}
                   height={1280}
-                  caption="Address, saved card, and the order line sit in one uninterrupted view — no steps, no upsells, one Buy Now."
+                  caption="Address, saved card, and the order line sit in one uninterrupted view: no steps, no upsells, one Buy Now."
                 />
                 <Screenshot
                   src="/qalin/10.webp"
                   label="Payment success"
                   width={633}
                   height={1280}
-                  caption="A payment ID for the record a five-figure purchase deserves, a one-tap satisfaction check, and a clear way back to browsing."
+                  caption="A payment ID for the record a five figure purchase deserves, a one tap satisfaction check, and a clear way back to browsing."
                 />
               </div>
             </div>

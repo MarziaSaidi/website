@@ -17,7 +17,7 @@ export default function About() {
             </span>
             <span className="block h-px w-6 bg-accent divider-draw" aria-hidden="true" />
             <p className="text-xs tracking-eyebrow uppercase text-text-secondary">
-              So — who builds all this?
+              So, who builds all this?
             </p>
           </div>
 
@@ -35,7 +35,7 @@ export default function About() {
           <p className="text-base leading-relaxed max-w-xl text-text-secondary">
             I work across the full stack of a product decision: understanding the user&rsquo;s problem, designing the
             interface that solves it, and writing the code that ships it. That range comes from internships that put
-            me in both seats, UX design and full-stack development, often on the same team, in the same sprint.
+            me in both seats, UX design and full stack development, often on the same team, in the same sprint.
           </p>
         </div>
 

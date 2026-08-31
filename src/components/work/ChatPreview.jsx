@@ -36,11 +36,11 @@ export default function ChatPreview() {
       <BrowserChrome url="app.supportiq.dev/tickets/4521">
       <div className="p-2.5 sm:p-4 md:p-5 flex flex-col gap-2 sm:gap-3 bg-background">
         <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
-          My order hasn't arrived yet — it's been a week.
+          My order hasn't arrived yet. It's been a week.
         </div>
         <div className="flex self-start max-w-[90%] flex-col gap-1.5 sm:gap-2">
           <div className="rounded-2xl rounded-bl-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
-            I see order #4521 shipped Tuesday and is currently in transit —
+            I see order #4521 shipped Tuesday and is currently in transit,
             expected Thursday. Want me to send the tracking link?
           </div>
           <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-label">
@@ -82,7 +82,7 @@ export default function ChatPreview() {
             <div className="self-start max-w-[90%] flex flex-col gap-1.5 sm:gap-2">
               <div className="rounded-2xl rounded-bl-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
                 Since it's still in transit rather than lost, I'd hold off on a
-                refund for now — I can start one automatically if it doesn't
+                refund for now. I can start one automatically if it doesn't
                 arrive by Friday. Sound okay?
               </div>
               <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-label">

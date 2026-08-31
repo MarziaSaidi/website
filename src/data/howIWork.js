@@ -15,7 +15,7 @@ export const howIWork = [
   },
   {
     title: "Build",
-    body: "Then I make it real. I design with implementation in mind and write the code myself, so the gap between the idea and the shipped product stays small. Components, performance, accessibility, and responsive behavior are part of the design — not things I figure out afterward.",
+    body: "Then I make it real. I design with implementation in mind and write the code myself, so the gap between the idea and the shipped product stays small. Components, performance, accessibility, and responsive behavior are part of the design, not things I figure out afterward.",
   },
   {
     title: "Iterate",

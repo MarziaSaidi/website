@@ -15,7 +15,7 @@ export const STAGES = [
     from: 0,
     to: 0.2,
     description:
-      "It starts with a question, not a screen. Sticky notes, half-formed flows, a user need I can't quite draw yet.",
+      "It starts with a question, not a screen. Sticky notes, half formed flows, a user need I can't quite draw yet.",
     tags: ["User need", "Why?", "Pain point"],
   },
   {
@@ -33,7 +33,7 @@ export const STAGES = [
     label: "Build",
     from: 0.4,
     to: 0.65,
-    description: "Wireframes become real interface — typography, buttons, states, code — assembled in front of you.",
+    description: "Wireframes become real interface (typography, buttons, states, code) assembled in front of you.",
     tags: ["Component", "Type", "Code"],
   },
   {
@@ -43,7 +43,7 @@ export const STAGES = [
     from: 0.65,
     to: 0.85,
     description:
-      "This is where it starts to feel alive — spacing, timing, alignment. Details most people never notice, until they're wrong.",
+      "This is where it starts to feel alive: spacing, timing, alignment. Details most people never notice, until they're wrong.",
     tags: ["Align", "Timing", "Details matter"],
   },
   {
@@ -52,7 +52,7 @@ export const STAGES = [
     label: "Ship",
     from: 0.85,
     to: 1,
-    description: "Designed, built, and shipped by the same hands. The sketch is gone — the product is real.",
+    description: "Designed, built, and shipped by the same hands. The sketch is gone; the product is real.",
     tags: ["Designed", "Built", "Shipped"],
   },
 ];

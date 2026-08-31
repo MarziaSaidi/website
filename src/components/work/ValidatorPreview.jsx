@@ -32,7 +32,7 @@ export default function ValidatorPreview() {
           <tbody>
             {rows.map((row) => (
               <tr key={row.rowNum} className="border-b border-border last:border-0">
-                <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5 text-text-secondary">{row.nickname || "—"}</td>
+                <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5 text-text-secondary">{row.nickname || "N/A"}</td>
                 <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5 text-text">{row.firstName}</td>
                 <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5 text-text">{row.lastName}</td>
                 <td className="px-1.5 py-1.5 sm:px-3 sm:py-2.5">

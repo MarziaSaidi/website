@@ -122,7 +122,7 @@ const frames = [
     title: "Dashboard overview",
     label: "Frame: dashboard overview",
     src: "/get-campus/dashboard-overview.webp",
-    body: "The employer's landing surface: active job postings, pending applications, response rate, and average time-to-hire, plus an applications trend chart and a ranked list of top-performing jobs.",
+    body: "The employer's landing surface: active job postings, pending applications, response rate, and average time to hire, plus an applications trend chart and a ranked list of top performing jobs.",
   },
   {
     index: "02",
@@ -143,21 +143,21 @@ const frames = [
     title: "Billing & student payments",
     label: "Frame: billing and student payments",
     src: "/get-campus/billing.webp",
-    body: "Plan and payment method for the employer, plus a separate ledger for paying the students they hire: total paid out, pending payments, and per-student, per-gig invoices.",
+    body: "Plan and payment method for the employer, plus a separate ledger for paying the students they hire: total paid out, pending payments, and per student, per gig invoices.",
   },
 ];
 
 const decisions = [
   { n: "01", title: "Status as one shared language", body: "Applications, candidates, and payments all use the same pairing of color and label for state, so an employer scanning any table already knows how to read it." },
-  { n: "02", title: "Match score as the shortcut", body: "Instead of asking an employer to re-evaluate every resume, a single match percentage surfaces on both Applications and Discover, so attention goes to the strongest candidates first." },
+  { n: "02", title: "Match score as the shortcut", body: "Instead of asking an employer to re evaluate every resume, a single match percentage surfaces on both Applications and Discover, so attention goes to the strongest candidates first." },
   { n: "03", title: "Discovery as a parallel path to posting", body: "Not every good hire comes from someone applying. Discover lets an employer search and invite candidates directly, so hiring isn't blocked on waiting for inbound applications." },
   { n: "04", title: "Payments scoped to the employer's own view", body: "Billing keeps the employer's own subscription separate from what they owe the students they've hired, two different obligations that needed two different sections, not one merged table." },
 ];
 
 export default function CaseStudyGetCampus() {
   useDocumentMeta(
-    "Get Campus — Marzia Saidi",
-    "Designing the employer side of a student-gig marketplace: job posting, candidate discovery, applications, and billing, shipped as production-ready Figma specs working directly with the founders and engineers."
+    "Get Campus | Marzia Saidi",
+    "Designing the employer side of a student gig marketplace: job posting, candidate discovery, applications, and billing, shipped as production ready Figma specs working directly with the founders and engineers."
   );
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -192,9 +192,9 @@ export default function CaseStudyGetCampus() {
               Get Campus
             </h1>
             <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
-              Designing the employer side of a student-gig marketplace: job
+              Designing the employer side of a student gig marketplace: job
               posting, candidate discovery, applications, and billing, shipped
-              as production-ready Figma specs working directly with the
+              as production ready Figma specs working directly with the
               founders and engineers.
             </p>
 
@@ -220,37 +220,37 @@ export default function CaseStudyGetCampus() {
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Problem</p>
               <p className="text-sm text-text leading-relaxed">
-                An early-stage startup needed a working employer platform fast, with every screen handed to engineering build-ready, not still in flux.
+                An early stage startup needed a working employer platform fast, with every screen handed to engineering build ready, not still in flux.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
               <p className="text-sm text-text leading-relaxed">
-                Owned end-to-end UX for the employer side: flows, wireframes, high-fidelity prototypes, and Dev Mode specs, working directly with founders and engineers.
+                Owned end to end UX for the employer side: flows, wireframes, high fidelity prototypes, and Dev Mode specs, working directly with founders and engineers.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
               <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
               <p className="text-sm text-text leading-relaxed">
-                Four production-ready surfaces, dashboard through billing, shipped from first prototype to spec in about four weeks.
+                Four production ready surfaces, dashboard through billing, shipped from first prototype to spec in about four weeks.
               </p>
             </div>
           </div>
         </section>
 
         {/* OVERVIEW */}
-        <Section eyebrow="Overview" title="The employer side of a two-sided marketplace">
+        <Section eyebrow="Overview" title="The employer side of a two sided marketplace">
           <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-lg">
             <p>
               Get Campus connects students to gig work, and employers to
-              student talent, a two-sided platform with a companion
-              student-facing app (New Start Mobile) on the other end. I owned
+              student talent, a two sided platform with a companion
+              student facing app (New Start Mobile) on the other end. I owned
               the employer side: the dashboard, job posting, applications,
               candidate discovery, and billing, from first Figma prototype
               through developer handoff.
             </p>
             <p>
-              This was an early-stage startup working at startup speed.
+              This was an early stage startup working at startup speed.
               Requirements moved as the founders learned what employers
               actually needed, so the job wasn't just designing screens, it
               was designing them in a way that could absorb change without
@@ -260,10 +260,10 @@ export default function CaseStudyGetCampus() {
         </Section>
 
         {/* PROBLEM */}
-        <Section eyebrow="The Problem" title="Build-ready, not just look-ready">
+        <Section eyebrow="The Problem" title="Build ready, not just look ready">
           <div className="flex flex-col gap-8 text-text-secondary leading-relaxed text-lg">
             <p>
-              A two-person founding team can't wait weeks for a polished mock
+              A two person founding team can't wait weeks for a polished mock
               before engineering starts building. Every screen I designed had
               to be usable as an actual spec: real components, real states,
               real edge cases, not just a static picture of the happy path.
