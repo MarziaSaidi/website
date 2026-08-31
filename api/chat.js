@@ -11,12 +11,16 @@ import { skillGroups } from "../src/data/skills.js";
 
 // Free-tier Gemini models, tried in order. Whichever your API key allows on the
 // free tier gets used. Reorder to set a preference.
+// Updated Aug 2026 — the previous 2.x/1.5 lineup was fully retired by Google
+// (every entry below started 404ing in production). Re-check
+// https://ai.google.dev/gemini-api/docs/models periodically; Google rotates
+// these out on its own schedule, not this project's.
 const MODELS = [
-  "gemini-2.5-flash",
-  "gemini-2.5-flash-lite",
-  "gemini-2.0-flash-lite",
-  "gemini-2.0-flash",
-  "gemini-1.5-flash",
+  "gemini-3.7-flash",
+  "gemini-3.6-flash",
+  "gemini-3.5-flash",
+  "gemini-3.5-flash-lite",
+  "gemini-3.1-flash-lite",
 ];
 const MAX_HISTORY = 12; // cap how much conversation we send, to keep it fast/cheap
 
@@ -103,7 +107,6 @@ export default async function handler(req, res) {
 
   try {
     let data = null;
-    const attempts = [];
 
     for (const model of MODELS) {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -115,24 +118,20 @@ export default async function handler(req, res) {
 
       if (gemini.ok) {
         data = await gemini.json();
-        attempts.push({ model, status: 200 });
         break;
       }
 
       const detail = await gemini.text();
-      // Pull just Google's reason string so the debug stays short.
-      let reason = detail.slice(0, 160);
-      try {
-        reason = JSON.parse(detail)?.error?.message?.slice(0, 160) || reason;
-      } catch {}
-      attempts.push({ model, status: gemini.status, reason });
       console.error(`Gemini error (${model}):`, gemini.status, detail.slice(0, 300));
     }
 
     if (!data) {
+      // Full attempt detail (model, status, Google's reason string) is
+      // already in the server logs via console.error above — kept out of
+      // the client response so a visitor never sees internal model IDs or
+      // provider error text.
       return res.status(502).json({
         error: "The assistant is having trouble right now. Please try again.",
-        debug: { attempts },
       });
     }
 
