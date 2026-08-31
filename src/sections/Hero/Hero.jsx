@@ -78,7 +78,14 @@ function useHeroIntroReveal(wrapperRef, refs, reduced) {
   // prompt, storyboard + "View all works" visible) is instead seeded
   // directly in each element's own JSX-authored initial style, the same
   // convention HeroStoryboard/HeroStoryNav's reduced-motion branches use.
-  useHeroScrollProgress(wrapperRef, applyProgress, { disabled: reduced });
+  //
+  // smooth: false — introOut/storyIn are hard cuts, not eased fades (see
+  // the comment above), so they need the real, instant scroll position,
+  // not the damped value HeroStoryboard's own piece-by-piece reveal
+  // uses. ctaIn rides along on the same raw progress, which is fine: it
+  // already gets its own eased curve from smoothstep() above, independent
+  // of whether the progress feeding it is damped.
+  useHeroScrollProgress(wrapperRef, applyProgress, { disabled: reduced, smooth: false });
 }
 
 // Pointer parallax + spotlight only — driven by CSS custom properties set

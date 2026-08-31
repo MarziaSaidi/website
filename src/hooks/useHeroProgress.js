@@ -37,7 +37,18 @@ export function usePrefersReducedMotion() {
 const SMOOTH = 0.16;
 const SNAP_EPSILON = 0.0004;
 
-export function useHeroScrollProgress(wrapperRef, onProgress, { disabled = false } = {}) {
+// smooth=false skips the lerp above entirely — onProgress gets the raw,
+// instant scroll ratio on every event. Hero.jsx's intro/storyboard
+// switch needs this: it's a hard cut (see Hero.jsx's own comment), not
+// an eased transition, so it should react the instant the real scroll
+// position crosses its threshold. Feeding it the damped value instead
+// left a ~200ms window, after a fast scroll, where the damped progress
+// was still catching up from the *previous* side of the cut — during
+// which the intro view and storyboard view could each be mid-toggle at
+// once, since the two hard-cut thresholds (see Hero.jsx's BLANK_GAP)
+// were being evaluated against a progress value that hadn't caught up
+// to where the page actually was.
+export function useHeroScrollProgress(wrapperRef, onProgress, { disabled = false, smooth = true } = {}) {
   const measureRef = useRef({ top: 0, range: 1 });
   const targetRef = useRef(0);
   const currentRef = useRef(0);
@@ -87,6 +98,11 @@ export function useHeroScrollProgress(wrapperRef, onProgress, { disabled = false
     function onScroll(y) {
       const { top, range } = measureRef.current;
       targetRef.current = Math.min(1, Math.max(0, (y - top) / range));
+      if (!smooth) {
+        currentRef.current = targetRef.current;
+        onProgress(currentRef.current);
+        return;
+      }
       // The very first measurement (page load, or a hash-route remount)
       // should land exactly on the real scroll position — only scroll
       // deltas *after* that get smoothed, so nothing animates in from a
@@ -124,5 +140,5 @@ export function useHeroScrollProgress(wrapperRef, onProgress, { disabled = false
       unsubscribe();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [wrapperRef, onProgress, disabled]);
+  }, [wrapperRef, onProgress, disabled, smooth]);
 }
