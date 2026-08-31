@@ -6,6 +6,7 @@ import ChatWidget from "./components/ChatWidget";
 import CustomCursor from "./components/CustomCursor";
 import IntroLoader from "./components/IntroLoader";
 import Hero from "./sections/Hero/Hero";
+import ProcessSection from "./sections/Hero/ProcessSection";
 import FeaturedWork from "./sections/FeaturedWork";
 import SelectedWork from "./sections/SelectedWork";
 import Experience from "./sections/Experience";
@@ -62,6 +63,7 @@ function HomePage() {
   return (
     <Shell pageId="home">
       <Hero />
+      <ProcessSection />
       <FeaturedWork />
       <Contact />
     </Shell>
