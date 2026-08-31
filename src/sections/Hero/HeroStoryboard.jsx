@@ -272,7 +272,7 @@ export default function HeroStoryboard({ wrapperRef, reduced }) {
   // the wheel.
   return (
     <div
-      className="hero-storyboard w-full max-w-md mx-auto mt-14 lg:mt-0 lg:mx-0 lg:max-w-none lg:w-[60%] lg:shrink-0 h-[58vh] sm:h-[64vh] lg:h-[78vh] xl:h-[82vh]"
+      className="hero-storyboard w-full max-w-md mx-auto mt-4 lg:mt-0 lg:mx-0 lg:max-w-none lg:w-[60%] lg:shrink-0 aspect-[1400/764] lg:aspect-auto lg:h-[78vh] xl:h-[82vh]"
       aria-hidden="true"
     >
       <svg viewBox="0 0 1400 764" className="block w-full h-full" preserveAspectRatio="xMidYMid meet">
