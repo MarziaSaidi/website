@@ -121,7 +121,7 @@ export default function Hero() {
           <button
             type="button"
             onClick={scrollIntoStory}
-            className="enter enter-4 flex items-center gap-3 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+            className="enter enter-4 min-h-11 flex items-center gap-3 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
           >
             <span className="text-sm md:text-base tracking-wide">Scroll to see how I work</span>
             <svg

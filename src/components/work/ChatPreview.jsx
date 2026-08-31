@@ -54,7 +54,13 @@ export default function ChatPreview() {
             type="button"
             onClick={handleFollowUp}
             disabled={typing}
-            className="inline-flex self-end mt-1 text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze disabled:opacity-60"
+            // min-h-10 rather than the site's usual min-h-11: this whole
+            // preview renders at scale-[0.65] on mobile (see the wrapper
+            // above), which shrinks the button's actual hit area by the
+            // same factor — 2.5rem pre-scale lands at ~26px post-scale,
+            // clearing the 24px WCAG 2.5.8 floor instead of the ~20px it
+            // measured at before.
+            className="inline-flex items-center self-end mt-1 min-h-10 text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze disabled:opacity-60"
           >
             {typing ? "…" : FOLLOW_UP}
           </button>
