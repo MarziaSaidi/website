@@ -4,10 +4,13 @@ import { ProjectRow } from "../components/work/ProjectRow";
 
 // A hand-picked lineup shown on Home, using the same ProjectRow the full
 // Selected Work page uses — not a separate visual system, just a smaller
-// dose of it, closing with a link out to the full list. Qalin leads as the
-// newest project and gets a "NEW" marker instead of a numeral; the rest
-// keep the 01/02/03 numbering they had before it was added.
-const FEATURED_IDS = ["qalin", "supportiq", "quill-pigeon", "survue"];
+// dose of it, closing with a link out to the full list. SupportIQ leads:
+// it's the strongest full-stack "designs and ships code" evidence on the
+// site, and a "Design Engineer" pitch is weaker if the first thing shown
+// is a Figma-only project. Qalin still gets its "NEW" marker instead of a
+// numeral — that's about recency, not position — the rest number 01/02/03
+// in whatever order they actually appear.
+const FEATURED_IDS = ["supportiq", "qalin", "quill-pigeon", "survue"];
 
 function FeaturedWorkHeading() {
   const ref = useScrollReveal();
@@ -68,19 +71,28 @@ function ViewAllLink() {
 export default function FeaturedWork() {
   const featured = FEATURED_IDS.map((id) => work.find((p) => p.id === id)).filter(Boolean);
 
+  // Qalin's "NEW" marker replaces its numeral rather than occupying a slot
+  // in the count, so the sequence is computed here (skipping it) instead of
+  // read off raw array position — otherwise moving Qalin out of the first
+  // slot would leave the item that's actually first showing "00".
+  let seq = 0;
+  const rows = featured.map((project) => ({
+    project,
+    index: project.id === "qalin" ? "NEW" : String(++seq).padStart(2, "0"),
+  }));
+
   return (
     <section id="featured-work" aria-labelledby="featured-work-heading" className="pb-28 md:pb-40">
       <FeaturedWorkHeading />
       <div className="max-w-6xl mx-auto px-6 md:px-10 flex flex-col gap-2">
-        {featured.map((project, i) => (
+        {rows.map(({ project, index }, i) => (
           // reverse controls mobile stacking only (unchanged); imageLeft is
-          // the independent desktop left/right control — project 1 and 3
-          // both image-left, project 2 the alternate. Qalin (i === 0) shows
-          // "NEW" instead of a numeral; the rest number from 01 as before.
+          // the independent desktop left/right control — alternates by
+          // position regardless of which project sits there.
           <ProjectRow
             key={project.id}
             project={project}
-            index={project.id === "qalin" ? "NEW" : String(i).padStart(2, "0")}
+            index={index}
             reverse={i % 2 === 1}
             imageLeft={i % 2 === 0}
           />

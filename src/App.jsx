@@ -16,6 +16,7 @@ import CaseStudySurvue from "./pages/CaseStudySurvue";
 import CaseStudyRelay from "./pages/CaseStudyRelay";
 import CaseStudyGetCampus from "./pages/CaseStudyGetCampus";
 import CaseStudyQalin from "./pages/CaseStudyQalin";
+import CaseStudySupportIQ from "./pages/CaseStudySupportIQ";
 import SimpleCaseStudy from "./pages/SimpleCaseStudy";
 import { useHashRoute } from "./hooks/useHashRoute";
 
@@ -135,7 +136,7 @@ export default function App() {
   }
 
   if (route.startsWith("#/supportiq")) {
-    return <SimpleCaseStudy projectId="supportiq" />;
+    return <CaseStudySupportIQ />;
   }
 
   if (route.startsWith("#/quill-pigeon")) {
