@@ -16,7 +16,7 @@ export const work = [
     description:
       "Mobile marketplace for hand-knotted rugs and carpets, designed to build trust in a five-figure purchase through a phone screen.",
     preview: "poster",
-    previewSrc: "/qalin/showcase.png",
+    previewSrc: "/qalin/showcase.webp",
     previewWidth: 1728,
     previewHeight: 1117,
     previewAlt: "A layered showcase of Qalin's home, product, catalog, checkout, and search screens",
@@ -52,7 +52,7 @@ export const work = [
     description:
       "Cyclist-safety alerts riders can trust — from journey maps to a shipped, cross-platform settings module.",
     preview: "device",
-    previewSrc: "/survue/ride-monitoring.png",
+    previewSrc: "/survue/ride-monitoring.webp",
     previewWidth: 628,
     previewHeight: 1278,
     previewAlt: "Survue's live ride-monitoring alert screen",
@@ -70,7 +70,7 @@ export const work = [
     description:
       "Employer platform designed end-to-end in Figma and shipped as production-ready specs for engineers.",
     preview: "browser",
-    previewSrc: "/get-campus/dashboard-overview.png",
+    previewSrc: "/get-campus/dashboard-overview.webp",
     previewWidth: 2880,
     previewHeight: 1800,
     previewAlt: "Get Campus's employer dashboard overview",
@@ -89,7 +89,7 @@ export const work = [
     description:
       "Real-time console for a live delivery fleet, designed in Figma as an interactive prototype.",
     preview: "browser",
-    previewSrc: "/relay/dispatch-overview.png",
+    previewSrc: "/relay/dispatch-overview.webp",
     previewWidth: 2880,
     previewHeight: 1800,
     previewAlt: "Relay's live dispatch overview console",

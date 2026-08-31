@@ -325,35 +325,35 @@ export default function CaseStudySurvue() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-12 md:gap-y-14 justify-items-center">
             <Screenshot
-              src="/survue/pairing.png"
+              src="/survue/pairing.webp"
               label="Final: device pairing"
               width={625}
               height={1278}
               caption="Guided pairing: the device, its charge, and a single Connect action."
             />
             <Screenshot
-              src="/survue/home-screen.png"
+              src="/survue/home-screen.webp"
               label="Final: ride monitoring"
               width={624}
               height={1277}
               caption="The active-ride view: live rear monitoring with a Gallery / Detection / Settings base."
             />
             <Screenshot
-              src="/survue/ride-monitoring.png"
+              src="/survue/ride-monitoring.webp"
               label="Final: vehicle detected"
               width={628}
               height={1278}
               caption="The live alert: red road framing, the vehicle in alert red, and one plain-language risk level, readable in the quarter-second a rider can spare."
             />
             <Screenshot
-              src="/survue/recordings.png"
+              src="/survue/recordings.webp"
               label="Final: automatic recordings"
               width={626}
               height={1277}
               caption="Auto-saved ride clips, timestamped, one tap to keep or delete."
             />
             <Screenshot
-              src="/survue/settings.png"
+              src="/survue/settings.webp"
               label="Final: settings"
               width={625}
               height={1277}

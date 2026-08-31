@@ -289,35 +289,35 @@ export default function CaseStudyQalin() {
               <h3 className="font-serif text-xl md:text-2xl text-text">Discover</h3>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-12 justify-items-center">
                 <Screenshot
-                  src="/qalin/Home.png"
+                  src="/qalin/Home.webp"
                   label="Home"
                   width={633}
                   height={1280}
                   caption="The rug itself is the hero image, with a single Explore Collection action — no scrolling required to see something worth thousands."
                 />
                 <Screenshot
-                  src="/qalin/2.png"
+                  src="/qalin/2.webp"
                   label="New arrivals"
                   width={633}
                   height={1280}
                   caption="Carpet / Rug / Cushion tabs sit directly under the hero, so browsing starts in the same scroll instead of a separate step."
                 />
                 <Screenshot
-                  src="/qalin/4.png"
+                  src="/qalin/4.webp"
                   label="Style filter menu"
                   width={633}
                   height={1280}
                   caption="Filters run by design language — Traditional, Modern, Abstract, Irregular — because that's how a buyer pictures a room first."
                 />
                 <Screenshot
-                  src="/qalin/9.png"
+                  src="/qalin/9.webp"
                   label="Search results"
                   width={633}
                   height={1280}
                   caption="Live result counts and inline sort / filter / view controls stay anchored to the search bar while narrowing a wide catalog."
                 />
                 <Screenshot
-                  src="/qalin/3.png"
+                  src="/qalin/3.webp"
                   label="Contact & trust"
                   width={633}
                   height={1280}
@@ -330,14 +330,14 @@ export default function CaseStudyQalin() {
               <h3 className="font-serif text-xl md:text-2xl text-text">Decide</h3>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-12 justify-items-center">
                 <Screenshot
-                  src="/qalin/5.png"
+                  src="/qalin/5.webp"
                   label="Full catalog grid"
                   width={633}
                   height={1280}
                   caption="Construction and price sit together on every card — hand-knotted wool at $48,263 next to hand-tufted wool at $720 — value legible before a tap."
                 />
                 <Screenshot
-                  src="/qalin/6.png"
+                  src="/qalin/6.webp"
                   label="Product detail"
                   width={633}
                   height={1280}
@@ -350,21 +350,21 @@ export default function CaseStudyQalin() {
               <h3 className="font-serif text-xl md:text-2xl text-text">Buy</h3>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-12 justify-items-center">
                 <Screenshot
-                  src="/qalin/7.png"
+                  src="/qalin/7.webp"
                   label="Cart"
                   width={633}
                   height={1280}
                   caption="Quantity steppers and a plain subtotal, with a note that shipping and tax resolve at checkout — the number shown is incomplete, never wrong."
                 />
                 <Screenshot
-                  src="/qalin/8.png"
+                  src="/qalin/8.webp"
                   label="Checkout"
                   width={633}
                   height={1280}
                   caption="Address, saved card, and the order line sit in one uninterrupted view — no steps, no upsells, one Buy Now."
                 />
                 <Screenshot
-                  src="/qalin/10.png"
+                  src="/qalin/10.webp"
                   label="Payment success"
                   width={633}
                   height={1280}
