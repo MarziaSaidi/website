@@ -10,7 +10,7 @@ import { ProjectRow } from "../components/work/ProjectRow";
 // is a Figma-only project. Qalin still gets its "NEW" marker instead of a
 // numeral — that's about recency, not position — the rest number 01/02/03
 // in whatever order they actually appear.
-const FEATURED_IDS = ["supportiq", "qalin", "quill-pigeon", "survue"];
+const FEATURED_IDS = ["supportiq", "quill-pigeon", "survue", "qalin"];
 
 function FeaturedWorkHeading() {
   const ref = useScrollReveal();
