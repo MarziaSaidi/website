@@ -42,6 +42,14 @@ const CHOREO = {
   ship: { anchor: 4, order: [3, 5, 2, 7, 1, 6, 0], dir: { 0: "left", 1: "left", 2: "left", 3: "down", 5: "right", 6: "right", 7: "right" } },
 };
 
+// Must match Hero.jsx's own BLANK_GAP exactly — that's the global
+// progress the storyboard container itself first becomes visible at
+// (a deliberate blank-background beat after the intro hard-cuts away).
+// This file has no way to know the container is hidden before then, so
+// discover's own entrance (the one stage whose window starts at 0,
+// overlapping this gap) is offset by it below — see applyProgress.
+const BLANK_GAP = 0.05;
+
 // Secondary-cluster timeline, in local progress across a stage's own
 // scroll window: 0.00-0.42 the supporting details wipe in one by one;
 // 0.42-0.62 they hold, fully drawn; 0.62-1.00 they retreat the same way
@@ -205,7 +213,21 @@ export default function HeroStoryboard({ wrapperRef, reduced }) {
     () => (progress) => {
       STAGES.forEach((s, i) => {
         const choreo = CHOREO[s.key];
-        const local = clamp01((progress - s.from) / (s.to - s.from));
+        // Discover's own window starts at global progress 0 — but Hero.jsx
+        // keeps the storyboard container itself invisible until progress
+        // clears BLANK_GAP (the blank-background beat between the intro
+        // and the storyboard). This component has no idea the container is
+        // hidden, though: it was still computing discover's entrance off
+        // raw progress the whole time, so by the moment the container
+        // actually faded in, several pieces had already silently reached
+        // 70-90% drawn — reading as a sudden pop-in rather than a reveal
+        // watched from the start. Starting discover's own local timeline
+        // at BLANK_GAP instead of 0 makes "local = 0" line up with the
+        // instant the art is first seen, for this stage only — every
+        // later stage's entrance already starts well after BLANK_GAP on
+        // its own, so it was never affected.
+        const from = i === 0 ? BLANK_GAP : s.from;
+        const local = clamp01((progress - from) / (s.to - from));
 
         const anchorEl = clusterRefs.current[s.key]?.[choreo.anchor];
         if (anchorEl) anchorEl.style.opacity = String(anchorOpacity(i, progress));
@@ -225,13 +247,15 @@ export default function HeroStoryboard({ wrapperRef, reduced }) {
 
       // The accent draws in once discover's nearby detail has mostly
       // arrived (matching SEC_ENTER_END's pace) and retreats alongside
-      // it too, rather than running on its own separate schedule.
+      // it too, rather than running on its own separate schedule. Also
+      // offset by BLANK_GAP, for the same reason as discover's local
+      // above — it was drawing itself in while still hidden.
       const circleAnim = accentAnims.current.circle;
       const underlineAnim = accentAnims.current.underline;
-      circleAnim?.seek(clamp01(progress / 0.1) * 1000);
-      underlineAnim?.seek(clamp01((progress - 0.02) / 0.1) * 1000);
+      circleAnim?.seek(clamp01((progress - BLANK_GAP) / 0.1) * 1000);
+      underlineAnim?.seek(clamp01((progress - BLANK_GAP - 0.02) / 0.1) * 1000);
 
-      const discoverLocal = clamp01(progress / STAGES[0].to);
+      const discoverLocal = clamp01((progress - BLANK_GAP) / (STAGES[0].to - BLANK_GAP));
       if (accentLayerRef.current) {
         accentLayerRef.current.style.opacity = String(
           secondaryOpacity(0, SECONDARY_COUNT - 1, SECONDARY_COUNT, discoverLocal)
