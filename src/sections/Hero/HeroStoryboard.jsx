@@ -34,6 +34,26 @@ import { HERO_ART } from "./heroArt.data";
 const CLUSTERS_PER_STAGE = 8;
 const SECONDARY_COUNT = CLUSTERS_PER_STAGE - 1;
 
+// The panel border and hand-lettered stage title ("DISCOVER", "DESIGN"...)
+// were each traced as one connected fill region SHARING geometry with the
+// character's own linework (potrace fuses touching ink into a single
+// <path>, cancelling the shared area out via opposite winding direction —
+// classic hollow-frame construction). Deleting that path's data to get
+// rid of the border took chunks of her silhouette with it (confirmed:
+// broke Design/Build/Refine/Ship). Clipping it out visually instead,
+// rather than editing the traced data, sidesteps that entirely — the
+// border sits at nearly identical coordinates in all 5 illustrations
+// (getBBox() probes: x=1190, y=414-430, w=11621, h=6520-6536 in every
+// stage), and every stage's real content (character + all supporting
+// detail) sits safely inside that frame with 57-181 units of margin on
+// every side, so a clip rect placed in that margin hides the border and
+// the title above it — the title sits even further out, past the
+// border's own top edge — without ever touching a single path.
+const CLIP_X = 1220;
+const CLIP_Y = 440;
+const CLIP_WIDTH = 11500;
+const CLIP_HEIGHT = 6440;
+
 const CHOREO = {
   discover: { anchor: 3, order: [4, 5, 7, 1, 2, 6, 0], dir: { 0: "left", 1: "left", 2: "left", 4: "right", 5: "up", 6: "right", 7: "right" } },
   design: { anchor: 3, order: [5, 4, 1, 7, 6, 2, 0], dir: { 0: "left", 1: "left", 2: "left", 4: "up", 5: "right", 6: "right", 7: "right" } },
@@ -280,6 +300,11 @@ export default function HeroStoryboard({ wrapperRef, reduced }) {
       aria-hidden="true"
     >
       <svg viewBox="0 0 1400 764" className="block w-full h-full" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <clipPath id="hero-storyboard-frame" clipPathUnits="userSpaceOnUse">
+            <rect x={CLIP_X} y={CLIP_Y} width={CLIP_WIDTH} height={CLIP_HEIGHT} />
+          </clipPath>
+        </defs>
         <rect x="0" y="0" width="1400" height="764" className="stage-paper" />
 
         {STAGES.map((s, i) => {
@@ -298,7 +323,7 @@ export default function HeroStoryboard({ wrapperRef, reduced }) {
                 className="stage-paper"
                 style={{ opacity: paperInit }}
               />
-              <g transform="translate(0,764) scale(0.1,-0.1)">
+              <g transform="translate(0,764) scale(0.1,-0.1)" clipPath="url(#hero-storyboard-frame)">
                 {clusters.map((clusterPaths, rank) => {
                   const isAnchor = rank === choreo.anchor;
                   let clusterInit;
