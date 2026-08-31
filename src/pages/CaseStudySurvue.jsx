@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Reveal from "../components/ui/Reveal";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 /* ---- small building blocks ---- */
 
@@ -124,6 +125,10 @@ export default function CaseStudySurvue() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useDocumentMeta(
+    "Survue — Marzia Saidi",
+    "Leading UX for a cyclist-safety app: designing calm, glanceable alerts a rider can trust while their eyes stay on the road."
+  );
 
   return (
     <div data-world="gold" className="min-h-screen bg-background text-text">

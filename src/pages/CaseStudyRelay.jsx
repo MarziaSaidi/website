@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Reveal from "../components/ui/Reveal";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 /* ---- small building blocks ---- */
 
@@ -152,6 +153,10 @@ const decisions = [
 ];
 
 export default function CaseStudyRelay() {
+  useDocumentMeta(
+    "Relay — Marzia Saidi",
+    "Designing a last-mile delivery operations console: a high-density, real-time surface a dispatcher can scan and operate under pressure."
+  );
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

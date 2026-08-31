@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Reveal from "../components/ui/Reveal";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 /* ---- small building blocks ---- */
 
@@ -154,6 +155,10 @@ const decisions = [
 ];
 
 export default function CaseStudyGetCampus() {
+  useDocumentMeta(
+    "Get Campus — Marzia Saidi",
+    "Designing the employer side of a student-gig marketplace: job posting, candidate discovery, applications, and billing, shipped as production-ready Figma specs working directly with the founders and engineers."
+  );
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Reveal from "../components/ui/Reveal";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 /* ---- small building blocks ---- */
 
@@ -124,6 +125,10 @@ export default function CaseStudyQalin() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useDocumentMeta(
+    "Qalin — Marzia Saidi",
+    "Designing a mobile marketplace for hand-knotted rugs and carpets: a shopping flow that has to build trust in an object worth thousands, through nothing but a phone screen."
+  );
 
   return (
     <div data-world="gold" className="min-h-screen bg-background text-text">

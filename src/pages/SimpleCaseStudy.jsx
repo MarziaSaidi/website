@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Reveal from "../components/ui/Reveal";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { work } from "../data/work";
 import { experience } from "../data/experience";
 import { personalProjects } from "../data/personalProjects";
@@ -75,6 +76,8 @@ export default function SimpleCaseStudy({ projectId }) {
   const bulletsLabel = exp?.bulletsLabel || solo?.bulletsLabel;
   const bullets = exp?.bullets || solo?.bullets;
   const lesson = exp?.lesson || solo?.lesson;
+
+  useDocumentMeta(`${project.name} — Marzia Saidi`, intro);
 
   return (
     <div data-world={project.world} className="min-h-screen bg-background text-text">
