@@ -64,8 +64,8 @@ function HomePage() {
   return (
     <Shell pageId="home">
       <Hero />
-      <ProcessSection />
       <FeaturedWork />
+      <ProcessSection />
       <Contact />
     </Shell>
   );
