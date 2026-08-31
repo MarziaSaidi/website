@@ -59,7 +59,7 @@ const CHOREO = {
   design: { anchor: 3, order: [5, 4, 1, 7, 6, 2, 0], dir: { 0: "left", 1: "left", 2: "left", 4: "up", 5: "right", 6: "right", 7: "right" } },
   build: { anchor: 5, order: [4, 3, 1, 2, 7, 6, 0], dir: { 0: "left", 1: "left", 2: "left", 3: "down", 4: "up", 6: "right", 7: "right" } },
   refine: { anchor: 3, order: [4, 6, 1, 5, 2, 7, 0], dir: { 0: "left", 1: "left", 2: "left", 4: "left", 5: "right", 6: "right", 7: "right" } },
-  ship: { anchor: 4, order: [3, 5, 2, 7, 1, 6, 0], dir: { 0: "left", 1: "left", 2: "left", 3: "down", 5: "right", 6: "right", 7: "right" } },
+  ship: { anchor: 7, order: [3, 1, 5, 0, 6, 4, 2], dir: { 0: "right", 1: "left", 2: "left", 3: "left", 4: "up", 5: "down", 6: "up" } },
 };
 
 // Secondary-cluster timeline, in local progress across a stage's own
