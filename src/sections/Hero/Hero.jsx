@@ -102,7 +102,17 @@ export default function Hero() {
           <p className="enter enter-2 text-lg md:text-xl text-text-secondary leading-snug max-w-lg">
             Hi I'm Marzia Saidi, a passionate Software Developer &amp; UI/UX Designer.
           </p>
+        </div>
+      </div>
 
+      {/* Pinned to the section's own bottom edge rather than flowing right
+          after the paragraph — a scroll cue reads more naturally as "the
+          way out" when it's actually down at the boundary you're about to
+          cross, not sitting mid-page above a stretch of empty space. Its
+          own max-w-6xl/px wrapper mirrors the headline's so it still lines
+          up under it horizontally despite living outside that flex column. */}
+      <div className="absolute inset-x-0 bottom-10 md:bottom-12">
+        <div className="max-w-6xl mx-auto px-6 md:px-10">
           {/* A guidance cue, not a CTA — no pill, no fill, no hover
               sweep. The arrow is the part doing the work (it's the
               thing that keeps moving), the text is just there to say
@@ -111,7 +121,7 @@ export default function Hero() {
           <button
             type="button"
             onClick={scrollIntoStory}
-            className="enter enter-4 flex items-center gap-3 pt-1 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+            className="enter enter-4 flex items-center gap-3 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
           >
             <span className="text-sm md:text-base tracking-wide">Scroll to see how I work</span>
             <svg
