@@ -1,3 +1,8 @@
+// Shared between Hero.jsx (the "Scroll to see how I work" prompt scrolls
+// here) and ProcessSection.jsx (the section that owns this id) — a plain
+// string constant rather than each file hardcoding "process" separately.
+export const PROCESS_SECTION_ID = "process";
+
 // Stage windows the storyboard's scroll progress (0 -> 1) is mapped onto —
 // the same five windows the standalone scroll prototype validated (each
 // stage's own art fades in region-by-region across most of its window,
