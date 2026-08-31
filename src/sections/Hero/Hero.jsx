@@ -50,6 +50,15 @@ function useHeroIntroReveal(wrapperRef, refs, reduced) {
 
       if (finalCtaRef.current) {
         finalCtaRef.current.style.opacity = String(ctaIn);
+        // Also collapses the row itself (grid-template-rows: 0fr -> 1fr),
+        // not just its opacity — on the mobile stacked layout, an
+        // opacity-only fade still reserved this button's full height the
+        // entire time it was invisible, shoving the storyboard art down
+        // by a fixed dead gap for 90% of the scroll. Desktop's side-by-
+        // side layout never showed this (the art sits in its own flex
+        // column, unaffected by the nav/card column's height), which is
+        // why it went unnoticed there.
+        finalCtaRef.current.style.gridTemplateRows = `${ctaIn}fr`;
         finalCtaRef.current.style.pointerEvents = ctaIn > 0.5 ? "auto" : "none";
       }
       if (introViewRef.current) {
@@ -247,17 +256,28 @@ export default function Hero() {
 
                 {/* Independent of storyboardView's own fade — storyboardView
                     is already fully visible for most of the scroll range;
-                    this specifically waits for SHIP near the very end. */}
+                    this specifically waits for SHIP near the very end. A
+                    grid row collapsed to 0fr, not just opacity 0 — on the
+                    mobile stacked layout an opacity-only hide still
+                    reserved this row's full height the whole time, so the
+                    storyboard art below sat a fixed dead gap lower than it
+                    needed to for 90% of the scroll (invisible on desktop's
+                    side-by-side layout, where the art doesn't share this
+                    column at all). The inner div's overflow-hidden is what
+                    lets the 0fr row actually shrink to nothing instead of
+                    being held open by the button's own intrinsic height. */}
                 <div
                   ref={finalCtaRef}
-                  className="flex flex-wrap items-center gap-4 pt-1"
-                  style={reduced ? { opacity: 1 } : { opacity: 0, pointerEvents: "none" }}
+                  className="grid pt-1"
+                  style={reduced ? { gridTemplateRows: "1fr", opacity: 1 } : { gridTemplateRows: "0fr", opacity: 0, pointerEvents: "none" }}
                 >
-                  <Magnetic>
-                    <Button href="#/work" variant="primary" icon="down">
-                      View all works
-                    </Button>
-                  </Magnetic>
+                  <div className="overflow-hidden flex flex-wrap items-center gap-4">
+                    <Magnetic>
+                      <Button href="#/work" variant="primary" icon="down">
+                        View all works
+                      </Button>
+                    </Magnetic>
+                  </div>
                 </div>
               </div>
 
