@@ -20,32 +20,50 @@ function smoothstep(t) {
 // at all, not even hidden-but-present, and the reverse is true once
 // scrolling starts: the headline/copy view disappears completely rather
 // than lingering alongside the storyboard. introView and storyboardView
-// are two full views stacked in the same grid cell (see Hero()'s JSX),
-// cross-fading into each other over a short window. The prompt button
-// lives inside introView (it just fades with its parent, no separate
-// timing of its own); "View all works" lives inside storyboardView but
-// still needs its own ref, since it appears partway through — long after
-// storyboardView itself is already fully visible. A third, independent
-// subscription to the same shared progress the art and nav/card already
-// use, matching this file's existing pattern rather than threading state
-// between three separate components.
+// are two full views stacked in the same grid cell (see Hero()'s JSX).
+// The switch between them is a hard cut, not a cross-fade: the instant
+// progress leaves 0, introView is gone (no low-opacity lingering) and
+// storyboardView is fully in. The prompt button lives inside introView
+// (it just disappears with its parent, no separate timing of its own);
+// "View all works" lives inside storyboardView but still needs its own
+// ref, since it appears partway through — long after storyboardView
+// itself is already fully visible. A third, independent subscription to
+// the same shared progress the art and nav/card already use, matching
+// this file's existing pattern rather than threading state between
+// three separate components.
 function useHeroIntroReveal(wrapperRef, refs, reduced) {
   const { finalCtaRef, introViewRef, storyboardViewRef } = refs;
 
   const applyProgress = useMemo(
     () => (progress) => {
-      const REVEAL_END = 0.05;
       const CTA_START = 0.9;
-      const storyIn = smoothstep(progress / REVEAL_END);
+      // introOut fires on the very first pixel of scroll (hard cut, no
+      // fade), but storyIn only fires once progress clears BLANK_GAP —
+      // the gap between the two thresholds is a beat of plain background
+      // (HeroField's aurora/dots, nothing else) between intro disappearing
+      // and the storyboard cutting in, rather than one replacing the
+      // other on the same frame.
+      const BLANK_GAP = 0.05;
+      const introOut = progress > 0 ? 1 : 0;
+      const storyIn = progress >= BLANK_GAP ? 1 : 0;
       const ctaIn = smoothstep((progress - CTA_START) / (1 - CTA_START));
 
       if (finalCtaRef.current) {
         finalCtaRef.current.style.opacity = String(ctaIn);
+        // Also collapses the row itself (grid-template-rows: 0fr -> 1fr),
+        // not just its opacity — on the mobile stacked layout, an
+        // opacity-only fade still reserved this button's full height the
+        // entire time it was invisible, shoving the storyboard art down
+        // by a fixed dead gap for 90% of the scroll. Desktop's side-by-
+        // side layout never showed this (the art sits in its own flex
+        // column, unaffected by the nav/card column's height), which is
+        // why it went unnoticed there.
+        finalCtaRef.current.style.gridTemplateRows = `${ctaIn}fr`;
         finalCtaRef.current.style.pointerEvents = ctaIn > 0.5 ? "auto" : "none";
       }
       if (introViewRef.current) {
-        introViewRef.current.style.opacity = String(1 - storyIn);
-        introViewRef.current.style.pointerEvents = storyIn > 0.5 ? "none" : "auto";
+        introViewRef.current.style.opacity = String(1 - introOut);
+        introViewRef.current.style.pointerEvents = introOut > 0.5 ? "none" : "auto";
       }
       if (storyboardViewRef.current) {
         storyboardViewRef.current.style.opacity = String(storyIn);
@@ -60,7 +78,14 @@ function useHeroIntroReveal(wrapperRef, refs, reduced) {
   // prompt, storyboard + "View all works" visible) is instead seeded
   // directly in each element's own JSX-authored initial style, the same
   // convention HeroStoryboard/HeroStoryNav's reduced-motion branches use.
-  useHeroScrollProgress(wrapperRef, applyProgress, { disabled: reduced });
+  //
+  // smooth: false — introOut/storyIn are hard cuts, not eased fades (see
+  // the comment above), so they need the real, instant scroll position,
+  // not the damped value HeroStoryboard's own piece-by-piece reveal
+  // uses. ctaIn rides along on the same raw progress, which is fine: it
+  // already gets its own eased curve from smoothstep() above, independent
+  // of whether the progress feeding it is damped.
+  useHeroScrollProgress(wrapperRef, applyProgress, { disabled: reduced, smooth: false });
 }
 
 // Pointer parallax + spotlight only — driven by CSS custom properties set
@@ -238,17 +263,28 @@ export default function Hero() {
 
                 {/* Independent of storyboardView's own fade — storyboardView
                     is already fully visible for most of the scroll range;
-                    this specifically waits for SHIP near the very end. */}
+                    this specifically waits for SHIP near the very end. A
+                    grid row collapsed to 0fr, not just opacity 0 — on the
+                    mobile stacked layout an opacity-only hide still
+                    reserved this row's full height the whole time, so the
+                    storyboard art below sat a fixed dead gap lower than it
+                    needed to for 90% of the scroll (invisible on desktop's
+                    side-by-side layout, where the art doesn't share this
+                    column at all). The inner div's overflow-hidden is what
+                    lets the 0fr row actually shrink to nothing instead of
+                    being held open by the button's own intrinsic height. */}
                 <div
                   ref={finalCtaRef}
-                  className="flex flex-wrap items-center gap-4 pt-1"
-                  style={reduced ? { opacity: 1 } : { opacity: 0, pointerEvents: "none" }}
+                  className="grid pt-1"
+                  style={reduced ? { gridTemplateRows: "1fr", opacity: 1 } : { gridTemplateRows: "0fr", opacity: 0, pointerEvents: "none" }}
                 >
-                  <Magnetic>
-                    <Button href="#/work" variant="primary" icon="down">
-                      View all works
-                    </Button>
-                  </Magnetic>
+                  <div className="overflow-hidden flex flex-wrap items-center gap-4">
+                    <Magnetic>
+                      <Button href="#/work" variant="primary" icon="down">
+                        View all works
+                      </Button>
+                    </Magnetic>
+                  </div>
                 </div>
               </div>
 

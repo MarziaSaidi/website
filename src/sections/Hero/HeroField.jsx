@@ -138,7 +138,31 @@ export default function HeroField({ sectionRef }) {
       raf = requestAnimationFrame(loop);
     }
 
+    // The reactive dots read as a hero-wide ambient effect, not something
+    // tied to whatever's on top of them — over the storyboard art and its
+    // stage nav/detail card specifically, a grid of glowing dots showing
+    // through hand-drawn line art and body text reads as visual noise
+    // rather than ambience, so the pointer is treated as inactive there
+    // instead of lighting dots up behind that content. Queried by class
+    // on every move rather than threaded down as refs — cheap, and matches
+    // this file's existing pattern of reading the DOM directly (see
+    // darkBoost() below) instead of new props.
+    function isOverExcludedArea(clientX, clientY) {
+      const excluded = document.querySelectorAll(".hero-storyboard, .story-row");
+      for (const el of excluded) {
+        const rect = el.getBoundingClientRect();
+        if (clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     const onMove = (e) => {
+      if (isOverExcludedArea(e.clientX, e.clientY)) {
+        pointer.active = false;
+        return;
+      }
       const r = section.getBoundingClientRect();
       pointer.x = e.clientX - r.left;
       pointer.y = e.clientY - r.top;
