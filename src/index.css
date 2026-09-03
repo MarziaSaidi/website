@@ -264,7 +264,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-background: #000000;
-    --color-hero-bg: #2c0f62;
+    --color-hero-bg: #211a4a;
     --color-background-secondary: #1d1a16;
     --color-paper: #23211c;
     --color-text: #eae7e1;
@@ -291,7 +291,7 @@
 
 :root[data-theme="dark"] {
   --color-background: #000000;
-  --color-hero-bg: #2c0f62;
+  --color-hero-bg: #211a4a;
   --color-background-secondary: #1d1a16;
   --color-paper: #23211c;
   --color-text: #eae7e1;
@@ -1046,36 +1046,6 @@
     white-space: nowrap;
     pointer-events: none;
     z-index: 1;
-  }
-
-  /* ---- Hero bottom fade ----
-     A thin overlay, not a change to .bg-hero-bg itself — the section's
-     own background stays exactly --color-hero-bg edge to edge (both
-     the spec and the visible result: this only covers the bottom
-     strip, and starts fully transparent there too), while this strip
-     fades from transparent into --color-background, the next
-     section's actual color. Since it fades TO the color already
-     showing through everywhere below the hero (FeaturedWork sets no
-     background of its own — see its own comment), the seam between
-     the two disappears instead of being replaced by a second hard
-     edge at a different spot.
-     --color-background is already the theme-aware token (white in
-     light, black in dark — see the @theme block up top), so this one
-     rule handles both themes' fade without a separate dark override;
-     only the hero's own background half of each transition (light
-     #F1F0FF, dark #2C0F62) is theme-specific, and that lives on
-     --color-hero-bg, not here.
-     Height is clamped rather than a flat percentage of the section —
-     the fade is meant to read as a fixed-weight edge treatment, not
-     something that gets a 300px band on a tall desktop hero and a
-     60px sliver on a short mobile one. */
-  .hero-fade-bottom {
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    height: clamp(96px, 12vh, 160px);
-    background: linear-gradient(to bottom, transparent, var(--color-background));
-    pointer-events: none;
   }
 
   /* ---- Scroll progress bar ---- */

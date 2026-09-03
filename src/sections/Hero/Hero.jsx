@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import ScrambleText from "../../components/ui/ScrambleText";
 import HeroField from "./HeroField";
 import FallingIcons from "./FallingIcons";
+import HeroPixelDissolve from "./HeroPixelDissolve";
 import { PROCESS_SECTION_ID } from "./heroStoryboard.data";
 
 // Pointer parallax + spotlight only — driven by CSS custom properties set
@@ -66,6 +67,13 @@ export default function Hero() {
     >
       <HeroField sectionRef={paneRef} />
       <FallingIcons />
+
+      {/* Above the ambient background layers (HeroField, FallingIcons) so
+          it can visually replace them with pixels — below the headline,
+          MARZIA and scroll cue below (later in this DOM = higher default
+          stacking), which stay fully legible through the whole scroll.
+          "The hero BACKGROUND dissolves," not the content sitting on it. */}
+      <HeroPixelDissolve sectionRef={paneRef} />
 
       <span className="hero-marzia-mark" aria-hidden="true">
         MARZIA
@@ -161,13 +169,6 @@ export default function Hero() {
           </button>
         </div>
       </div>
-
-      {/* Fades the hero's own solid background into the next section's,
-          instead of the hard edge a flat color next to a flat color
-          (#F1F0FF against #FFFFFF/#000000) would otherwise draw — see
-          .hero-fade-bottom in index.css for why this is a thin overlay
-          rather than baked into .bg-hero-bg itself. */}
-      <div className="hero-fade-bottom" aria-hidden="true" />
     </section>
   );
 }
