@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { SiFigma, SiReact, SiGit } from "react-icons/si";
 import {
@@ -59,27 +59,26 @@ function FigmaGlyph(props) {
 }
 
 // Brand-identifiable tools get their own real color; the rest are fixed
-// black regardless of theme (not the adaptive neutral text color — a
-// plain cursor or frame icon has no brand identity to preserve, but
-// "black" was specifically asked for, not "whatever shade of gray the
-// current theme's secondary text happens to be").
-const BLACK = "#000000";
+// its own fixed color regardless of theme (not the adaptive neutral text
+// color — a plain cursor or frame icon has no brand identity to preserve,
+// but a real accent color was specifically asked for, not "whatever
+// shade of gray the current theme's secondary text happens to be").
 const ICON_SET = [
   { Icon: FigmaGlyph, color: null }, // multi-color piece fills, ignores color entirely
-  { Icon: LuMousePointer2, color: BLACK },
-  { Icon: LuFrame, color: BLACK },
-  { Icon: LuLayers, color: BLACK },
-  { Icon: LuCode, color: BLACK },
-  { Icon: LuTerminal, color: BLACK },
+  { Icon: LuMousePointer2, color: "#5849BC" },
+  { Icon: LuFrame, color: "#8B7FE8" },
+  { Icon: LuLayers, color: "#A49AFF" },
+  { Icon: LuCode, color: "#FF6B61" },
+  { Icon: LuTerminal, color: "#D98BFF" },
   { Icon: SiGit, color: "#F05033" }, // Git's own brand orange, not GitHub's black octocat
-  { Icon: LuMouse, color: BLACK },
-  { Icon: LuPointer, color: BLACK },
+  { Icon: LuMouse, color: "#FF8278" },
+  { Icon: LuPointer, color: "#8B7FE8" },
   { Icon: SiReact, color: "#61DAFB" },
   { Icon: AdobeXdGlyph, color: "#FF61F6" },
-  { Icon: LuSmartphone, color: BLACK },
-  { Icon: LuMonitor, color: BLACK },
-  { Icon: LuTablet, color: BLACK },
-  { Icon: LuPresentation, color: BLACK },
+  { Icon: LuSmartphone, color: "#A49AFF" },
+  { Icon: LuMonitor, color: "#5849BC" },
+  { Icon: LuTablet, color: "#D98BFF" },
+  { Icon: LuPresentation, color: "#FF6B61" },
 ];
 
 function shuffled(arr) {
@@ -107,6 +106,28 @@ function usePrefersReducedMotion() {
 // enough subdivisions to read as a continuous membrane at icon scale.
 const GRID = 10;
 const INFLUENCE = 2.2; // cursor influence radius, as a multiple of the icon's own size
+
+// R3F's `camera` prop on <Canvas> only reliably configures the camera
+// ONCE, at creation — passing a new {left, right, top, bottom} object on
+// every render (as we do below, since sceneSize.w/h changes on window
+// resize) isn't guaranteed to update an already-constructed orthographic
+// camera's frustum. Explicitly syncing it (and calling
+// updateProjectionMatrix) whenever width/height actually change is the
+// reliable fix — see the same comment in SoftBodyMarzia.jsx.
+function CameraSync({ width, height }) {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.left = 0;
+    camera.right = width;
+    camera.top = 0;
+    camera.bottom = height;
+    camera.near = 0.1;
+    camera.far = 1000;
+    camera.position.set(0, 0, 100);
+    camera.updateProjectionMatrix();
+  }, [camera, width, height]);
+  return null;
+}
 
 // Rasterizes the icon (react-icons component or the hand-drawn glyphs
 // above) into a THREE.CanvasTexture — same "serialize the real rendered
@@ -336,6 +357,7 @@ export default function FallingIcons() {
           gl={{ alpha: true, antialias: true }}
           style={{ width: "100%", height: "100%", display: "block" }}
         >
+          <CameraSync width={sceneSize.w} height={sceneSize.h} />
           {icons.map((icon) => (
             <FallingIcon3D key={icon.id} icon={icon} containerRef={containerRef} />
           ))}

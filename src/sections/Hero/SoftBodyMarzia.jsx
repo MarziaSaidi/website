@@ -1,8 +1,33 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { cursorField, ensureCursorFieldTracking } from "../../hooks/useCursorField";
 import SoftBodyMesh from "./SoftBodyMesh";
+
+// R3F's `camera` prop on <Canvas> only reliably configures the camera
+// ONCE, at creation — passing a new {left, right, top, bottom} object on
+// every render (as we do here, since size.w/h changes on resize and
+// MARZIA's font-size is viewport-height-dependent) isn't guaranteed to
+// update an already-constructed orthographic camera's frustum. Left
+// stale, the frustum stops matching the actual canvas size — which
+// reads as "not responsive" and, when the canvas ends up smaller than
+// the stale frustum still assumes, as MARZIA being cropped. Explicitly
+// syncing left/right/top/bottom (and calling updateProjectionMatrix)
+// whenever width/height actually change is the reliable fix.
+function CameraSync({ width, height }) {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.left = 0;
+    camera.right = width;
+    camera.top = 0;
+    camera.bottom = height;
+    camera.near = 0.1;
+    camera.far = 1000;
+    camera.position.set(0, 0, 100);
+    camera.updateProjectionMatrix();
+  }, [camera, width, height]);
+  return null;
+}
 
 // Tall and narrow (MARZIA's own box is roughly 1:4.46, width:height), so
 // more rows than columns keeps individual cells close to square.
@@ -14,14 +39,55 @@ const INFLUENCE_WIDTHS = 3; // cursor influence radius, in multiples of MARZIA's
 // something read off getComputedStyle every frame.
 const ANGLE = Math.PI;
 
+// An SVG rendered via <img src="data:image/svg+xml..."> runs in the
+// browser's restricted "image" mode, which can't fetch external
+// resources — including @font-face files the PAGE itself already
+// loaded, even same-origin ones like Google Fonts. That's not a timing
+// issue (document.fonts.ready doesn't fix it, it's not about whether
+// the font loaded yet) — it's an access restriction on the image
+// context itself. The only reliable fix is embedding the actual font
+// file, base64-encoded, directly inside the SVG's own <style> — fetched
+// once and cached here, since it's the same Orbitron 800 file on every
+// MARZIA (re)rasterization.
+let orbitronFontFacePromise = null;
+function getOrbitronFontFace() {
+  if (!orbitronFontFacePromise) {
+    orbitronFontFacePromise = fetch("https://fonts.googleapis.com/css2?family=Orbitron:wght@800&display=swap")
+      .then((r) => r.text())
+      .then((css) => {
+        const match = css.match(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+\.woff2)\) format\('woff2'\)/);
+        if (!match) return "";
+        return fetch(match[1])
+          .then((r) => r.blob())
+          .then(
+            (blob) =>
+              new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+              })
+          )
+          .then(
+            (dataUrl) =>
+              `@font-face { font-family: 'OrbitronEmbedded'; src: url(${dataUrl}) format('woff2'); font-weight: 800; font-style: normal; }`
+          );
+      })
+      .catch(() => ""); // falls back to the div's default sans-serif rather than failing the whole rasterize
+  }
+  return orbitronFontFacePromise;
+}
+
 // Rasterizes the hidden reference span (see markRef in Hero.jsx) into a
-// THREE.CanvasTexture, via the same SVG <foreignObject> technique as the
-// earlier Canvas2D version — the browser's own CSS engine does MARZIA's
-// vertical-writing-mode layout, exactly as it does for the original.
-// `transform` is deliberately excluded from what's copied; the mesh's
-// own DOM wrapper carries the same .hero-marzia-mark class (and so the
-// same fixed rotate(180deg)) as the original, so the rotation is applied
-// once by CSS on the wrapper, not baked into the texture too.
+// THREE.CanvasTexture. Uses a native SVG <text> with writing-mode +
+// text-orientation attributes, NOT <foreignObject> + HTML — SVG text
+// with an embedded @font-face is a mature, extremely well-supported
+// combination (it's how chart/diagram libraries have embedded custom
+// fonts for years); foreignObject-with-HTML-and-CSS-writing-mode is a
+// much newer, less consistently-supported combination, and switching
+// away from it removes a whole layer of uncertainty about why the
+// embedded font wasn't actually rendering. `rotate(180, cx, cy)` on the
+// <text> itself replicates .hero-marzia-mark's own transform directly,
+// since there's no separate wrapper element to carry it this time.
 function useMarziaTexture(markRef, w, h) {
   const [texture, setTexture] = useState(null);
   useEffect(() => {
@@ -30,19 +96,13 @@ function useMarziaTexture(markRef, w, h) {
     let cancelled = false;
     const scale = 4;
 
-    function rasterize() {
+    async function rasterize() {
+      const fontFace = await getOrbitronFontFace();
+      if (cancelled) return;
       const cs = getComputedStyle(mark);
-      const innerStyle = [
-        `font-family:${cs.fontFamily}`,
-        `font-weight:${cs.fontWeight}`,
-        `font-size:${cs.fontSize}`,
-        `line-height:${cs.lineHeight}`,
-        `color:${cs.color}`,
-        `writing-mode:${cs.writingMode}`,
-        `text-orientation:${cs.textOrientation}`,
-        `white-space:${cs.whiteSpace}`,
-      ].join(";");
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="width:${w}px;height:${h}px;transform:scale(${scale});transform-origin:top left;display:flex;align-items:center;justify-content:center;"><span style="${innerStyle}">MARZIA</span></div></foreignObject></svg>`;
+      const cx = w / 2;
+      const cy = h / 2;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><g transform="scale(${scale})"><text x="${cx}" y="${cy}" transform="rotate(180 ${cx} ${cy})" font-family="'OrbitronEmbedded', ${cs.fontFamily}" font-weight="${cs.fontWeight}" font-size="${cs.fontSize}" fill="${cs.color}" writing-mode="vertical-rl" text-orientation="sideways" text-anchor="middle" dominant-baseline="central">MARZIA</text></g></svg>`;
       const img = new window.Image();
       img.onload = () => {
         if (cancelled) return;
@@ -65,9 +125,6 @@ function useMarziaTexture(markRef, w, h) {
     }
 
     rasterize();
-    document.fonts?.ready.then(() => {
-      if (!cancelled) rasterize();
-    });
 
     return () => {
       cancelled = true;
@@ -140,6 +197,7 @@ export default function SoftBodyMarzia({ markRef }) {
         gl={{ alpha: true, antialias: true }}
         style={{ width: "100%", height: "100%", display: "block" }}
       >
+        <CameraSync width={size.w} height={size.h} />
         <SoftBodyMesh
           texture={texture}
           width={size.w}
