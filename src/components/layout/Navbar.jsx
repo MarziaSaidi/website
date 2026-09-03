@@ -26,20 +26,11 @@ export default function Navbar({ active }) {
   };
 
   return (
-    // MenuOverlay must NOT live inside <header>: once scrolled, the header
-    // gets backdrop-blur-sm, and CSS backdrop-filter establishes a new
-    // containing block for `position: fixed` descendants — MenuOverlay's
-    // `fixed inset-0` would then resolve against the header's own ~80px
-    // box instead of the viewport, squeezing the whole nav list into that
-    // sliver and leaving the real page visible (unblurred, unblocked)
-    // right through it. Rendered as a sibling instead, so it's always
-    // fixed to the actual viewport regardless of scroll/header state.
+    // MenuOverlay is rendered as a sibling of <header>, not a child —
+    // keeps its `fixed inset-0` resolving against the real viewport
+    // regardless of whatever the header itself does.
     <>
-      <header
-        className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${
-          scrolled ? "bg-background/90 backdrop-blur-sm border-b border-border" : "bg-transparent"
-        }`}
-      >
+      <header className="fixed top-0 inset-x-0 z-50 bg-transparent">
       <div className="max-w-6xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
         <a
           href="#/"
