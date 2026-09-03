@@ -26,6 +26,15 @@ export default function CustomCursor() {
     }
 
     function onMove(e) {
+      // The hero runs its own dedicated pixel-trail effect (HeroTrail.jsx)
+      // instead — the ring reads as a mismatched leftover cursor style
+      // layered on top of it, so it's suppressed for the whole time the
+      // pointer is over #top rather than the two effects competing.
+      if (e.target.closest?.("#top")) {
+        el.classList.remove("is-active");
+        return;
+      }
+
       el.classList.add("is-active");
 
       // World-aware color: CSS cascade can't reach a fixed-position element
