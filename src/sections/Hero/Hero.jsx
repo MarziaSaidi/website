@@ -3,14 +3,13 @@ import ScrambleText from "../../components/ui/ScrambleText";
 import HeroField from "./HeroField";
 import FallingIcons from "./FallingIcons";
 import HeroPixelDissolve from "./HeroPixelDissolve";
-import { PROCESS_SECTION_ID } from "./heroStoryboard.data";
 
-// Pointer parallax + spotlight only — driven by CSS custom properties set
-// directly on refs (no React re-renders per frame). The scroll-scrubbed
-// storyboard used to live inside this same section (see git history);
-// it's its own section now, immediately after this one, so Hero itself
-// is just a normal, single-viewport intro again — no pinning, no shared-
-// space view switching, no scroll-progress hook here at all.
+// Pointer parallax only — driven by CSS custom properties set directly on
+// refs (no React re-renders per frame). The scroll-scrubbed storyboard
+// used to live inside this same section (see git history); it's its own
+// section now, immediately after this one, so Hero itself is just a
+// normal, single-viewport intro again — no pinning, no shared-space view
+// switching, no scroll-progress hook here at all.
 function usePointerParallax(paneRef) {
   useEffect(() => {
     const pane = paneRef.current;
@@ -26,8 +25,6 @@ function usePointerParallax(paneRef) {
       pending = {
         mx: (e.clientX - r.left) / r.width - 0.5,
         my: (e.clientY - r.top) / r.height - 0.5,
-        sx: e.clientX - r.left,
-        sy: e.clientY - r.top,
       };
       if (!raf) raf = requestAnimationFrame(apply);
     }
@@ -37,8 +34,6 @@ function usePointerParallax(paneRef) {
       if (!pending) return;
       pane.style.setProperty("--mx", pending.mx.toFixed(3));
       pane.style.setProperty("--my", pending.my.toFixed(3));
-      pane.style.setProperty("--sx", `${pending.sx}px`);
-      pane.style.setProperty("--sy", `${pending.sy}px`);
     }
 
     pane.addEventListener("pointermove", onMove);
@@ -53,44 +48,69 @@ export default function Hero() {
   const paneRef = useRef(null);
   usePointerParallax(paneRef);
 
-  function scrollIntoStory() {
-    document.getElementById(PROCESS_SECTION_ID)?.scrollIntoView({ behavior: "smooth" });
-  }
-
   return (
     <section
       ref={paneRef}
       id="top"
       aria-label="Introduction"
-      style={{ "--mx": 0, "--my": 0, "--sx": "50%", "--sy": "50%" }}
+      style={{ "--mx": 0, "--my": 0 }}
       className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-hero-bg"
     >
       <HeroField sectionRef={paneRef} />
       <FallingIcons />
 
-      {/* Above the ambient background layers (HeroField, FallingIcons) so
-          it can visually replace them with pixels — below the headline,
-          MARZIA and scroll cue below (later in this DOM = higher default
-          stacking), which stay fully legible through the whole scroll.
-          "The hero BACKGROUND dissolves," not the content sitting on it. */}
-      <HeroPixelDissolve sectionRef={paneRef} />
-
       <span className="hero-marzia-mark" aria-hidden="true">
         MARZIA
       </span>
 
-      {/* Cursor spotlight — a soft glow that follows the pointer, layered
-          above the aurora/dot field. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-        style={{
-          background:
-            "radial-gradient(600px circle at var(--sx) var(--sy), color-mix(in srgb, var(--color-accent) 6%, transparent), transparent 60%)",
-        }}
-      />
+      {/* Above the ambient background layers and MARZIA (HeroField,
+          FallingIcons, the mark) so it can visually replace all of them
+          with pixels — below the headline copy (later in this DOM =
+          higher default stacking), which stays fully legible through the
+          whole scroll. "The hero BACKGROUND dissolves," MARZIA included,
+          not the headline sitting on it. */}
+      <HeroPixelDissolve sectionRef={paneRef} />
 
-      <div className="relative max-w-6xl mx-auto px-6 md:px-10 w-full">
+      {/* Pinned near the section's own top edge, independent of the
+          vertically-centered headline column below — same placement
+          pattern as .hero-marzia-mark (top: 96px), so this row and MARZIA
+          start at roughly the same height. */}
+      <div className="absolute inset-x-0 top-24 md:top-28">
+        <div
+          // Below sm, only the eyebrow lives here (the paragraph moves to
+          // its own bottom-pinned block — see below), and its own hard
+          // line break already keeps it clear of MARZIA, so no width cap
+          // is needed at that size. From sm up, the paragraph rejoins this
+          // row and needs the same right-edge clearance formula as the
+          // headline column below (see its own comment) — without it "in
+          // the middle" would still end up crowding MARZIA, since
+          // max-w-6xl alone runs right up to it. From md up, left edge is
+          // pinned to the same 114px/7.9167vw MARZIA itself uses on the
+          // right (see .hero-marzia-mark), instead of being centered.
+          className="sm:max-w-[calc(92.0833vw-19vh-40px)] md:max-w-[min(72rem,calc(100vw-19vh-96px))] px-6 md:pl-[min(114px,7.9167vw)] md:pr-10 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6"
+        >
+          <p
+            className="enter font-bold text-text"
+            style={{ fontSize: "24px", lineHeight: 1.2 }}
+          >
+            Design &<br />Engineering
+          </p>
+
+          {/* Below sm, this copy moves down to sit under the headline
+              instead (see the hidden sm:block/sm:hidden pair below) — up
+              here it would run into MARZIA at narrow widths. Centered in
+              the remaining width after the eyebrow, not pinned to the
+              row's right edge, so it sits in the middle rather than
+              crowding MARZIA. */}
+          <p className="hidden sm:block flex-1 enter enter-2 text-lg md:text-xl text-text-secondary leading-snug text-center">
+            I'm Marzia Saidi. I design interfaces and
+            <br />
+            ship the production code behind them.
+          </p>
+        </div>
+      </div>
+
+      <div className="relative max-w-6xl px-6 md:pl-[min(114px,7.9167vw)] md:pr-10 w-full">
         <div
           // Below md, this replaces the plain max-w-2xl with a width that
           // mirrors the "MARZIA" mark's own position formula (see
@@ -115,58 +135,25 @@ export default function Hero() {
               whole headline resolves in ~360ms — still reads as a decode,
               but it never delays comprehension. */}
           <ScrambleText
-            text="Design Engineer."
+            text="I bring craft, taste & code to digital products."
             as="h1"
             delay={0}
             charDelay={18}
             scrambleTicks={4}
-            // text-4xl (not text-5xl) below sm: "Engineer." alone needs
-            // ~205px at 48px/bold/Space Grotesk, more than the ~175px
-            // clear before the "MARZIA" mark's constrained left edge on a
-            // narrow phone (see the copy column's own className above) —
-            // it's still a single unbreakable word, so without this it
-            // overflows into MARZIA rather than wrapping to fit.
-            className="enter enter-1 font-display font-bold text-4xl sm:text-5xl md:text-7xl leading-[1.02] tracking-[-0.02em] text-text"
+            className="enter enter-1 font-display font-bold text-4xl sm:text-5xl md:text-7xl leading-[1.02] tracking-[-0.02em] text-text md:translate-y-[10px]"
           />
-
-          <p className="enter enter-2 text-lg md:text-xl text-text-secondary leading-snug max-w-lg">
-            Hi, I'm Marzia Saidi. I design interfaces and ship the production code behind them.
-          </p>
         </div>
       </div>
 
-      {/* Pinned to the section's own bottom edge rather than flowing right
-          after the paragraph — a scroll cue reads more naturally as "the
-          way out" when it's actually down at the boundary you're about to
-          cross, not sitting mid-page above a stretch of empty space. Its
-          own max-w-6xl/px wrapper mirrors the headline's so it still lines
-          up under it horizontally despite living outside that flex column. */}
-      <div className="absolute inset-x-0 bottom-10 md:bottom-12">
-        <div className="max-w-6xl mx-auto px-6 md:px-10">
-          {/* A guidance cue, not a CTA — no pill, no fill, no hover
-              sweep. The arrow is the part doing the work (it's the
-              thing that keeps moving), the text is just there to say
-              why; reversed weighting from every other button on the
-              site, which is why this isn't built on top of Button. */}
-          <button
-            type="button"
-            onClick={scrollIntoStory}
-            className="enter enter-4 min-h-11 flex items-center gap-3 text-text-secondary hover:text-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
-          >
-            <span className="text-sm md:text-base tracking-wide">Scroll to see how I work</span>
-            <svg
-              className="scroll-prompt-arrow"
-              width="26"
-              height="26"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              aria-hidden="true"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M6 13l6 6 6-6" />
-            </svg>
-          </button>
+      {/* Mobile-only counterpart to the top row's paragraph (see
+          hidden sm:block above) — pinned to the section's own bottom edge
+          rather than flowing right after the headline, so there's a big
+          gap between the two instead of them sitting close together. */}
+      <div className="sm:hidden absolute inset-x-0 bottom-10">
+        <div className="max-w-6xl mx-auto px-6">
+          <p className="enter enter-2 text-lg text-text-secondary leading-snug max-w-[85%]">
+            I'm Marzia Saidi. I design interfaces and ship the production code behind them.
+          </p>
         </div>
       </div>
     </section>
