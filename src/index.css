@@ -308,10 +308,10 @@
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
     /* Reserves the scrollbar's own width permanently, so locking body
-       scroll (the nav menu, the chat panel) never removes it and shifts
-       the whole page sideways for the instant it's open — a real,
-       browser-native cause of "menu glitch" that only shows on desktop
-       browsers with a reserved-space scrollbar. */
+       scroll (the nav menu) never removes it and shifts the whole page
+       sideways for the instant it's open — a real, browser-native cause
+       of "menu glitch" that only shows on desktop browsers with a
+       reserved-space scrollbar. */
     scrollbar-gutter: stable;
   }
 
@@ -954,6 +954,82 @@
     top: 0;
     will-change: transform, opacity;
     animation: hero-icon-fall var(--fall-duration) linear var(--fall-delay) infinite;
+  }
+
+  /* ---- Hero "MARZIA" side mark ----
+     `writing-mode: vertical-rl` + `text-orientation: sideways` (not a
+     plain `transform: rotate(-90deg)` on horizontal text) is what makes
+     `right` mean what it looks like it means: vertical-rl gives the
+     element its own narrow-and-tall LAYOUT box (width ≈ one line of
+     text, height ≈ the word's length) instead of the wide horizontal
+     box a rotated normal element would still carry for layout purposes
+     despite reading vertically on screen — with the latter, `right`
+     positions that wide invisible box, not the glyphs anyone can see.
+     On its own, vertical-rl/sideways reads top-to-bottom with each
+     character rotated 90° clockwise; `rotate(180deg)` on top of that
+     flips both — top-to-bottom becomes bottom-to-top, and the per-
+     character clockwise rotation becomes counterclockwise — which is
+     the exact reading direction and letter rotation asked for, in one
+     extra transform rather than hand-built letter-by-letter.
+     Positioned independently of both FallingIcons and HeroField (own
+     absolute box, own stacking, no shared parent transform/animation
+     with either) — nothing about how those two move can move this.
+
+     Sizing is driven by viewport HEIGHT, not width, on every
+     breakpoint — no separate mobile value, and no width-based
+     shrinking either. The mark should stay tall and dominant down the
+     right edge on a phone exactly like it is on desktop, since the two
+     axes are genuinely independent (a tall narrow phone screen has
+     plenty of vertical room for a full-height mark; what it doesn't
+     have is horizontal room for hero copy that also wants to run
+     edge-to-edge).
+     Positioning is a fixed `top: 96px` (Navbar's own fixed 80px height,
+     h-20 in Navbar.jsx and unchanged across every breakpoint, plus 16px
+     breathing room), not the `top: 50%; transform: translateY(-50%)`
+     centering tried first. Centering forces the top and bottom margins
+     to be EXACTLY equal, which sounds like the right goal but is
+     actually what was making the mark look too short: nothing needs
+     16px of clearance at the bottom (there's no header down there), so
+     forcing that margin to match the 96px the top needs to clear
+     Navbar wasted the bottom ~80px of every viewport for no reason —
+     tightening that shared margin small enough to make the mark
+     genuinely tall would have pulled the top margin below Navbar's own
+     height right along with it, right back to the header-overlap bug
+     this was fixed for two iterations ago. Anchoring `top` directly
+     lets the two margins be asymmetric — 96px only where a margin is
+     actually needed for something, 16px everywhere else — which is
+     what actually frees up the height to make the mark longer.
+     Given this font/weight, "MARZIA" (6 characters) in vertical-rl
+     renders roughly 4.46× its font-size tall; solving
+     100vh − text-height − 96px(top) = 16px(bottom) for font-size gives
+     (100vh − 112px) / 4.46. 220px is a generous but real ceiling on
+     top of that (not the 180px from the original spec, since this is
+     the request that specifically asked to size past it) for very tall
+     viewports, where otherwise the mark would keep growing indefinitely
+     and start reading as oversized rather than "long." Scaling the
+     font by width too (to shrink it on phones) fixed a DIFFERENT
+     overlap (against the hero copy) by shrinking MARZIA instead of the
+     copy that was actually overrunning into it — technically overlap-
+     free, but no longer "tall like desktop, near-full-height" on
+     mobile as asked. The copy's own max-width is the fix for that one
+     (the copy column's className in Hero.jsx), not this element:
+     MARZIA stays sized purely off the section's height, assuming the
+     copy already stops short of it. */
+  .hero-marzia-mark {
+    position: absolute;
+    top: 96px;
+    right: min(114px, 7.9167vw);
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    font-family: "Orbitron", sans-serif;
+    font-weight: 800;
+    font-size: min(220px, calc((100vh - 112px) / 4.46));
+    line-height: 1;
+    color: #5849bc;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
   }
 
   /* ---- Scroll progress bar ---- */

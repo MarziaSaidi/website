@@ -3,7 +3,6 @@ import SiteGrid from "./components/SiteGrid";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
-import ChatWidget from "./components/ChatWidget";
 import CustomCursor from "./components/CustomCursor";
 import IntroLoader from "./components/IntroLoader";
 import Hero from "./sections/Hero/Hero";
@@ -29,9 +28,9 @@ function routeToPageId(route) {
 }
 
 // Shared chrome for every top-level page — the intro loader, skip link,
-// scroll progress, custom cursor, nav, footer, and chat widget were
-// previously mounted once around the whole single-page site; now each
-// route gets its own instance of this shell around just its own content.
+// scroll progress, custom cursor, nav, and footer were previously mounted
+// once around the whole single-page site; now each route gets its own
+// instance of this shell around just its own content.
 function Shell({ pageId, children }) {
   return (
     <>
@@ -47,7 +46,6 @@ function Shell({ pageId, children }) {
       <Navbar active={pageId} />
       <main id="main">{children}</main>
       <Footer />
-      <ChatWidget />
     </>
   );
 }

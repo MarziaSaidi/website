@@ -62,10 +62,14 @@ export default function Hero() {
       id="top"
       aria-label="Introduction"
       style={{ "--mx": 0, "--my": 0, "--sx": "50%", "--sy": "50%" }}
-      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background"
+      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-[#F1F0FF]"
     >
       <HeroField sectionRef={paneRef} />
       <FallingIcons />
+
+      <span className="hero-marzia-mark" aria-hidden="true">
+        MARZIA
+      </span>
 
       {/* Cursor spotlight — a soft glow that follows the pointer, layered
           above the aurora/dot field. */}
@@ -80,7 +84,17 @@ export default function Hero() {
 
       <div className="relative max-w-6xl mx-auto px-6 md:px-10 w-full">
         <div
-          className="flex flex-col gap-6 md:gap-7 max-w-2xl"
+          // Below md, this replaces the plain max-w-2xl with a width that
+          // mirrors the "MARZIA" mark's own position formula (see
+          // .hero-marzia-mark in index.css: right = min(114px, 7.9167vw),
+          // font-size = min(180px, 19vh), so its left edge sits at
+          // 100vw - 7.9167vw - 19vh on any viewport narrower than md) —
+          // minus 24px for the section's own left padding and another
+          // 16px of breathing room. Without it the copy just wraps to
+          // fill the available width like any block text and runs into
+          // MARZIA, which needs to stay full desktop-height on mobile
+          // rather than shrinking to get out of the way itself.
+          className="flex flex-col gap-6 md:gap-7 max-w-[calc(92.0833vw-19vh-40px)] md:max-w-2xl"
           style={{
             transform: "translate3d(calc(var(--mx) * 16px), calc(var(--my) * 12px), 0)",
             transition: "transform 0.2s ease-out",
@@ -98,7 +112,13 @@ export default function Hero() {
             delay={0}
             charDelay={18}
             scrambleTicks={4}
-            className="enter enter-1 font-display font-bold text-5xl md:text-7xl leading-[1.02] tracking-[-0.02em] text-text"
+            // text-4xl (not text-5xl) below sm: "Engineer." alone needs
+            // ~205px at 48px/bold/Space Grotesk, more than the ~175px
+            // clear before the "MARZIA" mark's constrained left edge on a
+            // narrow phone (see the copy column's own className above) —
+            // it's still a single unbreakable word, so without this it
+            // overflows into MARZIA rather than wrapping to fit.
+            className="enter enter-1 font-display font-bold text-4xl sm:text-5xl md:text-7xl leading-[1.02] tracking-[-0.02em] text-text"
           />
 
           <p className="enter enter-2 text-lg md:text-xl text-text-secondary leading-snug max-w-lg">

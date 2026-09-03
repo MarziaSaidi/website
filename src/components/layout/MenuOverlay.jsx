@@ -12,7 +12,7 @@ const LINKS = [
 // breakpoint. Only mounted while open (simpler and more correct for a11y
 // than hiding via opacity — closed means genuinely out of the DOM and tab
 // order, not just invisible). Escape closes it and returns focus to the
-// toggle button, mirroring ChatWidget's established open/close pattern.
+// toggle button.
 //
 // The backdrop itself is solid the instant it mounts — it does NOT carry
 // the .enter fade. .enter is a full 1s opacity animation, and running it
