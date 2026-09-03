@@ -14,6 +14,44 @@ const INFLUENCE_WIDTHS = 3; // cursor influence radius, in multiples of MARZIA's
 // something read off getComputedStyle every frame.
 const ANGLE = Math.PI;
 
+// An SVG rendered via <img src="data:image/svg+xml..."> runs in the
+// browser's restricted "image" mode, which can't fetch external
+// resources — including @font-face files the PAGE itself already
+// loaded, even same-origin ones like Google Fonts. That's not a timing
+// issue (document.fonts.ready doesn't fix it, it's not about whether
+// the font loaded yet) — it's an access restriction on the image
+// context itself. The only reliable fix is embedding the actual font
+// file, base64-encoded, directly inside the SVG's own <style> — fetched
+// once and cached here, since it's the same Orbitron 800 file on every
+// MARZIA (re)rasterization.
+let orbitronFontFacePromise = null;
+function getOrbitronFontFace() {
+  if (!orbitronFontFacePromise) {
+    orbitronFontFacePromise = fetch("https://fonts.googleapis.com/css2?family=Orbitron:wght@800&display=swap")
+      .then((r) => r.text())
+      .then((css) => {
+        const match = css.match(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+\.woff2)\) format\('woff2'\)/);
+        if (!match) return "";
+        return fetch(match[1])
+          .then((r) => r.blob())
+          .then(
+            (blob) =>
+              new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+              })
+          )
+          .then(
+            (dataUrl) =>
+              `@font-face { font-family: 'OrbitronEmbedded'; src: url(${dataUrl}) format('woff2'); font-weight: 800; font-style: normal; }`
+          );
+      })
+      .catch(() => ""); // falls back to the div's default sans-serif rather than failing the whole rasterize
+  }
+  return orbitronFontFacePromise;
+}
+
 // Rasterizes the hidden reference span (see markRef in Hero.jsx) into a
 // THREE.CanvasTexture, via the same SVG <foreignObject> technique as the
 // earlier Canvas2D version — the browser's own CSS engine does MARZIA's
@@ -30,10 +68,12 @@ function useMarziaTexture(markRef, w, h) {
     let cancelled = false;
     const scale = 4;
 
-    function rasterize() {
+    async function rasterize() {
+      const fontFace = await getOrbitronFontFace();
+      if (cancelled) return;
       const cs = getComputedStyle(mark);
       const innerStyle = [
-        `font-family:${cs.fontFamily}`,
+        `font-family:'OrbitronEmbedded',${cs.fontFamily}`,
         `font-weight:${cs.fontWeight}`,
         `font-size:${cs.fontSize}`,
         `line-height:${cs.lineHeight}`,
@@ -42,7 +82,7 @@ function useMarziaTexture(markRef, w, h) {
         `text-orientation:${cs.textOrientation}`,
         `white-space:${cs.whiteSpace}`,
       ].join(";");
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="width:${w}px;height:${h}px;transform:scale(${scale});transform-origin:top left;display:flex;align-items:center;justify-content:center;"><span style="${innerStyle}">MARZIA</span></div></foreignObject></svg>`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="width:${w}px;height:${h}px;transform:scale(${scale});transform-origin:top left;display:flex;align-items:center;justify-content:center;"><span style="${innerStyle}">MARZIA</span></div></foreignObject></svg>`;
       const img = new window.Image();
       img.onload = () => {
         if (cancelled) return;
@@ -65,9 +105,6 @@ function useMarziaTexture(markRef, w, h) {
     }
 
     rasterize();
-    document.fonts?.ready.then(() => {
-      if (!cancelled) rasterize();
-    });
 
     return () => {
       cancelled = true;
@@ -149,6 +186,8 @@ export default function SoftBodyMarzia({ markRef }) {
           getLocalCursor={getLocalCursor}
           influenceRadius={size.w * INFLUENCE_WIDTHS}
           maxOffsetFactor={0.4}
+          extrudeDepth={Math.max(6, size.w * 0.09)}
+          sideColor="#241f4d"
         />
       </Canvas>
     </div>

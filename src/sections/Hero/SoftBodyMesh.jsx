@@ -86,6 +86,25 @@ const GLASS_FRAGMENT_SHADER = `
   }
 `;
 
+// The "side wall" of a real extrusion — flat-shaded (no lighting calc
+// needed, it's meant to read as a solid depth edge, not another lit
+// surface), masked to the same texture alpha, tinted a fixed dark shade
+// of the base color rather than an unrelated color (the same relationship
+// any physically extruded material has between its front face and sides).
+const SIDE_FRAGMENT_SHADER = `
+  precision mediump float;
+  uniform sampler2D uTexture;
+  uniform vec3 uSideColor;
+  uniform float uOpacity;
+  varying vec2 vUv;
+
+  void main() {
+    float mask = texture2D(uTexture, vUv).a;
+    if (mask < 0.02) discard;
+    gl_FragColor = vec4(uSideColor, mask * uOpacity);
+  }
+`;
+
 // A subdivided plane whose vertices are pulled toward the cursor (plus a
 // velocity-direction stretch), spring back toward rest, and lose energy
 // each frame — identical soft-body physics to the earlier Canvas2D
@@ -110,6 +129,13 @@ export default function SoftBodyMesh({
   damping = 0.82,
   maxOffsetFactor = 0.6,
   bulge = 18,
+  // Real geometric extrusion — a stack of dark "side wall" copies offset
+  // diagonally behind the front face, the classic embossed/beveled-text
+  // technique. 0 (the default) renders nothing extra, so icons stay
+  // exactly as they were; MARZIA opts in explicitly.
+  extrudeDepth = 0,
+  extrudeSteps = 10,
+  sideColor = "#241f4d",
 }) {
   const nodesRef = useRef(null);
 
@@ -158,9 +184,24 @@ export default function SoftBodyMesh({
       uMaxDisp: { value: maxOffset },
       uBulge: { value: bulge },
       uOpacity: { value: 1 },
+      uSideColor: { value: new THREE.Color(sideColor) },
     }),
-    [texture, maxOffset, bulge]
+    [texture, maxOffset, bulge, sideColor]
   );
+
+  // Evenly spaced steps from just behind the front face back to the full
+  // extrude depth — a diagonal offset (down-right, as if lit from the
+  // upper-left) rather than pure Z, which is what actually sells the
+  // bevel; straight-back offset alone reads as a blurry shadow, not a
+  // wall you can see the side of.
+  const extrudeLayers = useMemo(() => {
+    if (extrudeDepth <= 0) return [];
+    const dir = { x: extrudeDepth * 0.4, y: extrudeDepth * 0.4 };
+    return Array.from({ length: extrudeSteps }, (_, i) => {
+      const t = (i + 1) / extrudeSteps;
+      return [dir.x * t, dir.y * t, -extrudeDepth * t];
+    });
+  }, [extrudeDepth, extrudeSteps]);
 
   useFrame(() => {
     if (!texture) return;
@@ -205,6 +246,23 @@ export default function SoftBodyMesh({
 
   return (
     <>
+      {/* Furthest-back step first, front face last — normal opaque depth
+          testing then does the actual occlusion, this ordering just
+          keeps the JSX reading front-to-back the way the eye sees it. */}
+      {extrudeLayers
+        .slice()
+        .reverse()
+        .map(([x, y, z], i) => (
+          <mesh key={i} geometry={geometry} position={[x, y, z]}>
+            <shaderMaterial
+              vertexShader={VERTEX_SHADER}
+              fragmentShader={SIDE_FRAGMENT_SHADER}
+              uniforms={uniforms}
+              transparent
+              side={THREE.DoubleSide}
+            />
+          </mesh>
+        ))}
       <mesh geometry={geometry}>
         <shaderMaterial
           vertexShader={VERTEX_SHADER}
