@@ -912,6 +912,50 @@
     }
   }
 
+  /* ---- Hero falling icons (FallingIcons.jsx) ----
+     One shared keyframe; every icon's actual path through it comes from
+     the CSS custom properties FallingIcons.jsx sets per-element
+     (--fall-duration, --fall-delay, --rotate-from/-to, --drift-x,
+     --icon-opacity) rather than each icon getting its own @keyframes
+     rule. --fall-delay is allowed to go negative (see the component) —
+     a negative animation-delay starts the loop already partway through
+     on first paint, which is what makes the very first frame show icons
+     mid-fall at staggered heights instead of every one of them lined up
+     waiting at the top edge together.
+     The midpoint keyframe interpolates rotation as the average of the
+     start/end angles and drift as half the total drift — not because
+     the midpoint needs to be exact, but because without it the browser
+     linearly interpolates straight from 0% to 100% and the rotation in
+     particular reads as a single mechanical spin; one extra waypoint is
+     enough to break that and read as loose tumbling instead. */
+  @keyframes hero-icon-fall {
+    0% {
+      transform: translate3d(0, -14vh, 0) rotate(var(--rotate-from));
+      opacity: 0;
+    }
+    8% {
+      opacity: var(--icon-opacity);
+    }
+    50% {
+      transform: translate3d(calc(var(--drift-x) * 0.5), 55vh, 0)
+        rotate(calc((var(--rotate-from) + var(--rotate-to)) / 2));
+    }
+    90% {
+      opacity: var(--icon-opacity);
+    }
+    100% {
+      transform: translate3d(var(--drift-x), 122vh, 0) rotate(var(--rotate-to));
+      opacity: 0;
+    }
+  }
+
+  .hero-falling-icon {
+    position: absolute;
+    top: 0;
+    will-change: transform, opacity;
+    animation: hero-icon-fall var(--fall-duration) linear var(--fall-delay) infinite;
+  }
+
   /* ---- Scroll progress bar ---- */
   .scroll-progress {
     position: fixed;

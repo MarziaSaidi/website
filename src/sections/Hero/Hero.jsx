@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import ScrambleText from "../../components/ui/ScrambleText";
 import HeroField from "./HeroField";
+import FallingIcons from "./FallingIcons";
 import { PROCESS_SECTION_ID } from "./heroStoryboard.data";
 
 // Pointer parallax + spotlight only — driven by CSS custom properties set
@@ -64,6 +65,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background"
     >
       <HeroField sectionRef={paneRef} />
+      <FallingIcons />
 
       {/* Cursor spotlight — a soft glow that follows the pointer, layered
           above the aurora/dot field. */}
