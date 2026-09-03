@@ -88,6 +88,13 @@ function getOrbitronFontFace() {
 // embedded font wasn't actually rendering. `rotate(180, cx, cy)` on the
 // <text> itself replicates .hero-marzia-mark's own transform directly,
 // since there's no separate wrapper element to carry it this time.
+//
+// The text content below is "AIZRAM" — MARZIA reversed — not a typo.
+// vertical-rl + text-orientation:sideways lays characters out top-to-
+// bottom in STRING order; the mark reads bottom-to-top (this is what
+// the original CSS's rotate(180deg) has always done — see its own
+// comment in index.css), so reversing the string is what puts the
+// first letter, M, at the bottom and the last, A, at the top.
 function useMarziaTexture(markRef, w, h) {
   const [texture, setTexture] = useState(null);
   useEffect(() => {
@@ -102,7 +109,7 @@ function useMarziaTexture(markRef, w, h) {
       const cs = getComputedStyle(mark);
       const cx = w / 2;
       const cy = h / 2;
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><g transform="scale(${scale})"><text x="${cx}" y="${cy}" transform="rotate(180 ${cx} ${cy})" font-family="'OrbitronEmbedded', ${cs.fontFamily}" font-weight="${cs.fontWeight}" font-size="${cs.fontSize}" fill="${cs.color}" writing-mode="vertical-rl" text-orientation="sideways" text-anchor="middle" dominant-baseline="central">MARZIA</text></g></svg>`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><g transform="scale(${scale})"><text x="${cx}" y="${cy}" transform="rotate(180 ${cx} ${cy})" font-family="'OrbitronEmbedded', ${cs.fontFamily}" font-weight="${cs.fontWeight}" font-size="${cs.fontSize}" fill="${cs.color}" writing-mode="vertical-rl" text-orientation="sideways" text-anchor="middle" dominant-baseline="central">AIZRAM</text></g></svg>`;
       const img = new window.Image();
       img.onload = () => {
         if (cancelled) return;
