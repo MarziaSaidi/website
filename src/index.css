@@ -5,16 +5,28 @@
      (#E8E5DF), warm taupe (#A49A87), olive-gray (#A5A58D), and stone
      (#968F83). Every token below is either one of those four hexes
      verbatim or a lightness/saturation adjustment of the same hue, so
-     light and dark stay one visual identity rather than two. Light mode
-     leans on true black/white for contrast and negative space; dark mode
-     leans on the palette's own mid-tones (already light enough to read on
-     near-black) rather than brightened or saturated stand-ins — see the
-     dark-mode block below for why nothing here needs a "boosted" twin.
+     light and dark stay one visual identity rather than two.
+     --color-background itself is the one deliberate exception: true
+     white in light, true black in dark, rather than the warm-ivory/
+     near-black tones those two modes otherwise lean on — #E8E5DF still
+     shows up elsewhere (e.g. --color-button-primary-text below), just
+     not as the page background anymore (the hero section is its own
+     further exception again — see Hero.jsx and --color-hero-bg below,
+     not this token, for its light/dark background). Everything else
+     keeps leaning on the palette's own mid-tones (already light enough
+     to read on near-black) rather than brightened or saturated
+     stand-ins — see the dark-mode block below for why nothing here
+     needs a "boosted" twin.
      --color-accent-contrast is the text/icon color for content painted on
      top of --color-accent (e.g. white-on-button); it forwards to
      --color-background because that's the token deliberately kept at the
      opposite end of the contrast scale from accent in both themes. */
-  --color-background: #e8e5df;
+  --color-background: #ffffff;
+  /* The hero section's own background, independent of --color-background
+     above — light and dark are two unrelated-looking colors here (a pale
+     lavender, a deep violet) rather than the rest of the site's neutral
+     white/black, which is deliberate: see Hero.jsx's className. */
+  --color-hero-bg: #f1f0ff;
   --color-background-secondary: #dad4c8;
   --color-paper: #ffffff;
   --color-text: #151411;
@@ -237,8 +249,10 @@
 }
 
 /* Dark theme: not an inversion of light — a deliberately more restrained
-   reading of the same four tones. Near-black/graphite surfaces, warm-ivory
-   text, and the taupe/olive/stone accents used closer to their raw values
+   reading of the same four tones. True-black background (paper/secondary
+   surfaces above it stay near-black/graphite, not black themselves),
+   warm-ivory text, and the taupe/olive/stone accents used closer to
+   their raw values
    (they're already light enough to clear contrast on near-black without
    brightening or saturating them, which would read as "glowing"). Follows
    system preference by default; an explicit choice (via the nav toggle) is
@@ -249,7 +263,8 @@
    it with no per-class dark: variants needed. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-background: #100f0c;
+    --color-background: #000000;
+    --color-hero-bg: #2c0f62;
     --color-background-secondary: #1d1a16;
     --color-paper: #23211c;
     --color-text: #eae7e1;
@@ -275,7 +290,8 @@
 }
 
 :root[data-theme="dark"] {
-  --color-background: #100f0c;
+  --color-background: #000000;
+  --color-hero-bg: #2c0f62;
   --color-background-secondary: #1d1a16;
   --color-paper: #23211c;
   --color-text: #eae7e1;
@@ -1030,6 +1046,36 @@
     white-space: nowrap;
     pointer-events: none;
     z-index: 1;
+  }
+
+  /* ---- Hero bottom fade ----
+     A thin overlay, not a change to .bg-hero-bg itself — the section's
+     own background stays exactly --color-hero-bg edge to edge (both
+     the spec and the visible result: this only covers the bottom
+     strip, and starts fully transparent there too), while this strip
+     fades from transparent into --color-background, the next
+     section's actual color. Since it fades TO the color already
+     showing through everywhere below the hero (FeaturedWork sets no
+     background of its own — see its own comment), the seam between
+     the two disappears instead of being replaced by a second hard
+     edge at a different spot.
+     --color-background is already the theme-aware token (white in
+     light, black in dark — see the @theme block up top), so this one
+     rule handles both themes' fade without a separate dark override;
+     only the hero's own background half of each transition (light
+     #F1F0FF, dark #2C0F62) is theme-specific, and that lives on
+     --color-hero-bg, not here.
+     Height is clamped rather than a flat percentage of the section —
+     the fade is meant to read as a fixed-weight edge treatment, not
+     something that gets a 300px band on a tall desktop hero and a
+     60px sliver on a short mobile one. */
+  .hero-fade-bottom {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: clamp(96px, 12vh, 160px);
+    background: linear-gradient(to bottom, transparent, var(--color-background));
+    pointer-events: none;
   }
 
   /* ---- Scroll progress bar ---- */

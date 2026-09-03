@@ -16,7 +16,10 @@ function FeaturedWorkHeading() {
   const ref = useScrollReveal();
   return (
     <div ref={ref} className="reveal">
-      <div className="border-t border-border" />
+      {/* No border-t here — the hero fades directly into this section's
+          background via .hero-fade-bottom (see Hero.jsx/index.css), so a
+          hard rule right at that seam would recreate the sharp edge the
+          fade exists to remove. */}
       <div className="max-w-6xl mx-auto px-6 md:px-10 pt-24 md:pt-36 pb-16 md:pb-20">
         <div className="flex items-center gap-3 mb-8">
           <span className="block h-px w-6 bg-gold divider-draw" aria-hidden="true" />

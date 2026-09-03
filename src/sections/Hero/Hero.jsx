@@ -62,7 +62,7 @@ export default function Hero() {
       id="top"
       aria-label="Introduction"
       style={{ "--mx": 0, "--my": 0, "--sx": "50%", "--sy": "50%" }}
-      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-[#F1F0FF]"
+      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-hero-bg"
     >
       <HeroField sectionRef={paneRef} />
       <FallingIcons />
@@ -161,6 +161,13 @@ export default function Hero() {
           </button>
         </div>
       </div>
+
+      {/* Fades the hero's own solid background into the next section's,
+          instead of the hard edge a flat color next to a flat color
+          (#F1F0FF against #FFFFFF/#000000) would otherwise draw — see
+          .hero-fade-bottom in index.css for why this is a thin overlay
+          rather than baked into .bg-hero-bg itself. */}
+      <div className="hero-fade-bottom" aria-hidden="true" />
     </section>
   );
 }
