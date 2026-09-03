@@ -123,8 +123,13 @@ function useIconTexture(Icon, color, sourcePx) {
       canvas.width = sourcePx;
       canvas.height = sourcePx;
       canvas.getContext("2d").drawImage(img, 0, 0, sourcePx, sourcePx);
+      // No colorSpace tag here on purpose — see the <Canvas linear> prop
+      // below: a custom ShaderMaterial doesn't get Three.js's automatic
+      // sRGB texture decode, so tagging the texture sRGB while the
+      // renderer ALSO re-encodes its output double-applies the gamma
+      // curve and visibly shifts brand colors (Git orange, React cyan,
+      // XD pink). Leaving both untagged keeps it a straight pass-through.
       const tex = new THREE.CanvasTexture(canvas);
-      tex.colorSpace = THREE.SRGBColorSpace;
       setTexture(tex);
     };
     img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup)}`;
@@ -318,6 +323,7 @@ export default function FallingIcons() {
       {sceneSize.w > 0 && sceneSize.h > 0 && (
         <Canvas
           orthographic
+          linear
           camera={{
             left: 0,
             right: sceneSize.w,

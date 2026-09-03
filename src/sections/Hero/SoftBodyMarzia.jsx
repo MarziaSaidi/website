@@ -50,8 +50,15 @@ function useMarziaTexture(markRef, w, h) {
         canvas.width = w * scale;
         canvas.height = h * scale;
         canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+        // No colorSpace tag here on purpose — see the <Canvas linear>
+        // comment below for why: a custom ShaderMaterial doesn't get
+        // Three.js's automatic sRGB texture decode, so tagging the
+        // texture sRGB while the renderer ALSO re-encodes its output
+        // double-applies the gamma curve and visibly shifts the hue
+        // (this exact bug is why MARZIA was reading blue instead of
+        // lavender). Leaving both untagged keeps it a straight pass-
+        // through: the canvas's own pixel bytes reach the screen as-is.
         const tex = new THREE.CanvasTexture(canvas);
-        tex.colorSpace = THREE.SRGBColorSpace;
         setTexture(tex);
       };
       img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
@@ -128,6 +135,7 @@ export default function SoftBodyMarzia({ markRef }) {
     <div ref={wrapRef} className="hero-marzia-mark" aria-hidden="true" style={{ width: size.w, height: size.h }}>
       <Canvas
         orthographic
+        linear
         camera={{ left: 0, right: size.w, top: 0, bottom: size.h, near: 0.1, far: 1000, position: [0, 0, 100] }}
         gl={{ alpha: true, antialias: true }}
         style={{ width: "100%", height: "100%", display: "block" }}
