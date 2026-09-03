@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import SiteGrid from "./components/SiteGrid";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
@@ -116,7 +117,7 @@ const PAGES = {
   home: HomePage,
 };
 
-export default function App() {
+function Router() {
   const route = useHashRoute();
 
   if (route.startsWith("#/survue")) {
@@ -149,4 +150,13 @@ export default function App() {
 
   const Page = PAGES[routeToPageId(route)];
   return <Page />;
+}
+
+export default function App() {
+  return (
+    <>
+      <SiteGrid />
+      <Router />
+    </>
+  );
 }
