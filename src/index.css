@@ -1161,6 +1161,19 @@
     }
   }
 
+  /* ---- Pixel trail (PixelTrail.jsx): site-wide, hero excluded ----
+     Fixed to the viewport like .custom-cursor below (not absolute
+     within any one section — this canvas covers the whole page), and
+     z-index 70 keeps it under the cursor ring (75) so the ring stays
+     the topmost thing if a trail pixel and the ring ever coincide,
+     while still sitting above ordinary page content (nav is 50). */
+  .pixel-trail-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 70;
+  }
+
   /* ---- Custom cursor: augments the native pointer, never replaces it ---- */
   .custom-cursor {
     position: fixed;
@@ -1169,12 +1182,11 @@
     width: 18px;
     height: 18px;
     margin: -9px 0 0 -9px;
-    border-radius: 50%;
-    border: 1.5px solid var(--cursor-color, var(--color-accent));
+    border: 1.5px solid #ff6b61;
     pointer-events: none;
     z-index: 75;
     transform: translate3d(var(--cursor-x, -9999px), var(--cursor-y, -9999px), 0) scale(var(--cursor-scale, 1));
-    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
     opacity: 0;
   }
 
@@ -1195,7 +1207,7 @@
     font-family: ui-monospace, monospace;
     font-size: 6.5px;
     letter-spacing: 0.08em;
-    color: var(--cursor-color, var(--color-accent));
+    color: #ff6b61;
     white-space: nowrap;
   }
 

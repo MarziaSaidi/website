@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import ScrambleText from "../../components/ui/ScrambleText";
 import HeroField from "./HeroField";
 import FallingIcons from "./FallingIcons";
-import HeroTrail from "./HeroTrail";
 import { PROCESS_SECTION_ID } from "./heroStoryboard.data";
 
 // Pointer parallax + spotlight only — driven by CSS custom properties set
@@ -162,8 +161,6 @@ export default function Hero() {
           </button>
         </div>
       </div>
-
-      <HeroTrail sectionRef={paneRef} />
     </section>
   );
 }

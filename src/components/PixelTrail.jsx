@@ -14,19 +14,21 @@ function randomSize() {
   return SIZES[(Math.random() * SIZES.length) | 0];
 }
 
-// Small pixel-square trail confined to the hero — spawned along the
-// pointer's path inside the section only, drawn as flat, unblurred
-// fillRect squares (never arcs — a filled circle is the one shape this
-// was explicitly asked not to produce) that fade out and disappear.
-// Sibling to HeroField/FallingIcons, not layered on top of either: its
-// own canvas, own rAF loop, own listeners, scoped to `sectionRef`.
-export default function HeroTrail({ sectionRef }) {
+// Small pixel-square mouse trail for the whole site — EXCEPT the hero,
+// which runs its own falling-icons/MARZIA composition and gets a plain
+// native cursor instead (see the `#top` check in onMove below, and
+// CustomCursor.jsx's matching exclusion for its ring). Fixed to the
+// viewport rather than any one section, mounted once in App.jsx
+// alongside CustomCursor so it's present on every route.
+// Drawn as flat, unblurred fillRect squares (never arcs — a filled
+// circle is the one shape this was explicitly asked not to produce)
+// that fade out and disappear on their own short lifetime.
+export default function PixelTrail() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
     const canvas = canvasRef.current;
-    if (!section || !canvas) return;
+    if (!canvas) return;
 
     const fine = window.matchMedia("(pointer: fine)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -49,9 +51,8 @@ export default function HeroTrail({ sectionRef }) {
     let spawnCarry = 0;
 
     function resize() {
-      const r = section.getBoundingClientRect();
-      w = r.width;
-      h = r.height;
+      w = window.innerWidth;
+      h = window.innerHeight;
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = `${w}px`;
@@ -122,43 +123,46 @@ export default function HeroTrail({ sectionRef }) {
     }
 
     function onMove(e) {
-      const r = section.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      if (hasLast) spawnAlong(lastX, lastY, x, y);
-      lastX = x;
-      lastY = y;
+      // The hero runs its own composition and gets a plain cursor — no
+      // trail spawns there, matching CustomCursor's own #top exclusion.
+      if (e.target.closest?.("#top")) {
+        hasLast = false;
+        spawnCarry = 0;
+        return;
+      }
+      if (hasLast) spawnAlong(lastX, lastY, e.clientX, e.clientY);
+      lastX = e.clientX;
+      lastY = e.clientY;
       hasLast = true;
       ensureLoop();
     }
 
-    // Stops spawning immediately — hasLast=false means the very next
-    // pointerenter starts a fresh segment instead of drawing one long
-    // spawn line back from wherever the cursor left off outside the hero.
-    // Pixels already in flight keep fading via the still-running rAF loop.
+    // Leaving the viewport entirely stops spawning the same way leaving
+    // the hero does — hasLast=false means the next pointerenter starts a
+    // fresh segment instead of drawing one long spawn line back from
+    // wherever the cursor left off. Pixels already in flight keep fading.
     function onLeave() {
       hasLast = false;
       spawnCarry = 0;
     }
 
     resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(section);
-    section.addEventListener("pointermove", onMove);
-    section.addEventListener("pointerleave", onLeave);
+    window.addEventListener("resize", resize);
+    document.addEventListener("pointermove", onMove);
+    document.documentElement.addEventListener("pointerleave", onLeave);
 
     return () => {
       cancelAnimationFrame(raf);
-      ro.disconnect();
-      section.removeEventListener("pointermove", onMove);
-      section.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("resize", resize);
+      document.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
     };
-  }, [sectionRef]);
+  }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="pixel-trail-canvas"
       aria-hidden="true"
     />
   );

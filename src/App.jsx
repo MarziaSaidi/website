@@ -4,6 +4,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollProgress from "./components/layout/ScrollProgress";
 import CustomCursor from "./components/CustomCursor";
+import PixelTrail from "./components/PixelTrail";
 import IntroLoader from "./components/IntroLoader";
 import Hero from "./sections/Hero/Hero";
 import ProcessSection from "./sections/Hero/ProcessSection";
@@ -28,7 +29,7 @@ function routeToPageId(route) {
 }
 
 // Shared chrome for every top-level page — the intro loader, skip link,
-// scroll progress, custom cursor, nav, and footer were previously mounted
+// scroll progress, custom cursor, pixel trail, nav, and footer were previously mounted
 // once around the whole single-page site; now each route gets its own
 // instance of this shell around just its own content.
 function Shell({ pageId, children }) {
@@ -43,6 +44,7 @@ function Shell({ pageId, children }) {
       </a>
       <ScrollProgress />
       <CustomCursor />
+      <PixelTrail />
       <Navbar active={pageId} />
       <main id="main">{children}</main>
       <Footer />

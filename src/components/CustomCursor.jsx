@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 
-// Augments the native pointer with a small ring — never replaces it (no
-// cursor: none anywhere). Fine-pointer only; bails entirely on touch. Under
-// reduced-motion the ring still appears but snaps to position instantly
-// instead of easing, since only its rAF batching (not a CSS transition) is
-// what "follows" the pointer here.
+// Augments the native pointer with a small square outline — never replaces
+// it (no cursor: none anywhere). Fine-pointer only; bails entirely on
+// touch. Under reduced-motion the ring still appears but snaps to position
+// instantly instead of easing, since only its rAF batching (not a CSS
+// transition) is what "follows" the pointer here. Fixed #FF6B61, the same
+// coral as PixelTrail.jsx's pixels — one accent color ties the two cursor
+// effects together instead of this one following the per-world accent.
 export default function CustomCursor() {
   const ref = useRef(null);
 
@@ -26,7 +28,7 @@ export default function CustomCursor() {
     }
 
     function onMove(e) {
-      // The hero runs its own dedicated pixel-trail effect (HeroTrail.jsx)
+      // The hero runs its own dedicated pixel-trail effect (PixelTrail.jsx)
       // instead — the ring reads as a mismatched leftover cursor style
       // layered on top of it, so it's suppressed for the whole time the
       // pointer is over #top rather than the two effects competing.
@@ -36,16 +38,6 @@ export default function CustomCursor() {
       }
 
       el.classList.add("is-active");
-
-      // World-aware color: CSS cascade can't reach a fixed-position element
-      // outside the hovered subtree, so read the nearest [data-world] in JS
-      // and set the cursor's own color directly.
-      const worldEl = e.target.closest?.("[data-world]");
-      const world = worldEl?.getAttribute("data-world");
-      el.style.setProperty(
-        "--cursor-color",
-        world === "green" ? "var(--color-accent-alt)" : "var(--color-accent)"
-      );
 
       const interactive = e.target.closest?.(
         'a, button, [role="button"], input, textarea, [data-cursor]'
