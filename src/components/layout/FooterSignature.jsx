@@ -1,14 +1,11 @@
 import { useEffect, useRef } from "react";
 
-const TEXT = "Marzia Saidi";
-// The SVG text fill below uses var(--color-accent) directly (SVG
-// presentation attributes resolve CSS custom properties, so it repaints
-// with the theme automatically). The canvas particles can't: Canvas2D's
-// fillStyle needs a literal color string, so DUST is read live from the
-// current theme (same technique as HeroField's darkBoost()) — light and
-// dark need different lightness values to read as a solid dust color:
-// the light-mode accent-secondary is a lavender that reads clearly on
-// white, the dark-mode accent is a lighter lavender that reads clearly on
+// Canvas particles' fillStyle needs a literal color string (Canvas2D can't
+// consume a CSS var), so DUST is read live from the current theme (same
+// technique as HeroField's darkBoost()) — light and dark need different
+// lightness values to read as a solid dust color: the light-mode
+// accent-secondary is a lavender that reads clearly on white, the
+// dark-mode accent is a lighter lavender that reads clearly on
 // near-black, and no single hex does both.
 const DUST_LIGHT = "139, 127, 232"; // light --color-accent-secondary (#8B7FE8), as rgb components
 const DUST_DARK = "175, 167, 255"; // dark --color-accent (#AFA7FF), as rgb components
@@ -17,13 +14,6 @@ function currentDust() {
   return document.documentElement.getAttribute("data-theme") === "dark" ? DUST_DARK : DUST_LIGHT;
 }
 
-// Roughly the sequence described: dust gathers in the space around the
-// letters, drifts inward, fades as it blends into the glyphs, and the
-// gold color follows just behind it rather than snapping on with the
-// cursor. Reversing is deliberately slower and softer — an afterglow,
-// not a light switch.
-const HOVER_IN_MS = 850;
-const HOVER_OUT_MS = 1250;
 // The particle field spans the whole footer, and reads as sparse/uniform
 // at low counts with a narrow size range — pushed up for a denser,
 // more "conjured dust" field with real size variety (a few bright,
@@ -33,42 +23,28 @@ const MAX_PARTICLES = 900;
 function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
 }
-function easeInOutSine(t) {
-  return -(Math.cos(Math.PI * t) - 1) / 2;
-}
 
-// Renders the wordmark to an offscreen canvas at its real on-screen size
-// (replicating the SVG's textLength stretch by scaling horizontally after
-// measuring) and samples non-transparent pixels into a point cloud —
-// so particles can converge on the actual glyph shapes, not a guess.
-function sampleGlyphPoints(width, height) {
-  const off = document.createElement("canvas");
-  off.width = Math.max(1, Math.round(width));
-  off.height = Math.max(1, Math.round(height));
-  const ctx = off.getContext("2d");
-
-  const fontSize = height * 0.62;
-  ctx.font = `600 ${fontSize}px "Space Grotesk", sans-serif`;
-  ctx.textBaseline = "middle";
-  ctx.textAlign = "left";
-  const naturalWidth = ctx.measureText(TEXT).width || 1;
-  const desiredWidth = width * 0.94;
-  const scaleX = desiredWidth / naturalWidth;
-
-  ctx.save();
-  ctx.translate((width - desiredWidth) / 2, height * 0.54);
-  ctx.scale(scaleX, 1);
-  ctx.fillStyle = "#fff";
-  ctx.fillText(TEXT, 0, 0);
-  ctx.restore();
-
-  const { data } = ctx.getImageData(0, 0, off.width, off.height);
+// A uniform point cloud filling a soft circle — the "bubble" the dust
+// converges into. Same role the old letterform sampling played (a set of
+// {x,y} targets in the wordmark's box for particles to aim at), just a
+// plain round shape instead of glyph pixels, so the cloud doesn't spell
+// anything out.
+function sampleBubblePoints(width, height) {
+  const cx = width / 2;
+  const cy = height / 2;
+  // Sized off height only (and capped so it never outgrows a narrow
+  // width) so the circle stays comfortably inside the wordmark link's
+  // own box instead of bleeding into the copyright line above it.
+  const radius = Math.min(width * 0.5, height * 0.42);
   const points = [];
-  const step = 3;
-  for (let y = 0; y < off.height; y += step) {
-    for (let x = 0; x < off.width; x += step) {
-      if (data[(y * off.width + x) * 4 + 3] > 128) points.push({ x, y });
-    }
+  const count = 2200;
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    // sqrt(random) keeps the cloud uniformly dense rather than bunched
+    // at the center — a plain `Math.random() * radius` radius biases
+    // points toward the middle since area grows with r².
+    const r = radius * Math.sqrt(Math.random());
+    points.push({ x: cx + Math.cos(angle) * r, y: cy + Math.sin(angle) * r });
   }
   return points;
 }
@@ -86,8 +62,6 @@ function randSize() {
 export default function FooterSignature() {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
-  const outlineTextRef = useRef(null);
-  const goldTextRef = useRef(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -102,37 +76,21 @@ export default function FooterSignature() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coarse = window.matchMedia("(pointer: coarse)").matches;
 
-    // Reduced motion: a quiet color crossfade, no particles, no motion.
-    if (reduce) {
-      const outline = outlineTextRef.current;
-      const gold = goldTextRef.current;
-      outline.style.transition = "opacity 0.3s ease";
-      gold.style.transition = "opacity 0.3s ease";
-      const onEnter = () => {
-        outline.style.opacity = "0";
-        gold.style.opacity = "1";
-      };
-      const onLeave = () => {
-        outline.style.opacity = "1";
-        gold.style.opacity = "0";
-      };
-      footer.addEventListener("pointerenter", onEnter);
-      footer.addEventListener("pointerleave", onLeave);
-      return () => {
-        footer.removeEventListener("pointerenter", onEnter);
-        footer.removeEventListener("pointerleave", onLeave);
-      };
-    }
+    // Reduced motion: this effect is pure decorative motion with nothing
+    // else to fall back to (no text to crossfade a color on anymore), so
+    // it's skipped entirely, matching FallingIcons/PixelTrail's own
+    // reduced-motion convention of bailing rather than showing a
+    // stripped-down version.
+    if (reduce) return;
 
     const ctx = canvas.getContext("2d");
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     let width = 0;
     let height = 0;
-    let glyphPoints = [];
+    let bubblePoints = [];
     let particles = [];
     let hovering = false;
-    let colorProgress = 0; // 0 = dark/outline, 1 = full gold
     let raf = 0;
     let spawnAccumulator = 0;
     let pointer = { x: -9999, y: -9999, active: false };
@@ -148,12 +106,12 @@ export default function FooterSignature() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Glyphs are still sampled from the wordmark's own box (same
-      // calibration as before), then shifted into footer-local
-      // coordinates so particles anywhere in the footer can target them.
+      // The bubble is still sampled within the wordmark link's own box
+      // (same calibration as before), then shifted into footer-local
+      // coordinates so particles anywhere in the footer can target it.
       const offsetX = wrapRect.left - footerRect.left;
       const offsetY = wrapRect.top - footerRect.top;
-      glyphPoints = sampleGlyphPoints(wrapRect.width, wrapRect.height).map((p) => ({
+      bubblePoints = sampleBubblePoints(wrapRect.width, wrapRect.height).map((p) => ({
         x: p.x + offsetX,
         y: p.y + offsetY,
       }));
@@ -174,7 +132,7 @@ export default function FooterSignature() {
     // A jittered point around the actual cursor — dust should gather
     // wherever the pointer currently is, not anywhere in the footer, so
     // it visibly follows the cursor as it moves before streaming into
-    // the letters.
+    // the bubble.
     function cursorPoint() {
       const angle = Math.random() * Math.PI * 2;
       const dist = randRange(0, 60);
@@ -199,8 +157,8 @@ export default function FooterSignature() {
     }
 
     function spawnInbound() {
-      if (particles.length >= MAX_PARTICLES || glyphPoints.length === 0) return;
-      const target = glyphPoints[(Math.random() * glyphPoints.length) | 0];
+      if (particles.length >= MAX_PARTICLES || bubblePoints.length === 0) return;
+      const target = bubblePoints[(Math.random() * bubblePoints.length) | 0];
       const start = spawnOrigin();
       const vanishEarly = Math.random() < 0.3;
       const { nx, ny } = perp(start.x, start.y, target.x, target.y);
@@ -226,8 +184,8 @@ export default function FooterSignature() {
     }
 
     function spawnOutbound() {
-      if (particles.length >= MAX_PARTICLES || glyphPoints.length === 0) return;
-      const origin = glyphPoints[(Math.random() * glyphPoints.length) | 0];
+      if (particles.length >= MAX_PARTICLES || bubblePoints.length === 0) return;
+      const origin = bubblePoints[(Math.random() * bubblePoints.length) | 0];
       const end = haloPoint();
       const { nx, ny } = perp(origin.x, origin.y, end.x, end.y);
       particles.push({
@@ -252,18 +210,6 @@ export default function FooterSignature() {
     }
 
     function step(dt) {
-      // Color eases toward its target; the "in" direction is a touch
-      // quicker than "out" so the gold visibly trails the dust on the way
-      // in, and lingers as an afterglow on the way out.
-      const target = hovering ? 1 : 0;
-      const rate = hovering ? dt / HOVER_IN_MS : dt / HOVER_OUT_MS;
-      colorProgress += (target - colorProgress) * Math.min(1, rate * 2.2);
-      if (Math.abs(target - colorProgress) < 0.001) colorProgress = target;
-
-      const eased = easeInOutSine(colorProgress);
-      outlineTextRef.current.style.opacity = String(1 - eased);
-      goldTextRef.current.style.opacity = String(eased);
-
       // Ambient trickle while hovering — a dense field, like grains
       // stirred up and never quite settling while the current runs.
       if (hovering) {
@@ -329,7 +275,7 @@ export default function FooterSignature() {
       const dt = Math.min(48, now - last);
       last = now;
       step(dt);
-      const settled = Math.abs((hovering ? 1 : 0) - colorProgress) < 0.001 && particles.length === 0;
+      const settled = !hovering && particles.length === 0;
       if (!settled) {
         raf = requestAnimationFrame(loop);
       } else {
@@ -391,9 +337,9 @@ export default function FooterSignature() {
     ro.observe(footer);
 
     // Coarse (touch) pointers have no hover concept, so there's nothing
-    // to move the cursor and trigger it — instead the reveal plays once,
-    // automatically, the moment the footer scrolls into view, and simply
-    // stays gold rather than reversing back out.
+    // to move the cursor and trigger it — instead the bubble streams in
+    // once, automatically, the moment the footer scrolls into view, and
+    // simply keeps trickling rather than reversing back out.
     let io = null;
     if (coarse) {
       io = new IntersectionObserver(
@@ -434,48 +380,19 @@ export default function FooterSignature() {
 
   return (
     <>
+      {/* No visible wordmark — this is now a plain, unlabeled-on-screen
+          hit area anchored to the footer's bottom edge (the footer above
+          centers its own text content independently of this), sized to
+          give the particle bubble a comfortable band to converge in.
+          aria-label carries the same "back to home" meaning a sighted
+          user would otherwise read off a visible logo/wordmark. */}
       <a
         ref={wrapRef}
         href="#/"
         aria-label="Back to home"
-        className="relative block w-full pb-6 md:pb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
-      >
-        <svg viewBox="0 0 1000 200" className="relative z-0 w-full h-auto block" role="presentation" aria-hidden="true">
-          <text
-            ref={outlineTextRef}
-            x="500"
-            y="52%"
-            textAnchor="middle"
-            dominantBaseline="central"
-            textLength="980"
-            lengthAdjust="spacingAndGlyphs"
-            fontSize="170"
-            fill="none"
-            stroke="var(--color-text-secondary)"
-            strokeOpacity="0.55"
-            strokeWidth="1.25"
-            className="font-display font-semibold"
-          >
-            {TEXT}
-          </text>
-          <text
-            ref={goldTextRef}
-            x="500"
-            y="52%"
-            textAnchor="middle"
-            dominantBaseline="central"
-            textLength="980"
-            lengthAdjust="spacingAndGlyphs"
-            fontSize="170"
-            fill="var(--color-accent)"
-            className="font-display font-semibold"
-            style={{ opacity: 0 }}
-          >
-            {TEXT}
-          </text>
-        </svg>
-      </a>
-      {/* Covers the whole footer (not just the wordmark above) — sized and
+        className="absolute inset-x-0 bottom-0 z-0 h-40 md:h-56 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
+      />
+      {/* Covers the whole footer (not just the link above) — sized and
           positioned against the <footer> ancestor by the effect above,
           since the footer itself is the nearest positioned parent. */}
       <canvas ref={canvasRef} className="absolute inset-0 z-10 pointer-events-none" aria-hidden="true" />

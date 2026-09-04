@@ -65,7 +65,6 @@ function HomePage() {
     <Shell pageId="home">
       <Hero />
       <FeaturedWork />
-      <Contact />
     </Shell>
   );
 }
