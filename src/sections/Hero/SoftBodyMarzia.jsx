@@ -34,10 +34,9 @@ function CameraSync({ width, height }) {
 const GRID_COLS = 10;
 const GRID_ROWS = 40;
 const INFLUENCE_WIDTHS = 3; // cursor influence radius, in multiples of MARZIA's own current width
-// .hero-marzia-mark's own transform is a fixed rotate(180deg) — never
-// animates — so unlike the falling icons this is a constant, not
-// something read off getComputedStyle every frame.
-const ANGLE = Math.PI;
+// .hero-marzia-mark has no rotation transform — the vertical-rl
+// writing-mode with sideways text-orientation already positions it correctly.
+const ANGLE = 0;
 
 // An SVG rendered via <img src="data:image/svg+xml..."> runs in the
 // browser's restricted "image" mode, which can't fetch external
@@ -85,19 +84,11 @@ function getOrbitronFontFace() {
 // fonts for years); foreignObject-with-HTML-and-CSS-writing-mode is a
 // much newer, less consistently-supported combination, and switching
 // away from it removes a whole layer of uncertainty about why the
-// embedded font wasn't actually rendering. `rotate(180, cx, cy)` on the
-// <text> itself replicates .hero-marzia-mark's own transform directly,
-// since there's no separate wrapper element to carry it this time.
+// embedded font wasn't actually rendering.
 //
-// Plain "MARZIA" (not reversed) is correct here — confirmed against an
-// actual rendered screenshot, not derived from theory. An earlier pass
-// assumed this native SVG <text> pathway would need the string reversed
-// to read bottom-to-top, carrying over how the old <foreignObject>+HTML
-// implementation behaved — but this pathway already renders bottom-to-
-// top with the string in its natural order, so reversing it was
-// actually what broke it (produced correct-looking but top-to-bottom
-// output). Don't "fix" this back to a reversed string without a real
-// screenshot showing it's wrong again.
+// Plain "MARZIA" (not reversed) with writing-mode: vertical-rl and
+// text-orientation: sideways renders bottom-to-top: M at top, A at bottom
+// (reads correctly when tilting head to the right).
 function useMarziaTexture(markRef, w, h) {
   const [texture, setTexture] = useState(null);
   useEffect(() => {
@@ -112,7 +103,7 @@ function useMarziaTexture(markRef, w, h) {
       const cs = getComputedStyle(mark);
       const cx = w / 2;
       const cy = h / 2;
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><g transform="scale(${scale})"><text x="${cx}" y="${cy}" transform="rotate(180 ${cx} ${cy})" font-family="'OrbitronEmbedded', ${cs.fontFamily}" font-weight="${cs.fontWeight}" font-size="${cs.fontSize}" fill="${cs.color}" writing-mode="vertical-rl" text-orientation="sideways" text-anchor="middle" dominant-baseline="central">MARZIA</text></g></svg>`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><g transform="scale(${scale})"><text x="${cx}" y="${cy}" font-family="'OrbitronEmbedded', ${cs.fontFamily}" font-weight="${cs.fontWeight}" font-size="${cs.fontSize}" fill="${cs.color}" writing-mode="vertical-rl" text-orientation="sideways" text-anchor="middle" dominant-baseline="central">MARZIA</text></g></svg>`;
       const img = new window.Image();
       img.onload = () => {
         if (cancelled) return;
