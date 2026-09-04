@@ -94,15 +94,16 @@ export const work = [
     category: "design",
     date: "March 2026",
     previewMinHeight: "min-h-[180px] sm:min-h-[220px]",
+    cardColor: "#04A45A",
     labels: ["Design", "Mobile", "Product"],
-    // No dedicated case study or screenshots for this one yet — it's the
-    // student-facing companion app to Get Campus's employer platform, from
-    // the same internship (see CaseStudyGetCampus.jsx's Overview section).
-    // Keeping the description to what that page already documents rather
-    // than inventing detail this project doesn't have written up anywhere.
-    description: "Student facing companion app to Get Campus's employer platform, from the same internship engagement.",
-    preview: "none",
-    href: "#/get-campus",
+    // Contract redesign of three connected pages (home, product, content).
+    // Not yet shipped by the client, so no screenshots exist to show — see
+    // CaseStudyNewStartMobile.jsx for why, written the same way haoqi.design
+    // handles an unfinished project (one paragraph, plain, no invented
+    // Problem/Work/Decisions structure around a gap).
+    description: "Redesigned three connected pages into one consistent system for New Start Mobile. Not yet live.",
+    preview: "label",
+    href: "#/new-start-mobile",
     hrefLabel: "View project",
   },
   {
@@ -154,6 +155,11 @@ export const work = [
     category: "engineering",
     cardColor: "#50AAB1",
     date: "May-August 2024",
+    previewMinHeight: "min-h-[180px] sm:min-h-[220px]",
+    bannerSrc: "/wildwood-black-transparent.avif",
+    bannerAlt: "Wildwood Oyster Co.",
+    bannerWidth: 370,
+    bannerHeight: 48,
     labels: ["Engineering", "Frontend"],
     description:
       "Responsive pages and custom Shopify components for a growing ecommerce storefront.",

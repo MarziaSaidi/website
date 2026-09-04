@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import AnchorHeading from "../components/case-study/AnchorHeading";
 import TocSidebar from "../components/case-study/TocSidebar";
 import Lightbox from "../components/case-study/Lightbox";
 import MetadataFooter from "../components/case-study/MetadataFooter";
@@ -26,33 +25,29 @@ function ImageIcon() {
   );
 }
 
-/* Real screenshot with graceful fallback: shows a labeled slot until the WEBP
-   exists at `src`, then swaps to the real image automatically. No border or
-   card chrome — these exports already have a full laptop frame baked in, so
-   adding one just traces a rectangle around the transparent margin. */
-function Screenshot({ src, label, caption, onOpen }) {
+function Screenshot({ src, label, caption, width, height, onOpen }) {
   const [failed, setFailed] = useState(false);
   return (
     <figure className="flex flex-col gap-3">
       {failed ? (
-        <div className="w-full aspect-[16/10] rounded-xl border border-border bg-surface-elevated/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary text-center px-6">
+        <div className="w-full aspect-[16/10] bg-surface flex flex-col items-center justify-center gap-2 text-text-secondary px-4 text-center">
           <ImageIcon />
-          <span className="font-mono text-[0.62rem] uppercase tracking-meta">{label}</span>
+          <span className="font-mono text-[0.6rem] uppercase tracking-meta">{label}</span>
         </div>
       ) : (
         <img
           src={src}
           alt={label}
-          width={2880}
-          height={1800}
+          width={width}
+          height={height}
           loading="lazy"
           onError={() => setFailed(true)}
           onClick={() => onOpen({ src, label })}
-          className="w-full h-auto cursor-zoom-in opacity-100 hover:opacity-80 transition-opacity"
+          className="w-full h-auto border-[0.5px] border-border cursor-zoom-in opacity-100 hover:opacity-80 transition-opacity"
         />
       )}
       {caption && (
-        <figcaption className="text-xs text-text-secondary leading-relaxed">
+        <figcaption className="text-sm text-text-secondary leading-relaxed">
           {caption}
         </figcaption>
       )}
@@ -60,12 +55,24 @@ function Screenshot({ src, label, caption, onOpen }) {
   );
 }
 
-const TOC_SECTIONS = [
-  { id: "the-problem", label: "The Problem" },
-  { id: "the-console", label: "The Console" },
+const IMG_BASE = "/quill%20and%20pigeon";
+
+const screens = [
+  { n: "1", src: `${IMG_BASE}/1.png`, label: "Add Recipients", width: 2880, height: 1558, caption: "Add Recipients — manual entry or spreadsheet import, side by side." },
+  { n: "2", src: `${IMG_BASE}/2.png`, label: "Upload CSV", width: 1338, height: 706, caption: "Drag-and-drop CSV or XLSX, no format wrestling." },
+  { n: "3", src: `${IMG_BASE}/3.png`, label: "File staged", width: 1338, height: 492, caption: "File staged, ready to parse." },
+  { n: "4", src: `${IMG_BASE}/4.png`, label: "Validation errors", width: 2042, height: 1190, caption: "Validation flags 15 duplicate and malformed rows before anything saves." },
+  { n: "5", src: `${IMG_BASE}/5.png`, label: "Cleaned review", width: 2048, height: 722, caption: "Down to the 2 real contacts, ready to import." },
+  { n: "6", src: `${IMG_BASE}/6.png`, label: "Import confirmed", width: 2040, height: 1008, caption: "Import confirmed, with exactly what was saved for each contact." },
+  { n: "7", src: `${IMG_BASE}/7.png`, label: "Recipients populated", width: 2880, height: 1562, caption: "Recipients populate instantly — zero manual re-entry." },
 ];
 
-export default function CaseStudyRelay() {
+const TOC_SECTIONS = [
+  { id: "the-problem", label: "The Problem" },
+  { id: "the-import", label: "The Import" },
+];
+
+export default function CaseStudyQuillPigeon() {
   const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
@@ -73,8 +80,8 @@ export default function CaseStudyRelay() {
     scrollToHashedSectionOnLoad();
   }, []);
   useDocumentMeta(
-    "Relay | Marzia Saidi",
-    "Designing a real time operations console for a live delivery fleet: a dense surface a dispatcher can scan and act on under pressure."
+    "Quill & Pigeon | Marzia Saidi",
+    "Building a CSV/XLSX bulk-import pipeline that validates and corrects recipient data, wiping out manual data entry for 100+ users."
   );
 
   return (
@@ -103,39 +110,24 @@ export default function CaseStudyRelay() {
         {/* HERO */}
         <section>
           <div className="max-w-5xl mx-auto px-6 md:px-10 pt-24 pb-[25px] md:pt-32">
-            <Eyebrow className="enter enter-1">Case Study · Product Design (Self Directed)</Eyebrow>
+            <Eyebrow className="enter enter-1">Case Study · Full Stack (Internship)</Eyebrow>
             <h1 className="enter enter-2 font-display font-bold text-6xl md:text-7xl text-text leading-[1.02] mt-5 mb-2">
-              Relay
+              Quill &amp; Pigeon
             </h1>
             <p className="enter enter-3 font-mono text-sm text-text-secondary/60 tabular-nums mb-8">
-              Personal Project
+              Jan – Aug 2025 · Portland, ME · Internship
             </p>
             <p className="enter enter-3 text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl">
-              A real time operations console for a live delivery fleet: dense
-              enough to see everything, fast enough to act under pressure.
+              I built production features that eliminated manual work and
+              gave the internal team live visibility into their own data.
             </p>
-
-            <a
-              href="https://author-sync-40384662.figma.site/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="enter enter-4 hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              View live prototype
-              <span className="text-text/70">
-                (dark mode)
-              </span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M18 6H8M18 6V16" />
-              </svg>
-            </a>
 
             <dl className="enter enter-5 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-8 mt-12 border-t border-border pt-10">
               {[
-                ["Role", "Product Designer (self directed)"],
-                ["Type", "Personal project"],
-                ["Platform", "Desktop operations console"],
-                ["Focus", "Real time information design"],
+                ["Role", "Full Stack Developer (Intern)"],
+                ["Type", "Internship"],
+                ["Stack", "React · TypeScript · Zod · Google APIs"],
+                ["Focus", "Removing manual work from internal workflows"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
                   <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">{k}</dt>
@@ -153,50 +145,36 @@ export default function CaseStudyRelay() {
               The Problem:
             </span>
             <span className="text-text-secondary">
-              A dispatcher doesn't read this console, they scan it and act —
-              tracking a live fleet of drivers and orders while spotting the
-              one thing about to breach its SLA.
+              100+ users tracked recipients, addresses, and reminders by
+              hand, with no bulk way in and no live view of their own data.
             </span>
           </p>
         </section>
 
-        {/* THE CONSOLE */}
-        <section id="the-console" className="mx-auto px-6 md:px-10 py-[25px] max-w-5xl scroll-mt-28">
+        {/* THE IMPORT */}
+        <section id="the-import" className="mx-auto px-6 md:px-10 py-[25px] max-w-5xl scroll-mt-28">
           <p className="text-lg leading-relaxed mb-16 max-w-[820px]">
             <span className="font-mono text-xs uppercase tracking-meta text-text-secondary mr-2">
-              The Console:
+              The Import:
             </span>
             <span className="text-text-secondary">
-              Four dense frames: see everything, assign the right driver,
-              trust the reassignment, clear the exceptions before they breach.
+              One CSV upload, validated and corrected automatically, from
+              raw file to populated recipient list.
             </span>
           </p>
 
-          <div className="flex flex-col gap-16">
-            <Screenshot
-              src="/relay/dispatch-overview.webp"
-              label="Dispatch overview"
-              onOpen={setLightboxImage}
-              caption="Dispatch overview: map, order queue, fleet strip, and KPI bars, all readable in one glance."
-            />
-            <Screenshot
-              src="/relay/order-assignment.webp"
-              label="Order & assignment"
-              onOpen={setLightboxImage}
-              caption="Order & assignment: ranked driver suggestions with reasons, one click to assign."
-            />
-            <Screenshot
-              src="/relay/driver-detail.webp"
-              label="Driver detail"
-              onOpen={setLightboxImage}
-              caption="Driver detail: live route, capacity, and on time record before you reassign."
-            />
-            <Screenshot
-              src="/relay/exceptions-queue.webp"
-              label="Exceptions queue"
-              onOpen={setLightboxImage}
-              caption="Exceptions queue: problems triaged by SLA risk, not popups fighting for attention."
-            />
+          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-12">
+            {screens.map((s) => (
+              <Screenshot
+                key={s.n}
+                src={s.src}
+                label={s.label}
+                width={s.width}
+                height={s.height}
+                onOpen={setLightboxImage}
+                caption={s.caption}
+              />
+            ))}
           </div>
         </section>
 
@@ -204,9 +182,9 @@ export default function CaseStudyRelay() {
           <div className="max-w-[820px]">
             <MetadataFooter
               fields={[
-                ["Last Updated", "Sep 2026"],
+                ["Last Updated", "Aug 2025"],
                 ["Read Time", "1 min"],
-                ["Word Count", "124"],
+                ["Word Count", "117"],
               ]}
             />
           </div>
@@ -216,7 +194,7 @@ export default function CaseStudyRelay() {
       <footer>
         <div className="max-w-5xl mx-auto px-6 md:px-10 py-14 border-t border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <p className="text-xs text-text-secondary/80 font-mono uppercase tracking-meta">
-            Case study · Relay · Marzia Saidi
+            Case study · Quill &amp; Pigeon · Marzia Saidi
           </p>
           <a
             href="#/"

@@ -156,6 +156,20 @@
     0 10px 26px rgba(21, 20, 17, 0.1);
 }
 
+/* Inline-text underline as a dotted rule instead of a solid line — the
+   detail aDrive's own blog renderer uses on every inline link. Box-
+   decoration-break keeps the dots continuous across a wrapped line. */
+.link-dotted {
+  text-decoration: none;
+  padding-bottom: 5px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-image: radial-gradient(circle at center, currentColor 0.65px, transparent 0.7px);
+  background-size: 5px 3px;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+}
+
 /* Per-project "worlds": each Selected Work project, case-study page, and the
    one Experience row with a case study carries a data-world attribute that
    retints its links/labels via these scoped custom properties. Only "gold"

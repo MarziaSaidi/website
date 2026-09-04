@@ -21,7 +21,7 @@ import { RelayCard } from "../components/work/RelayCard";
 // the SupportIQ/Qalin one.
 const FEATURED_ROWS = [
   { ids: ["supportiq", "qalin"] },
-  { ids: ["relay"], width: "md:w-[85%]" },
+  { ids: ["relay"], width: "md:w-[85%]", align: "right" },
   // New Start Mobile has no case study or screenshots yet (only a
   // one-line mention inside the Get Campus case study), so its card has
   // no preview image — just the color block, tag, name, and date, same as
@@ -32,7 +32,7 @@ const FEATURED_ROWS = [
   // Wildwood has no screenshots (see preview: "none" in work.js) — same
   // text-only treatment as New Start Mobile above: color block, tag,
   // name, date only.
-  { ids: ["wildwood"] },
+  { ids: ["wildwood"], align: "center" },
 ];
 
 const CARD_COMPONENTS = {
@@ -80,7 +80,12 @@ export default function FeaturedWork() {
       <div className="max-w-6xl mx-auto px-6 md:px-10 flex flex-col gap-2">
         {rows.map(({ projects, width, align, stackOnMobile = true }) =>
           projects.length === 1 ? (
-            <div key={projects[0].id} className={`${width || "md:w-1/2"} ${align === "right" ? "md:ml-auto" : ""}`}>
+            <div
+              key={projects[0].id}
+              className={`${width || "md:w-1/2"} ${
+                align === "right" ? "md:ml-auto" : align === "center" ? "md:mx-auto" : ""
+              }`}
+            >
               <FeaturedCard project={projects[0]} />
             </div>
           ) : (

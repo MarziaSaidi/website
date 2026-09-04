@@ -16,6 +16,8 @@ import CaseStudyRelay from "./pages/CaseStudyRelay";
 import CaseStudyGetCampus from "./pages/CaseStudyGetCampus";
 import CaseStudyQalin from "./pages/CaseStudyQalin";
 import CaseStudySupportIQ from "./pages/CaseStudySupportIQ";
+import CaseStudyQuillPigeon from "./pages/CaseStudyQuillPigeon";
+import CaseStudyNewStartMobile from "./pages/CaseStudyNewStartMobile";
 import SimpleCaseStudy from "./pages/SimpleCaseStudy";
 import { useHashRoute } from "./hooks/useHashRoute";
 
@@ -63,6 +65,7 @@ function HomePage() {
   useScrollToTop();
   return (
     <Shell pageId="home">
+      <SiteGrid />
       <Hero />
       <FeaturedWork />
     </Shell>
@@ -127,7 +130,11 @@ function Router() {
   }
 
   if (route.startsWith("#/quill-pigeon")) {
-    return <SimpleCaseStudy projectId="quill-pigeon" />;
+    return <CaseStudyQuillPigeon />;
+  }
+
+  if (route.startsWith("#/new-start-mobile")) {
+    return <CaseStudyNewStartMobile />;
   }
 
   if (route.startsWith("#/wildwood")) {
@@ -139,10 +146,5 @@ function Router() {
 }
 
 export default function App() {
-  return (
-    <>
-      <SiteGrid />
-      <Router />
-    </>
-  );
+  return <Router />;
 }

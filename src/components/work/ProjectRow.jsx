@@ -110,6 +110,16 @@ export function ProjectPreview({ project }) {
           />
         </div>
       );
+    case "label":
+      // For a project with no screenshots to show yet (design not shipped
+      // by the client) — the card's own color carries the identity, and
+      // the name sits directly on it in white rather than leaving the
+      // card empty like the "none" preview does.
+      return (
+        <p className="font-display font-semibold text-2xl sm:text-3xl md:text-4xl text-white text-center">
+          {project.name}
+        </p>
+      );
     default:
       return null;
   }
