@@ -3,7 +3,6 @@ import ScrambleText from "../../components/ui/ScrambleText";
 import HeroField from "./HeroField";
 import FallingIcons from "./FallingIcons";
 import HeroPixelDissolve from "./HeroPixelDissolve";
-import SoftBodyMarzia from "./SoftBodyMarzia";
 
 // Pointer parallax only — driven by CSS custom properties set directly on
 // refs (no React re-renders per frame). The scroll-scrubbed storyboard
@@ -47,7 +46,6 @@ function usePointerParallax(paneRef) {
 
 export default function Hero() {
   const paneRef = useRef(null);
-  const markRef = useRef(null);
   usePointerParallax(paneRef);
 
   return (
@@ -61,15 +59,9 @@ export default function Hero() {
       <HeroField sectionRef={paneRef} />
       <FallingIcons />
 
-      {/* Kept in the DOM purely as the authoritative source for both
-          layout (its own live getBoundingClientRect) and rasterization
-          (its own computed style) — see SoftBodyMarzia.jsx. Never
-          painted itself, so the CSS position/size formula above stays
-          the single source of truth instead of being duplicated in JS. */}
-      <span ref={markRef} className="hero-marzia-mark" aria-hidden="true" style={{ visibility: "hidden" }}>
+      <div className="hero-marzia-mark" aria-hidden="true">
         MARZIA
-      </span>
-      <SoftBodyMarzia markRef={markRef} />
+      </div>
 
       {/* Above the ambient background layers and MARZIA (HeroField,
           FallingIcons, the mark) so it can visually replace all of them
