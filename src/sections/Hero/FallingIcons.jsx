@@ -17,7 +17,6 @@ import {
   LuPresentation,
 } from "react-icons/lu";
 import { cursorField, ensureCursorFieldTracking } from "../../hooks/useCursorField";
-import SoftBodyMesh from "./SoftBodyMesh";
 
 // Simple Icons dropped Adobe's marks (trademark reasons), so Adobe XD is
 // the one hand-drawn glyph here — same stroke weight/style as the Lucide
@@ -253,16 +252,7 @@ function FallingIcon3D({ icon, containerRef }) {
   return (
     <group ref={groupRef}>
       <group position={[-size / 2, -size / 2, 0]}>
-        <SoftBodyMesh
-          texture={texture}
-          width={size}
-          height={size}
-          gridCols={GRID}
-          gridRows={GRID}
-          getLocalCursor={getLocalCursor}
-          getOpacity={getOpacity}
-          influenceRadius={size * INFLUENCE}
-        />
+        {/* Soft-body mesh removed during MARZIA simplification */}
       </group>
     </group>
   );
