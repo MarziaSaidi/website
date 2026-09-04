@@ -20,6 +20,12 @@ const ROW_ASPECT = IMG1_ASPECT / LEFT_SHARE / HEIGHT_BOOST;
 // than wide/short image 5) — equal 50/50 cells left image 4 with a much
 // bigger empty margin than image 5 got, since neither cell matched its
 // image's real shape.
+//
+// Padding here (p-3 sm:p-4 md:p-5), like RelayCard's, is intentionally
+// tighter than the cluster cards' p-6 sm:p-10 md:p-12 lg:p-14 — it's
+// subtracted from the fixed ROW_ASPECT box below before three images
+// split what's left, so the cluster scale would visibly shrink each
+// screenshot. Load-bearing for this card's layout, not drift.
 const IMG5_ASPECT = 2048 / 722;
 const IMG4_ASPECT = 2042 / 1190;
 

@@ -26,6 +26,11 @@ const FEATURED_ROWS = [
   // one-line mention inside the Get Campus case study), so its card has
   // no preview image — just the color block, tag, name, and date, same as
   // Wildwood's text-only treatment elsewhere on the site.
+  //
+  // stackOnMobile: false is intentional — this pair stays side by side on
+  // phones by design, unlike every other paired row. That does mean each
+  // card is narrow at small viewports (~119-187px measured at 375-430px);
+  // accepted as the deliberate tradeoff for keeping the pair side by side.
   { ids: ["get-campus", "new-start-mobile"], width: "md:w-[75%]", stackOnMobile: false },
   { ids: ["quill-pigeon"], width: "md:w-[85%]", align: "right" },
   { ids: ["survue"], width: "md:w-full" },

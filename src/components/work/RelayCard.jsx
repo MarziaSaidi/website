@@ -6,6 +6,16 @@ import { ProjectCardFrame } from "./ProjectCardFrame";
 // (zero crop), and two more stacked on the right (~43%), splitting that
 // height evenly since all three screenshots share the same 2880x1800
 // aspect ratio this time. All three use object-contain (never cropped).
+//
+// Padding here (p-3 sm:p-4 md:p-5) is intentionally tighter than the
+// single-preview cluster cards' p-6 sm:p-10 md:p-12 lg:p-14 (see
+// ProjectCardFrame/QalinPaperCard/SurvueCard): ROW_ASPECT below is a
+// fixed aspect-ratio box derived directly from the screenshots' own
+// dimensions, and padding is subtracted from that fixed box before the
+// three images get their share of it. The cluster scale would eat
+// visibly into three-image real estate that's already split three ways;
+// this scale is the one that keeps each screenshot legible. Not an
+// inconsistency — it's load-bearing for this card's own math.
 const IMG_BASE = "/relay";
 const LEFT_ASPECT = 2880 / 1800; // shared by all three Relay screenshots
 const LEFT_SHARE = 1.33 / (1.33 + 1); // left column's share of the row width
