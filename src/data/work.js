@@ -12,6 +12,7 @@ export const work = [
     world: "gold",
     type: "solo-design",
     category: "design",
+    date: "Aug 2026",
     labels: ["Design", "Mobile", "Ecommerce"],
     description:
       "Mobile marketplace for hand knotted rugs and carpets, designed to build trust in a five figure purchase through a phone screen.",
@@ -32,6 +33,7 @@ export const work = [
     world: "gold",
     type: "solo-build",
     category: "design-build",
+    date: "May-July 2026",
     labels: ["Design + Build", "AI", "Full Stack"],
     description:
       "AI powered, multi tenant customer support platform with a RAG pipeline, JWT auth, and role based access.",
@@ -48,6 +50,8 @@ export const work = [
     world: "gold",
     type: "internship",
     category: "design-build",
+    date: "Sept-Dec 2024",
+    cardColor: "#FFD9E1",
     labels: ["Design + Build", "Mobile", "UX"],
     description:
       "Cyclist safety alerts riders can trust, from journey maps to a shipped, cross platform settings module.",
@@ -66,6 +70,9 @@ export const work = [
     world: "gold",
     type: "internship",
     category: "design",
+    date: "Feb 2026",
+    cardColor: "#FFFABA",
+    previewMinHeight: "min-h-[180px] sm:min-h-[220px]",
     labels: ["Design", "Product", "Web"],
     description:
       "Employer platform designed end to end in Figma and shipped as production ready specs for engineers.",
@@ -79,12 +86,33 @@ export const work = [
     hrefLabel: "View project",
   },
   {
+    id: "new-start-mobile",
+    name: "New Start Mobile",
+    tier: 2,
+    world: "gold",
+    type: "internship",
+    category: "design",
+    date: "March 2026",
+    previewMinHeight: "min-h-[180px] sm:min-h-[220px]",
+    labels: ["Design", "Mobile", "Product"],
+    // No dedicated case study or screenshots for this one yet — it's the
+    // student-facing companion app to Get Campus's employer platform, from
+    // the same internship (see CaseStudyGetCampus.jsx's Overview section).
+    // Keeping the description to what that page already documents rather
+    // than inventing detail this project doesn't have written up anywhere.
+    description: "Student facing companion app to Get Campus's employer platform, from the same internship engagement.",
+    preview: "none",
+    href: "#/get-campus",
+    hrefLabel: "View project",
+  },
+  {
     id: "relay",
     name: "Relay",
     tier: 2,
     world: "gold",
     type: "solo-design",
     category: "design",
+    cardColor: "#E1E8F1",
     labels: ["Design", "Product", "Figma"],
     description:
       "Real time console for a live delivery fleet, designed in Figma as an interactive prototype.",
@@ -106,9 +134,13 @@ export const work = [
     world: "gold",
     type: "internship",
     category: "engineering",
+    date: "Jan-Aug 2025",
     labels: ["Engineering", "Full Stack"],
     description:
       "Automated CSV/XLSX import pipeline with validation, plus an OAuth synced reminder system for the team.",
+    // "validator" still drives Selected Work's row (the live interactive
+    // demo) — Home's card uses its own dedicated four-image collage
+    // instead (see QuillPigeonCard.jsx), not this field.
     preview: "validator",
     href: "#/quill-pigeon",
     hrefLabel: "View project",
@@ -120,6 +152,8 @@ export const work = [
     world: "gold",
     type: "internship",
     category: "engineering",
+    cardColor: "#50AAB1",
+    date: "May-August 2024",
     labels: ["Engineering", "Frontend"],
     description:
       "Responsive pages and custom Shopify components for a growing ecommerce storefront.",

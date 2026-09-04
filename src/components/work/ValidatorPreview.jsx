@@ -1,5 +1,4 @@
 import { validateCsv } from "../../utils/csv";
-import BrowserChrome from "./BrowserChrome";
 
 // Real output from the actual validateCsv() logic behind the Quill &
 // Pigeon import pipeline — three hand-picked sample rows, not fabricated
@@ -14,7 +13,7 @@ const rows = validateCsv(SAMPLE);
 
 export default function ValidatorPreview() {
   return (
-    <BrowserChrome url="quillpigeon.app/contacts/import">
+    <div className="rounded-xl border border-border bg-paper shadow-soft overflow-hidden">
       <div className="bg-background">
         <table className="w-full text-[0.65rem] sm:text-xs border-collapse">
           <thead>
@@ -51,6 +50,6 @@ export default function ValidatorPreview() {
           </tbody>
         </table>
       </div>
-    </BrowserChrome>
+    </div>
   );
 }

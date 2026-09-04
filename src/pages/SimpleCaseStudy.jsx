@@ -29,7 +29,7 @@ function Eyebrow({ children, className = "" }) {
 function BackLink({ className }) {
   return (
     <a
-      href="#/work"
+      href="#/"
       className={`group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm ${className || ""}`}
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">

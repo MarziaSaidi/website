@@ -3,7 +3,6 @@ import Magnetic from "../ui/Magnetic";
 
 const LINKS = [
   { href: "#/", id: "home", label: "Home" },
-  { href: "#/work", id: "work", label: "Work" },
   { href: "#/about", id: "about", label: "About" },
   { href: "#/contact", id: "contact", label: "Contact" },
 ];

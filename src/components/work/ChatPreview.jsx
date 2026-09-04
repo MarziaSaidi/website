@@ -1,5 +1,4 @@
 import { useState } from "react";
-import BrowserChrome from "./BrowserChrome";
 
 // A real markup recreation of SupportIQ's support-chat surface, built to
 // the actual shape of the feature — not a static screenshot, and not
@@ -30,10 +29,10 @@ export default function ChatPreview() {
   return (
     // Below sm, the full two-turn exchange is genuinely taller than the
     // preview box — rather than trimming the conversation down, scale the
-    // whole browser-chrome frame to fit, so mobile shows the identical
-    // desktop layout at a smaller size instead of a cut-down version.
+    // whole frame to fit, so mobile shows the identical desktop layout at
+    // a smaller size instead of a cut-down version.
     <div className="w-full scale-[0.65] sm:scale-100">
-      <BrowserChrome url="app.supportiq.dev/tickets/4521">
+      <div className="rounded-xl border border-border bg-paper shadow-soft overflow-hidden">
       <div className="p-2.5 sm:p-4 md:p-5 flex flex-col gap-2 sm:gap-3 bg-background">
         <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
           My order hasn't arrived yet. It's been a week.
@@ -93,7 +92,7 @@ export default function ChatPreview() {
           </>
         )}
       </div>
-      </BrowserChrome>
+      </div>
     </div>
   );
 }

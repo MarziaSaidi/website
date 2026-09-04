@@ -134,106 +134,6 @@
     0 10px 26px rgba(21, 20, 17, 0.1);
 }
 
-/* Hero storyboard ("From Sketch to Ship"): the potrace-vectorized
-   production illustrations, strictly monochrome, drawn directly on the
-   page's own background (see .stage-paper below — it's transparent, on
-   purpose) rather than a separately-colored surface, so there's nothing
-   to blend and no seam to fix.
-
-   Dark mode inverts the ink (ink-on-paper -> pale-ink-on-near-black)
-   rather than leaving the artwork fixed regardless of theme, matching
-   this portfolio's real dark tokens so the hero belongs to whichever
-   theme is active. --hb-ink is dimmed in dark mode specifically — NOT
-   full site-text brightness: these illustrations are dense hand-drawn
-   hatching, not sparse UI text, and a straight photographic negative
-   (full-brightness line work on near-black) causes real glare/halation,
-   every thin stroke becoming a small bright light source. Toned down to
-   a soft graphite gray it stays legible without the eye strain, and
-   arguably reads more like pencil than a white-out pen anyway. */
-.hero-storyboard {
-  --hb-ink: #17181b;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero-storyboard {
-    --hb-ink: #8c887e;
-  }
-}
-
-:root[data-theme="dark"] .hero-storyboard {
-  --hb-ink: #8c887e;
-}
-
-/* Transparent, not var(--color-background) — a copied color still looks
-   like a mismatched box, because the page isn't actually flat: HeroField's
-   ambient canvas (aurora glow, reactive dot grid) and the body's subtle
-   noise texture both render underneath the content, and an opaque rect
-   here blocks them, leaving a visible seam even at an identical base
-   color. True transparency lets the same pixels show through everywhere
-   instead of trying to recreate them.
-   This is safe for the stage-to-stage handoff too: each stage's clusters
-   already fade to exactly 0 opacity via their own exit stagger before the
-   next stage's entrance starts (see HeroStoryboard.jsx) — the opaque
-   backing that used to occlude a retiring stage during that handoff is no
-   longer doing anything a transparent one wouldn't. */
-.hero-storyboard .stage-paper {
-  fill: transparent;
-}
-.hero-storyboard path {
-  fill: var(--hb-ink);
-}
-.hero-storyboard .accent-path {
-  fill: none;
-  stroke: var(--hb-ink);
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* Hero stage nav + card (HeroStoryNav.jsx) — the compact "where am I"
-   list next to the storyboard, and the one card showing whichever
-   stage's write-up is active. The little dash-before-the-label marker
-   is a pseudo-element so it can slide in on its own rather than being
-   baked into the button's static layout. */
-.nav-item.is-active {
-  opacity: 1;
-  color: var(--color-text);
-  padding-left: 1.1rem;
-}
-.nav-item.is-active::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 0.75rem;
-  height: 1px;
-  background: var(--color-text);
-  transform: translateY(-50%);
-}
-
-.card-panel {
-  display: none;
-}
-.card-panel.is-active {
-  display: block;
-  animation: card-panel-in 0.4s ease both;
-}
-@keyframes card-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .card-panel.is-active {
-    animation: none;
-  }
-}
-
 /* Per-project "worlds": each Selected Work project, case-study page, and the
    one Experience row with a case study carries a data-world attribute that
    retints its links/labels via these scoped custom properties. Both tracks
@@ -263,7 +163,7 @@
    it with no per-class dark: variants needed. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-background: #000000;
+    --color-background: #0f1111;
     --color-hero-bg: #211a4a;
     --color-background-secondary: #1d1a16;
     --color-paper: #23211c;
@@ -290,7 +190,7 @@
 }
 
 :root[data-theme="dark"] {
-  --color-background: #000000;
+  --color-background: #0f1111;
   --color-hero-bg: #211a4a;
   --color-background-secondary: #1d1a16;
   --color-paper: #23211c;
@@ -1239,10 +1139,10 @@
      constant, cheap, viewport-sized area regardless of page length.
 
      It renders ABOVE the page content (z-index 25 — above the highest
-     in-page z-index the scroll-pinned sections use, FeaturedWork's and
-     ProcessSection's z-10/z-20 reveal panels, so it isn't intermittently
-     occluded by whichever stage happens to be pinned; still well under
-     the fixed nav/menu/loader chrome at 50+) rather than behind it,
+     in-page z-index the scroll-pinned sections use, FeaturedWork's own
+     z-10/z-20 reveal panels, so it isn't intermittently occluded by
+     whichever stage happens to be pinned; still well under the fixed
+     nav/menu/loader chrome at 50+) rather than behind it,
      matching the reference: --color-grid-line is faint enough that
      crossing over photos/text reads as a texture, not an occlusion, and
      pointer-events stays off so nothing under it becomes unclickable.

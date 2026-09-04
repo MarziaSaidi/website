@@ -7,9 +7,7 @@ import CustomCursor from "./components/CustomCursor";
 import PixelTrail from "./components/PixelTrail";
 import IntroLoader from "./components/IntroLoader";
 import Hero from "./sections/Hero/Hero";
-import ProcessSection from "./sections/Hero/ProcessSection";
 import FeaturedWork from "./sections/FeaturedWork";
-import SelectedWork from "./sections/SelectedWork";
 import Experience from "./sections/Experience";
 import About from "./sections/About/About";
 import Contact from "./sections/Contact";
@@ -21,7 +19,7 @@ import CaseStudySupportIQ from "./pages/CaseStudySupportIQ";
 import SimpleCaseStudy from "./pages/SimpleCaseStudy";
 import { useHashRoute } from "./hooks/useHashRoute";
 
-const PAGE_IDS = ["work", "experience", "about", "contact"];
+const PAGE_IDS = ["experience", "about", "contact"];
 
 function routeToPageId(route) {
   const clean = route.replace(/^#\/?/, "");
@@ -67,17 +65,7 @@ function HomePage() {
     <Shell pageId="home">
       <Hero />
       <FeaturedWork />
-      <ProcessSection />
       <Contact />
-    </Shell>
-  );
-}
-
-function WorkPage() {
-  useScrollToTop();
-  return (
-    <Shell pageId="work">
-      <SelectedWork />
     </Shell>
   );
 }
@@ -110,7 +98,6 @@ function ContactPage() {
 }
 
 const PAGES = {
-  work: WorkPage,
   experience: ExperiencePage,
   about: AboutPage,
   contact: ContactPage,
