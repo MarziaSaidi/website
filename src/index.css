@@ -1016,6 +1016,7 @@
     position: absolute;
     top: 96px;
     right: min(114px, 7.9167vw);
+    transform: rotate(180deg);
     writing-mode: vertical-lr;
     text-orientation: sideways;
     font-family: "Orbitron", sans-serif;
