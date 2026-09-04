@@ -1017,7 +1017,7 @@
     top: 96px;
     right: min(114px, 7.9167vw);
     writing-mode: vertical-rl;
-    text-orientation: mixed;
+    text-orientation: sideways;
     font-family: "Orbitron", sans-serif;
     font-weight: 800;
     font-size: min(220px, calc((100vh - 112px) / 4.46));
@@ -1025,7 +1025,7 @@
     color: #5849bc;
     white-space: nowrap;
     pointer-events: none;
-    transform: scaleY(-1);
+    transform: rotate(180deg);
   }
 
   /* ---- Scroll progress bar ---- */
