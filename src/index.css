@@ -1078,19 +1078,23 @@
     z-index: 70;
   }
 
-  /* ---- Custom cursor: augments the native pointer, never replaces it ---- */
+  /* ---- Custom cursor: augments the native pointer, never replaces it ----
+     A fixed-size filled pixel, matching PixelTrail's own dot size —
+     deliberately never scales up on hover/interactive/"view" targets
+     (that used to happen here; removed on purpose), so it stays one
+     constant, small square wherever the pointer goes. */
   .custom-cursor {
     position: fixed;
     top: 0;
     left: 0;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
-    border: 1.5px solid var(--color-trail);
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    background: var(--color-trail);
     pointer-events: none;
     z-index: 75;
-    transform: translate3d(var(--cursor-x, -9999px), var(--cursor-y, -9999px), 0) scale(var(--cursor-scale, 1));
-    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transform: translate3d(var(--cursor-x, -9999px), var(--cursor-y, -9999px), 0);
+    transition: opacity 0.2s ease;
     opacity: 0;
   }
 
@@ -1098,32 +1102,9 @@
     opacity: 1;
   }
 
-  /* Rides inside the ring, scaling up together with it — empty string
-     everywhere except a "view" target, so the ring becomes a tiny
-     labeled button rather than just growing. */
-  .custom-cursor::after {
-    content: var(--cursor-label, "");
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: ui-monospace, monospace;
-    font-size: 6.5px;
-    letter-spacing: 0.08em;
-    color: var(--color-trail);
-    white-space: nowrap;
-  }
-
   @media (pointer: coarse), (hover: none) {
     .custom-cursor {
       display: none;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .custom-cursor {
-      transition: border-color 0.2s ease, opacity 0.2s ease;
     }
   }
 

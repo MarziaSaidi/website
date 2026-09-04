@@ -1,14 +1,16 @@
 import { useEffect, useRef } from "react";
 
-// Augments the native pointer with a small square outline — never replaces
+// Augments the native pointer with a small filled square — never replaces
 // it (no cursor: none anywhere). Fine-pointer only; bails entirely on
-// touch. Under reduced-motion the ring still appears but snaps to position
-// instantly instead of easing, since only its rAF batching (not a CSS
-// transition) is what "follows" the pointer here. Colored via
-// var(--color-trail) in index.css's .custom-cursor rule — the same coral
-// token as PixelTrail.jsx's pixels, so the two cursor effects read as one
-// accent instead of each following the per-world accent, and both repaint
-// automatically for the theme's coral shade (CSS var, not a fixed hex).
+// touch. A fixed size at all times (no growing on hover/"view" targets —
+// that used to happen here, deliberately removed). Under reduced-motion
+// it still appears but snaps to position instantly instead of easing,
+// since only its rAF batching (not a CSS transition) is what "follows"
+// the pointer here. Colored via var(--color-trail) in index.css's
+// .custom-cursor rule — the same coral token as PixelTrail.jsx's pixels,
+// so the two cursor effects read as one accent instead of each following
+// the per-world accent, and both repaint automatically for the theme's
+// coral shade (CSS var, not a fixed hex).
 export default function CustomCursor() {
   const ref = useRef(null);
 
@@ -40,17 +42,6 @@ export default function CustomCursor() {
       }
 
       el.classList.add("is-active");
-
-      const interactive = e.target.closest?.(
-        'a, button, [role="button"], input, textarea, [data-cursor]'
-      );
-      // "view" targets (project previews) get their own bigger ring with a
-      // label riding inside it — a plain link/button just grows, this one
-      // becomes a small button of its own, since it's the thing being
-      // looked at rather than a generic clickable.
-      const cursorValue = e.target.closest?.("[data-cursor]")?.getAttribute("data-cursor");
-      el.style.setProperty("--cursor-scale", cursorValue === "view" ? "2.4" : interactive ? "1.7" : "1");
-      el.style.setProperty("--cursor-label", cursorValue === "view" ? '"VIEW"' : '""');
 
       pending = { x: e.clientX, y: e.clientY };
       if (reduce) {
