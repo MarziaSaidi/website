@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 
-// Both drawn from the site's four-color foundation: a warm taupe glow and
-// a cooler olive-gray counterpart, rather than an unrelated amber/violet
-// pairing — see src/index.css's --color-accent / --color-gold for the
-// same hues used as solid UI color.
-const GLOW = "124, 109, 80";
-const GLOW_OLIVE = "122, 122, 82";
+// Both drawn from the portfolio's own purple/lavender identity — the
+// deep accent purple and a lighter lavender counterpart, rather than an
+// unrelated hue pairing — see src/index.css's --color-accent /
+// --color-accent-secondary for the same hues used as solid UI color.
+const GLOW = "88, 73, 188"; // --color-accent (#5849BC)
+const GLOW_LAVENDER = "139, 127, 232"; // --color-accent-secondary (#8B7FE8)
 
 /*
  * Full-bleed hero backdrop: ambient aurora — a few large, softly blurred
@@ -33,8 +33,8 @@ export default function HeroField({ sectionRef }) {
 
     const blobs = [
       { rx: 0.28, ry: 0.32, r: 0.42, color: GLOW, period: 22, phase: 0 },
-      { rx: 0.72, ry: 0.28, r: 0.36, color: GLOW_OLIVE, period: 27, phase: 2.1 },
-      { rx: 0.5, ry: 0.75, r: 0.4, color: GLOW_OLIVE, period: 31, phase: 4.4 },
+      { rx: 0.72, ry: 0.28, r: 0.36, color: GLOW_LAVENDER, period: 27, phase: 2.1 },
+      { rx: 0.5, ry: 0.75, r: 0.4, color: GLOW_LAVENDER, period: 31, phase: 4.4 },
     ];
 
     function build() {

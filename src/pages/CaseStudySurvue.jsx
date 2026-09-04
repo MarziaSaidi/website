@@ -6,7 +6,7 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 function Eyebrow({ children, className = "" }) {
   return (
-    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-label))] ${className}`}>
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-text-secondary))] ${className}`}>
       {children}
     </p>
   );
@@ -25,7 +25,7 @@ function ImageIcon() {
 /* Compact swap-in slot for a screen not yet provided. */
 function Placeholder({ label, sub }) {
   return (
-    <div className="w-full max-w-[180px] mx-auto aspect-[9/19] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary px-4 text-center">
+    <div className="w-full max-w-[180px] mx-auto aspect-[9/19] rounded-xl border border-border bg-surface-elevated/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary px-4 text-center">
       <ImageIcon />
       <span className="font-mono text-[0.62rem] uppercase tracking-meta">{label}</span>
       {sub && <span className="text-[0.7rem] leading-relaxed text-text-secondary/80">{sub}</span>}
@@ -40,7 +40,7 @@ function Screenshot({ src, label, caption, width, height }) {
   return (
     <figure className="flex flex-col gap-3 w-full max-w-[118px] md:max-w-[150px] mx-auto">
       {failed ? (
-        <div className="w-full aspect-[9/19] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2 text-text-secondary px-2 text-center">
+        <div className="w-full aspect-[9/19] rounded-xl border border-border bg-surface-elevated/60 flex flex-col items-center justify-center gap-2 text-text-secondary px-2 text-center">
           <ImageIcon />
           <span className="font-mono text-[0.55rem] uppercase tracking-meta">{label}</span>
         </div>
@@ -137,7 +137,7 @@ export default function CaseStudySurvue() {
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <a
             href="#/"
-            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M11 18l-6-6 6-6" />
@@ -171,7 +171,7 @@ export default function CaseStudySurvue() {
                 ["Timeline", "Sep to Dec 2024"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
-                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-label">{k}</dt>
+                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">{k}</dt>
                   <dd className="text-sm text-text leading-snug">{v}</dd>
                 </div>
               ))}
@@ -180,22 +180,22 @@ export default function CaseStudySurvue() {
         </section>
 
         {/* AT A GLANCE — the whole case study in three lines */}
-        <section className="border-b border-border bg-background-secondary/40">
+        <section className="border-b border-border bg-surface/40">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 md:py-16 grid sm:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Problem</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">Problem</p>
               <p className="text-sm text-text leading-relaxed">
                 A rear vehicle alert has to be absorbed without taking a rider’s eyes off the road.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">What I did</p>
               <p className="text-sm text-text leading-relaxed">
                 Led UX for the full app and built the cross platform settings module in .NET MAUI.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">Result</p>
               <p className="text-sm text-text leading-relaxed">
                 Shipped to production across iOS, Android, and Windows with full feature parity.
               </p>
@@ -231,7 +231,7 @@ export default function CaseStudySurvue() {
               delivers a warning the rider can absorb in a fraction of a second,
               without pulling focus from riding.
             </p>
-            <blockquote className="border-l-2 border-bronze pl-6 py-1">
+            <blockquote className="border-l-2 border-accent-secondary pl-6 py-1">
               <p className="font-serif text-2xl md:text-3xl text-accent leading-snug italic">
                 A safety alert that demands attention to read is a safety alert
                 that fails.
@@ -253,7 +253,7 @@ export default function CaseStudySurvue() {
           </p>
           <div className="grid gap-6 md:gap-8 sm:grid-cols-3">
             {constraints.map((c) => (
-              <div key={c.title} className="bg-paper border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
+              <div key={c.title} className="bg-surface-elevated border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
                 <span className="text-accent">{c.icon}</span>
                 <h3 className="font-serif text-xl text-text">{c.title}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">{c.body}</p>
@@ -276,14 +276,14 @@ export default function CaseStudySurvue() {
           <ol className="flex items-stretch gap-2 overflow-x-auto pb-2 -mx-1 px-1">
             {journey.map((step, i) => (
               <li key={step} className="flex items-center gap-2 shrink-0">
-                <div className="bg-paper border border-border rounded-lg px-4 py-3 flex flex-col gap-1 min-w-[8.5rem]">
-                  <span className="font-mono text-[0.65rem] text-label tracking-widest">
+                <div className="bg-surface-elevated border border-border rounded-lg px-4 py-3 flex flex-col gap-1 min-w-[8.5rem]">
+                  <span className="font-mono text-[0.65rem] text-text-secondary tracking-widest">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm text-text font-medium">{step}</span>
                 </div>
                 {i < journey.length - 1 && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="text-bronze shrink-0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="text-accent-secondary shrink-0">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 6l6 6-6 6" />
                   </svg>
                 )}
@@ -308,7 +308,7 @@ export default function CaseStudySurvue() {
           <ol className="grid gap-x-12 gap-y-12 md:gap-y-14 sm:grid-cols-2">
             {decisions.map((d) => (
               <li key={d.n} className="flex gap-5">
-                <span className="font-serif text-3xl text-bronze tabular-nums leading-none pt-1">
+                <span className="font-serif text-3xl text-accent-secondary tabular-nums leading-none pt-1">
                   {d.n}
                 </span>
                 <div className="flex flex-col gap-2">
@@ -407,7 +407,7 @@ export default function CaseStudySurvue() {
           </p>
           <a
             href="#/"
-            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             Back to portfolio
           </a>

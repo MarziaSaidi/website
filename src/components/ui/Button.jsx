@@ -89,11 +89,11 @@ export default function Button({
   // cap rather than on top of it. The old button sized the cap off its own
   // height, which made it wider than the padding reserved for it.
   const base =
-    "btn inline-flex items-center tracking-wide select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "btn inline-flex items-center tracking-wide select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   const variants = {
     primary: `${sizes[size]} gap-3 pl-9 pr-7 rounded-full font-display font-medium text-text`,
-    secondary: `${sizes[size]} gap-3 pl-9 pr-7 rounded-full font-display font-medium text-text border border-button-secondary-border btn--secondary`,
+    secondary: `${sizes[size]} gap-3 pl-9 pr-7 rounded-full font-display font-medium text-button-secondary-text border border-button-secondary-border btn--secondary`,
     // min-h-11 gives the quiet variant the same 44px touch target as the
     // pills without inflating its visible height: the rule and the text sit
     // in an inner wrapper, so the extra height is pure hit area above and

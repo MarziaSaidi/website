@@ -15,13 +15,13 @@ export function ProjectCardFrame({ project, color = "#000000", children }) {
   return (
     <div ref={ref} data-world={project.world} className="reveal py-8 sm:py-10 md:py-14">
       <div className="relative overflow-visible w-full" style={{ background: color }}>
-        <OriginTag type={project.type} boxed color="#FF6B61" className="absolute top-0 right-0 z-10" />
+        <OriginTag type={project.type} boxed color="var(--color-coral)" className="absolute top-0 right-0 z-10" />
         {children}
       </div>
 
       <div className="mt-2 flex items-baseline justify-between gap-4 w-full">
         <a href={project.href} className="w-fit focus-visible:outline-none">
-          <h3 className="font-display font-semibold text-sm sm:text-base uppercase tracking-wide text-text transition-colors duration-300 hover:text-[#8a6b3f]">
+          <h3 className="font-display font-semibold text-sm sm:text-base uppercase tracking-wide text-text transition-colors duration-300 hover:text-accent">
             {project.name}
           </h3>
         </a>

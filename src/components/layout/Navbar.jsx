@@ -47,7 +47,7 @@ export default function Navbar({ active }) {
             type="button"
             onClick={toggleTheme}
             aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-            className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-border text-text-secondary transition-colors duration-300 hover:text-text hover:border-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-border text-text-secondary transition-colors duration-300 hover:text-text hover:border-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {theme === "dark" ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -71,7 +71,7 @@ export default function Navbar({ active }) {
               type="button"
               onClick={scrollToTop}
               aria-label="Scroll to top"
-              className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-button-primary-bg text-button-primary-text transition-colors duration-300 hover:bg-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-button-primary-bg text-button-primary-text transition-colors duration-300 hover:bg-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 20V4M6 9l6-6 6 6" />
@@ -85,7 +85,7 @@ export default function Navbar({ active }) {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-border text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze"
+            className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-border text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               {menuOpen ? (

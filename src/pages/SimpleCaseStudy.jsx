@@ -20,7 +20,7 @@ const PREVIEW_COMPONENTS = {
 
 function Eyebrow({ children, className = "" }) {
   return (
-    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-label))] ${className}`}>
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-text-secondary))] ${className}`}>
       {children}
     </p>
   );
@@ -30,7 +30,7 @@ function BackLink({ className }) {
   return (
     <a
       href="#/"
-      className={`group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm ${className || ""}`}
+      className={`group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm ${className || ""}`}
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M11 18l-6-6 6-6" />
@@ -101,7 +101,7 @@ export default function SimpleCaseStudy({ projectId }) {
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="enter enter-4 world-link group/link inline-flex items-center gap-2 text-sm mt-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="enter enter-4 world-link group/link inline-flex items-center gap-2 text-sm mt-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             {project.liveLabel || "Visit live site"}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">

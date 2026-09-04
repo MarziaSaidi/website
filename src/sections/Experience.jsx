@@ -14,12 +14,12 @@ function ExperienceRow({ item }) {
   return (
     <li ref={ref} data-world={item.world} className="reveal border-t border-border py-9 md:py-11 first:border-t-0">
       <details className="group">
-        <summary className="flex flex-wrap items-baseline gap-x-4 gap-y-1 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm">
+        <summary className="flex flex-wrap items-baseline gap-x-4 gap-y-1 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm">
           <span className="font-mono text-xs text-text-secondary tabular-nums w-14 shrink-0">
             {year(item.dates)}
           </span>
           <h3 className="font-serif text-xl text-text">{item.role}</h3>
-          <span className="text-label text-sm">{item.company}</span>
+          <span className="text-text-secondary text-sm">{item.company}</span>
           <svg
             width="14"
             height="14"
@@ -44,7 +44,7 @@ function ExperienceRow({ item }) {
           {item.bullets.length > 0 && (
             <ul className="flex flex-col gap-2 text-text-secondary leading-relaxed">
               {item.bullets.map((bullet) => (
-                <li key={bullet} className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-bronze">
+                <li key={bullet} className="pl-4 relative before:absolute before:left-0 before:top-[0.65em] before:w-1.5 before:h-px before:bg-accent-secondary">
                   {bullet}
                 </li>
               ))}

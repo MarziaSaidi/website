@@ -68,7 +68,7 @@ export default function SkillsCloud() {
                     onMouseEnter={() => setActiveName(skill.name)}
                     onFocus={() => setActiveName(skill.name)}
                     onClick={() => setActiveName(skill.name)}
-                    className={`rounded-full border px-4 py-2 text-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze ${
+                    className={`rounded-full border px-4 py-2 text-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       isActive
                         ? "border-accent text-text bg-accent/[0.07] -translate-y-0.5"
                         : "border-border/70 text-text-secondary/55 hover:text-text-secondary hover:border-text-secondary/40"

@@ -1,6 +1,15 @@
 import { useEffect, useRef } from "react";
 
-const COLOR = "255, 107, 97"; // #FF6B61 as rgb components, for template-literal rgba()
+// Coral trail color, theme-aware — matches --color-trail in index.css.
+// Canvas2D's fillStyle needs a literal color string, so this is read live
+// off <html data-theme> each frame (same technique as HeroField's
+// darkBoost() / FooterSignature's currentDust()) rather than cached once.
+const COLOR_LIGHT = "255, 107, 97"; // #FF6B61
+const COLOR_DARK = "255, 130, 120"; // #FF8278
+
+function currentTrailColor() {
+  return document.documentElement.getAttribute("data-theme") === "dark" ? COLOR_DARK : COLOR_LIGHT;
+}
 const SIZES = [2, 3, 3, 3, 4]; // weighted toward 3px, per spec ("approximately 3px to start")
 // Distance the pointer must travel before the next pixel spawns — this
 // (not a fixed per-mousemove-event spawn) is what makes fast movement
@@ -97,6 +106,9 @@ export default function PixelTrail() {
 
     function step(now) {
       ctx.clearRect(0, 0, w, h);
+      // Read once per frame, not per pixel — matches FooterSignature's
+      // currentDust() pattern.
+      const color = currentTrailColor();
       pixels = pixels.filter((p) => {
         const age = now - p.born;
         if (age >= p.life) return false;
@@ -104,7 +116,7 @@ export default function PixelTrail() {
         // because they haven't faded yet — no separate distance-based
         // opacity boost needed on top of the age-based one.
         const alpha = 1 - age / p.life;
-        ctx.fillStyle = `rgba(${COLOR}, ${alpha})`;
+        ctx.fillStyle = `rgba(${color}, ${alpha})`;
         ctx.fillRect(p.x, p.y, p.size, p.size);
         return true;
       });

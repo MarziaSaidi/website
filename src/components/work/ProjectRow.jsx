@@ -99,7 +99,7 @@ export function ProjectPreview({ project }) {
       // bordered, rounded frame (border, rounded, soft shadow) so it still
       // reads as one of this row's "real interface" previews.
       return (
-        <div className="rounded-xl border border-border bg-paper shadow-soft overflow-hidden max-w-full max-h-full">
+        <div className="rounded-xl border border-border bg-surface-elevated shadow-soft overflow-hidden max-w-full max-h-full">
           <img
             src={project.previewSrc}
             alt={project.previewAlt}

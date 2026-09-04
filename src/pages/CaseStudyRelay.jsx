@@ -6,7 +6,7 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 function Eyebrow({ children, className = "" }) {
   return (
-    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-label))] ${className}`}>
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-text-secondary))] ${className}`}>
       {children}
     </p>
   );
@@ -48,7 +48,7 @@ function Frame({ index, title, label, src, children }) {
   return (
     <figure className="flex flex-col gap-6">
       <figcaption className="flex gap-4 items-baseline max-w-[820px]">
-        <span className="font-serif text-2xl md:text-3xl text-bronze tabular-nums leading-none">
+        <span className="font-serif text-2xl md:text-3xl text-accent-secondary tabular-nums leading-none">
           {index}
         </span>
         <div className="flex flex-col gap-2">
@@ -57,7 +57,7 @@ function Frame({ index, title, label, src, children }) {
         </div>
       </figcaption>
       {failed ? (
-        <div className="w-full aspect-[16/10] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary text-center px-6">
+        <div className="w-full aspect-[16/10] rounded-xl border border-border bg-surface-elevated/60 flex flex-col items-center justify-center gap-2.5 text-text-secondary text-center px-6">
           <ImageIcon />
           <span className="font-mono text-[0.62rem] uppercase tracking-meta">{label}</span>
           <span className="text-[0.62rem] text-text-secondary/70">{src}</span>
@@ -168,7 +168,7 @@ export default function CaseStudyRelay() {
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <a
             href="#/"
-            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M11 18l-6-6 6-6" />
@@ -198,7 +198,7 @@ export default function CaseStudyRelay() {
               href="https://author-sync-40384662.figma.site/"
               target="_blank"
               rel="noopener noreferrer"
-              className="enter enter-4 hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="enter enter-4 hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               View live prototype
               <span className="text-text/70">
@@ -217,7 +217,7 @@ export default function CaseStudyRelay() {
                 ["Focus", "Real time information design"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
-                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-label">{k}</dt>
+                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">{k}</dt>
                   <dd className="text-sm text-text leading-snug">{v}</dd>
                 </div>
               ))}
@@ -226,22 +226,22 @@ export default function CaseStudyRelay() {
         </section>
 
         {/* AT A GLANCE — the whole case study in three lines */}
-        <section className="border-b border-border bg-background-secondary/40">
+        <section className="border-b border-border bg-surface/40">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 md:py-16 grid sm:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Problem</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">Problem</p>
               <p className="text-sm text-text leading-relaxed">
                 A dispatcher has to track a live fleet and spot the one thing about to go wrong.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">What I did</p>
               <p className="text-sm text-text leading-relaxed">
                 Self directed: designed the full information hierarchy for a dense, real time console.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">Result</p>
               <p className="text-sm text-text leading-relaxed">
                 A complete four screen design, published as a live, interactive prototype.
               </p>
@@ -277,7 +277,7 @@ export default function CaseStudyRelay() {
               times a minute, while the situation keeps changing underneath them.
               If they have to stop and decode the interface, the operation slips.
             </p>
-            <blockquote className="border-l-2 border-bronze pl-6 py-1">
+            <blockquote className="border-l-2 border-accent-secondary pl-6 py-1">
               <p className="font-serif text-2xl md:text-3xl text-accent leading-snug italic">
                 A dispatcher doesn’t read this screen. They scan it and act.
               </p>
@@ -296,7 +296,7 @@ export default function CaseStudyRelay() {
         <Section eyebrow="Design Principles" title="Four rules that held the density together">
           <div className="grid gap-6 md:gap-8 sm:grid-cols-2">
             {principles.map((p) => (
-              <div key={p.title} className="bg-paper border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
+              <div key={p.title} className="bg-surface-elevated border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
                 <span className="text-accent">{p.icon}</span>
                 <h3 className="font-serif text-xl text-text">{p.title}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">{p.body}</p>
@@ -326,7 +326,7 @@ export default function CaseStudyRelay() {
           <ol className="grid gap-x-12 gap-y-12 md:gap-y-14 sm:grid-cols-2">
             {decisions.map((d) => (
               <li key={d.n} className="flex gap-5">
-                <span className="font-serif text-3xl text-bronze tabular-nums leading-none pt-1">
+                <span className="font-serif text-3xl text-accent-secondary tabular-nums leading-none pt-1">
                   {d.n}
                 </span>
                 <div className="flex flex-col gap-2">
@@ -365,7 +365,7 @@ export default function CaseStudyRelay() {
           </p>
           <a
             href="#/"
-            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             Back to portfolio
           </a>

@@ -13,7 +13,7 @@ const rows = validateCsv(SAMPLE);
 
 export default function ValidatorPreview() {
   return (
-    <div className="rounded-xl border border-border bg-paper shadow-soft overflow-hidden">
+    <div className="rounded-xl border border-border bg-surface-elevated shadow-soft overflow-hidden">
       <div className="bg-background">
         <table className="w-full text-[0.65rem] sm:text-xs border-collapse">
           <thead>
@@ -39,7 +39,7 @@ export default function ValidatorPreview() {
                     className={`inline-block text-[0.6rem] sm:text-[0.65rem] px-1.5 sm:px-2 py-0.5 rounded-full border whitespace-nowrap ${
                       row.isValid
                         ? "border-accent text-accent"
-                        : "border-bronze text-label"
+                        : "border-coral text-text-secondary"
                     }`}
                   >
                     {row.isValid ? "Passed" : "Failed"}

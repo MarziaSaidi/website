@@ -69,7 +69,7 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
               // own invention. --btn-leading holds the label mask to the
               // link's own 1.2 leading; the system's 1.5 default would add
               // ~18px to every row of a 60px serif menu.
-              className={`btn btn--quiet enter enter-${i + 1} flex items-baseline gap-4 md:gap-6 font-serif text-4xl md:text-6xl leading-[1.2] [--btn-leading:1.3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm w-fit ${
+              className={`btn btn--quiet enter enter-${i + 1} flex items-baseline gap-4 md:gap-6 font-serif text-4xl md:text-6xl leading-[1.2] [--btn-leading:1.3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm w-fit ${
                 isActive ? "text-accent" : "text-text"
               }`}
             >
@@ -96,7 +96,7 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
             href="https://www.linkedin.com/in/marzia-saidisoftwareengineer/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             LinkedIn
           </a>
@@ -104,7 +104,7 @@ export default function MenuOverlay({ open, onClose, active, triggerRef }) {
         <Magnetic strength={0.25} max={8}>
           <a
             href="mailto:marzia.saidi67@gmail.com"
-            className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             Email
           </a>

@@ -4,9 +4,11 @@ import { useEffect, useRef } from "react";
 // it (no cursor: none anywhere). Fine-pointer only; bails entirely on
 // touch. Under reduced-motion the ring still appears but snaps to position
 // instantly instead of easing, since only its rAF batching (not a CSS
-// transition) is what "follows" the pointer here. Fixed #FF6B61, the same
-// coral as PixelTrail.jsx's pixels — one accent color ties the two cursor
-// effects together instead of this one following the per-world accent.
+// transition) is what "follows" the pointer here. Colored via
+// var(--color-trail) in index.css's .custom-cursor rule — the same coral
+// token as PixelTrail.jsx's pixels, so the two cursor effects read as one
+// accent instead of each following the per-world accent, and both repaint
+// automatically for the theme's coral shade (CSS var, not a fixed hex).
 export default function CustomCursor() {
   const ref = useRef(null);
 

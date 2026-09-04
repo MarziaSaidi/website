@@ -63,6 +63,12 @@ function FigmaGlyph(props) {
 // color — a plain cursor or frame icon has no brand identity to preserve,
 // but a real accent color was specifically asked for, not "whatever
 // shade of gray the current theme's secondary text happens to be").
+// The generic (non-brand) hexes below correspond to index.css's
+// --color-icon-purple/-lavender/-light/-coral/-pink tokens — kept as
+// literal hex here rather than var() because these get rasterized into a
+// detached (not-in-document) SVG string for a WebGL texture, which can't
+// resolve a live CSS custom property. They stay fixed across light/dark,
+// matching the rest of the hero's own always-on composition.
 const ICON_SET = [
   { Icon: FigmaGlyph, color: null }, // multi-color piece fills, ignores color entirely
   { Icon: LuMousePointer2, color: "#5849BC" },

@@ -125,7 +125,7 @@ export default function HowIWork() {
           style={{
             height: "100%",
             transform: "scaleY(var(--path-progress, 0))",
-            background: "linear-gradient(to bottom, var(--color-accent), var(--color-gold))",
+            background: "linear-gradient(to bottom, var(--color-accent), var(--color-accent-secondary))",
           }}
           aria-hidden="true"
         />

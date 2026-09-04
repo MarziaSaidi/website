@@ -57,7 +57,7 @@ function FeaturedWorkHeading() {
           fade exists to remove. */}
       <div className="max-w-6xl mx-auto px-6 md:px-10 pt-24 md:pt-36 pb-16 md:pb-20">
         <div className="flex items-center gap-3 mb-8">
-          <span className="block h-px w-6 bg-gold divider-draw" aria-hidden="true" />
+          <span className="block h-px w-6 bg-accent-secondary divider-draw" aria-hidden="true" />
           <p className="text-xs tracking-eyebrow uppercase text-text-secondary">Selected Work</p>
         </div>
         <h2 id="featured-work-heading" className="text-4xl md:text-6xl text-text leading-[1.05] max-w-2xl">

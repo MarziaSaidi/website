@@ -6,7 +6,7 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 function Eyebrow({ children, className = "" }) {
   return (
-    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-label))] ${className}`}>
+    <p className={`font-mono text-[0.7rem] md:text-xs uppercase tracking-eyebrow text-[var(--world-accent,var(--color-text-secondary))] ${className}`}>
       {children}
     </p>
   );
@@ -31,7 +31,7 @@ function Screenshot({ src, label, caption, width, height }) {
   return (
     <figure className="flex flex-col gap-3 w-full max-w-[118px] md:max-w-[150px] mx-auto">
       {failed ? (
-        <div className="w-full aspect-[9/19] rounded-xl border border-border bg-paper/60 flex flex-col items-center justify-center gap-2 text-text-secondary px-2 text-center">
+        <div className="w-full aspect-[9/19] rounded-xl border border-border bg-surface-elevated/60 flex flex-col items-center justify-center gap-2 text-text-secondary px-2 text-center">
           <ImageIcon />
           <span className="font-mono text-[0.55rem] uppercase tracking-meta">{label}</span>
         </div>
@@ -137,7 +137,7 @@ export default function CaseStudyQalin() {
         <div className="max-w-5xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <a
             href="#/"
-            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="group inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-300 group-hover:-translate-x-0.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M11 18l-6-6 6-6" />
@@ -168,7 +168,7 @@ export default function CaseStudyQalin() {
               href="https://www.figma.com/proto/q4P5mnsLxtcWBoRE3RM35B/Qalin?node-id=1-325&t=lPzof9zPT2ddRhA3-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A325"
               target="_blank"
               rel="noopener noreferrer"
-              className="enter enter-4 hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="enter enter-4 hover-lift group mt-10 inline-flex items-center gap-2 w-fit bg-button-primary-bg text-button-primary-text border border-button-primary-bg rounded-full px-6 py-3 text-sm tracking-wide hover:bg-button-primary-hover hover:border-button-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               View live prototype
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -184,7 +184,7 @@ export default function CaseStudyQalin() {
                 ["Focus", "Trust design at a high price point"],
               ].map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1.5">
-                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-label">{k}</dt>
+                  <dt className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">{k}</dt>
                   <dd className="text-sm text-text leading-snug">{v}</dd>
                 </div>
               ))}
@@ -193,24 +193,24 @@ export default function CaseStudyQalin() {
         </section>
 
         {/* AT A GLANCE — the whole case study in three lines */}
-        <section className="border-b border-border bg-background-secondary/40">
+        <section className="border-b border-border bg-surface/40">
           <div className="max-w-[820px] mx-auto px-6 md:px-10 py-14 md:py-16 grid sm:grid-cols-3 gap-8 md:gap-10">
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Problem</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">Problem</p>
               <p className="text-sm text-text leading-relaxed">
                 A rug priced from $720 to $86,000+ has to earn trust through a
                 phone screen, with no showroom and nothing to touch.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">What I did</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">What I did</p>
               <p className="text-sm text-text leading-relaxed">
                 Self directed: designed the full ten screen shopping
                 experience, from discovery through checkout.
               </p>
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-label">Result</p>
+              <p className="font-mono text-[0.65rem] uppercase tracking-meta text-text-secondary">Result</p>
               <p className="text-sm text-text leading-relaxed">
                 A complete, photography led purchase flow, published as a
                 live, interactive prototype.
@@ -250,7 +250,7 @@ export default function CaseStudyQalin() {
               standing next to them. At the price points Qalin sells at,
               hesitation isn't a UX inconvenience, it's the sale.
             </p>
-            <blockquote className="border-l-2 border-bronze pl-6 py-1">
+            <blockquote className="border-l-2 border-accent-secondary pl-6 py-1">
               <p className="font-serif text-2xl md:text-3xl text-accent leading-snug italic">
                 A rug this expensive isn't bought on a hunch. It's bought on
                 evidence.
@@ -271,7 +271,7 @@ export default function CaseStudyQalin() {
         <Section eyebrow="Design Principles" title="Four rules for selling what a screen can't fully show">
           <div className="grid gap-6 md:gap-8 sm:grid-cols-2">
             {principles.map((p) => (
-              <div key={p.title} className="bg-paper border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
+              <div key={p.title} className="bg-surface-elevated border border-border rounded-xl shadow-soft p-6 flex flex-col gap-3">
                 <span className="text-accent">{p.icon}</span>
                 <h3 className="font-serif text-xl text-text">{p.title}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">{p.body}</p>
@@ -385,7 +385,7 @@ export default function CaseStudyQalin() {
           <ol className="grid gap-x-12 gap-y-12 md:gap-y-14 sm:grid-cols-2">
             {decisions.map((d) => (
               <li key={d.n} className="flex gap-5">
-                <span className="font-serif text-3xl text-bronze tabular-nums leading-none pt-1">
+                <span className="font-serif text-3xl text-accent-secondary tabular-nums leading-none pt-1">
                   {d.n}
                 </span>
                 <div className="flex flex-col gap-2">
@@ -427,7 +427,7 @@ export default function CaseStudyQalin() {
           </p>
           <a
             href="#/"
-            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+            className="text-sm text-accent hover:text-accent-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           >
             Back to portfolio
           </a>

@@ -32,18 +32,18 @@ export default function ChatPreview() {
     // whole frame to fit, so mobile shows the identical desktop layout at
     // a smaller size instead of a cut-down version.
     <div className="w-full scale-[0.65] sm:scale-100">
-      <div className="rounded-xl border border-border bg-paper shadow-soft overflow-hidden">
+      <div className="rounded-xl border border-border bg-surface-elevated shadow-soft overflow-hidden">
       <div className="p-2.5 sm:p-4 md:p-5 flex flex-col gap-2 sm:gap-3 bg-background">
-        <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
+        <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-surface-elevated border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
           My order hasn't arrived yet. It's been a week.
         </div>
         <div className="flex self-start max-w-[90%] flex-col gap-1.5 sm:gap-2">
-          <div className="rounded-2xl rounded-bl-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
+          <div className="rounded-2xl rounded-bl-sm bg-surface-elevated border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
             I see order #4521 shipped Tuesday and is currently in transit,
             expected Thursday. Want me to send the tracking link?
           </div>
-          <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-label">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />
+          <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-text-secondary">
+            <span className="w-1.5 h-1.5 rounded-full bg-coral" aria-hidden="true" />
             Cited order #4521 · RAG
           </div>
         </div>
@@ -59,14 +59,14 @@ export default function ChatPreview() {
             // same factor — 2.5rem pre-scale lands at ~26px post-scale,
             // clearing the 24px WCAG 2.5.8 floor instead of the ~20px it
             // measured at before.
-            className="inline-flex items-center self-end mt-1 min-h-10 text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze disabled:opacity-60"
+            className="inline-flex items-center self-end mt-1 min-h-10 text-xs text-text-secondary border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-60"
           >
             {typing ? "…" : FOLLOW_UP}
           </button>
         )}
 
         {typing && (
-          <div className="self-start bg-paper border border-border rounded-2xl rounded-bl-sm px-4 py-3 flex items-center gap-1.5" aria-label="Assistant is typing">
+          <div className="self-start bg-surface-elevated border border-border rounded-2xl rounded-bl-sm px-4 py-3 flex items-center gap-1.5" aria-label="Assistant is typing">
             <span className="w-1.5 h-1.5 rounded-full bg-text-secondary/70 animate-bounce" style={{ animationDelay: "0ms" }} />
             <span className="w-1.5 h-1.5 rounded-full bg-text-secondary/70 animate-bounce" style={{ animationDelay: "150ms" }} />
             <span className="w-1.5 h-1.5 rounded-full bg-text-secondary/70 animate-bounce" style={{ animationDelay: "300ms" }} />
@@ -75,17 +75,17 @@ export default function ChatPreview() {
 
         {expanded && (
           <>
-            <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
+            <div className="self-end max-w-[85%] rounded-2xl rounded-br-sm bg-surface-elevated border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5">
               {FOLLOW_UP}
             </div>
             <div className="self-start max-w-[90%] flex flex-col gap-1.5 sm:gap-2">
-              <div className="rounded-2xl rounded-bl-sm bg-paper border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
+              <div className="rounded-2xl rounded-bl-sm bg-surface-elevated border border-border text-text text-[0.7rem] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 leading-relaxed">
                 Since it's still in transit rather than lost, I'd hold off on a
                 refund for now. I can start one automatically if it doesn't
                 arrive by Friday. Sound okay?
               </div>
-              <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-label">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />
+              <div className="flex items-center gap-1.5 pl-1 text-[0.65rem] font-mono uppercase tracking-meta text-text-secondary">
+                <span className="w-1.5 h-1.5 rounded-full bg-coral" aria-hidden="true" />
                 Refund policy · shipping status · RAG
               </div>
             </div>

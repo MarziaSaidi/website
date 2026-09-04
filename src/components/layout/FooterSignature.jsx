@@ -7,11 +7,11 @@ const TEXT = "Marzia Saidi";
 // fillStyle needs a literal color string, so DUST is read live from the
 // current theme (same technique as HeroField's darkBoost()) — light and
 // dark need different lightness values to read as a solid dust color:
-// the light-mode accent-secondary is dark enough on warm ivory, the
-// dark-mode accent is light enough on near-black, and no single hex
-// does both.
-const DUST_LIGHT = "95, 82, 58"; // light --color-accent-secondary, as rgb components
-const DUST_DARK = "164, 154, 135"; // dark --color-accent, as rgb components
+// the light-mode accent-secondary is a lavender that reads clearly on
+// white, the dark-mode accent is a lighter lavender that reads clearly on
+// near-black, and no single hex does both.
+const DUST_LIGHT = "139, 127, 232"; // light --color-accent-secondary (#8B7FE8), as rgb components
+const DUST_DARK = "175, 167, 255"; // dark --color-accent (#AFA7FF), as rgb components
 
 function currentDust() {
   return document.documentElement.getAttribute("data-theme") === "dark" ? DUST_DARK : DUST_LIGHT;
@@ -438,7 +438,7 @@ export default function FooterSignature() {
         ref={wrapRef}
         href="#/"
         aria-label="Back to home"
-        className="relative block w-full pb-6 md:pb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
+        className="relative block w-full pb-6 md:pb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-md"
       >
         <svg viewBox="0 0 1000 200" className="relative z-0 w-full h-auto block" role="presentation" aria-hidden="true">
           <text

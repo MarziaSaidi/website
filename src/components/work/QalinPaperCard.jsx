@@ -25,7 +25,7 @@ export function QalinPaperCard({ project }) {
             style={{
               transform: `rotate(${screen.rotate}deg)`,
               filter:
-                "drop-shadow(-4px 10px 8px rgba(30,26,20,0.22)) drop-shadow(-10px 22px 20px rgba(30,26,20,0.2))",
+                "drop-shadow(-4px 10px 8px rgba(15,17,17,0.22)) drop-shadow(-10px 22px 20px rgba(15,17,17,0.2))",
             }}
           >
             <img src={screen.src} alt={screen.alt} width={633} height={1280} loading="lazy" className="block w-full h-auto" />

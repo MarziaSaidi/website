@@ -1,75 +1,97 @@
 @import "tailwindcss";
 
 @theme {
-  /* Quiet-luxury palette built from four foundation tones — warm ivory
-     (#E8E5DF), warm taupe (#A49A87), olive-gray (#A5A58D), and stone
-     (#968F83). Every token below is either one of those four hexes
-     verbatim or a lightness/saturation adjustment of the same hue, so
-     light and dark stay one visual identity rather than two.
-     --color-background itself is the one deliberate exception: true
-     white in light, true black in dark, rather than the warm-ivory/
-     near-black tones those two modes otherwise lean on — #E8E5DF still
-     shows up elsewhere (e.g. --color-button-primary-text below), just
-     not as the page background anymore (the hero section is its own
-     further exception again — see Hero.jsx and --color-hero-bg below,
-     not this token, for its light/dark background). Everything else
-     keeps leaning on the palette's own mid-tones (already light enough
-     to read on near-black) rather than brightened or saturated
-     stand-ins — see the dark-mode block below for why nothing here
-     needs a "boosted" twin.
-     --color-accent-contrast is the text/icon color for content painted on
-     top of --color-accent (e.g. white-on-button); it forwards to
-     --color-background because that's the token deliberately kept at the
-     opposite end of the contrast scale from accent in both themes. */
+  /* ==========================================================
+     COLOR SYSTEM — cool lavender/purple identity, near-black/white
+     structure, coral as a sparing energy accent. Organized by semantic
+     role (FOUNDATION / HERO / ACCENT / SURFACE / BORDER / EFFECT /
+     BUTTON / ICON) rather than as one flat palette — see each group's
+     own comment for what it governs and why light/dark diverge.
+     Brand colors (Figma/Git/React/Adobe XD, hardcoded in
+     FallingIcons.jsx) and project/company card colors (data/work.js,
+     QalinPaperCard.jsx) are deliberately OUTSIDE this system — they
+     represent identities this site doesn't own, so they don't move
+     when the portfolio's own palette does. */
+
+  /* ---- FOUNDATION: global background/text, both themes ---- */
   --color-background: #ffffff;
-  /* The hero section's own background, independent of --color-background
-     above — light and dark are two unrelated-looking colors here (a pale
-     lavender, a deep violet) rather than the rest of the site's neutral
-     white/black, which is deliberate: see Hero.jsx's className. */
-  --color-hero-bg: #f1f0ff;
-  --color-background-secondary: #dad4c8;
-  --color-paper: #ffffff;
   --color-text: #151411;
   --color-text-secondary: #575042;
-  --color-accent: #7c6d50;
-  --color-accent-secondary: #5f523a;
-  --color-accent-contrast: var(--color-background);
-  --color-accent-alt: #968f83;
-  --color-accent-alt-secondary: #776e5f;
-  --color-gold: #a5a58d;
-  --color-bronze: #7d7364;
-  /* Darkened from #766e60 (4.01:1 on --color-background — under the 4.5:1
-     AA floor) to #686154, the same hue at 88% lightness: 4.88:1 on the page
-     background and 6.13:1 on --color-paper. It labels 10.4px uppercase mono
-     metadata, which is normal-size text for contrast purposes, so it has to
-     clear 4.5:1 rather than the 3:1 large-text allowance. */
-  --color-label: #686154;
-  /* Translucent near-black rather than a fixed hex so the hairline stays
-     legible over both --color-background and the lighter --color-paper. */
+
+  /* ---- SURFACE: cards, elevated areas, subtle section tints ----
+     --color-surface is a faint recessed tint (section backgrounds like
+     Contact's, used at reduced opacity); --color-surface-elevated is
+     the "lifted above the page" card surface (Card.jsx, chat bubbles,
+     preview frames) — identical to --color-background in light mode
+     (cards read as white-on-white, distinguished by border/shadow only)
+     but a visible step up from it in dark mode. */
+  --color-surface: #f8f8fa;
+  --color-surface-elevated: #ffffff;
+
+  /* ---- HERO: the hero section's own environment, independent of the
+     rest of the site (see Hero.jsx's className) ----
+     --color-hero-bg is the hero backdrop (pale lavender in light, deep
+     violet in dark — unrelated to --color-background on purpose).
+     --color-hero-brand is the MARZIA wordmark's color: it now varies
+     by theme (a lighter lavender in dark, for contrast against the
+     deep violet) rather than staying one fixed hex in both, as before. */
+  --color-hero-bg: #f1f0ff;
+  --color-hero-brand: #5849bc;
+
+  /* ---- ACCENT: the portfolio's interactive/highlight identity —
+     cool purple/lavender, used for links, focus rings, active states,
+     dividers, and (via --color-button-*) button hover/secondary
+     treatments. --color-accent-secondary is a lighter step used for
+     "stronger" hover/emphasis states on already-accent-colored
+     elements (world-link hover, decorative numerals). ---- */
+  --color-accent: #5849bc;
+  --color-accent-secondary: #8b7fe8;
+
+  /* ---- CORAL: the controlled secondary accent — small interactive
+     details, status/selected states, the cursor trail — never a large
+     surface, never a stand-in for the purple identity above. ---- */
+  --color-coral: #ff6b61;
+
+  /* ---- BORDER: subtle neutral/cool hairlines, not purple ----
+     Translucent near-black rather than a fixed hex so it stays legible
+     over both --color-background and the lighter --color-surface-elevated.
+     --color-grid-line (the site-wide blueprint grid) is fainter than
+     --color-border since it repeats across the whole page; --color-grid-tick
+     is the small "+" drawn at each intersection, bolder than the
+     hairline it sits on. */
   --color-border: rgba(21, 20, 17, 0.12);
-  /* Site-wide blueprint grid (.site-grid, below) — deliberately fainter
-     than --color-border since it repeats across the entire page rather
-     than marking one edge. --color-grid-tick is the small "+" drawn at
-     every intersection, bolder than the hairline it sits on so it
-     actually reads as a mark instead of just a thicker patch of line. */
   --color-grid-line: rgba(21, 20, 17, 0.055);
   --color-grid-tick: rgba(21, 20, 17, 0.18);
 
-  /* Buttons: deliberately a separate, stricter track from the general
-     accent system above — a flat foreground/background swap rather than
-     a tinted accent fill, so the primary CTA reads as a solid typographic
-     surface (near-black on ivory) instead of another "colored UI chip."
-     Exact hexes per spec, not derived from --color-text/-background,
-     since those are tuned for body text and drift slightly from #111111/
-     #E8E5DF — buttons get their own fixed values so they don't move if
-     the text tokens are ever retuned. --color-button-secondary-border is
-     the same #968f83 in both themes, so it's set once here and left
-     alone in the dark block below. */
+  /* ---- EFFECT: trails, particles, glows ----
+     --color-trail drives the cursor ring and the pixel mouse-trail; it's
+     an alias of --color-coral (same role, named for where it's used). */
+  --color-trail: var(--color-coral);
+
+  /* ---- ICON: fixed reference palette for generic/decorative Lucide
+     icons (see FallingIcons.jsx's ICON_SET) — kept here as the
+     canonical values for that palette, though the falling icons
+     themselves stay literal hex (rasterized off-DOM into a WebGL
+     texture, so they can't resolve a live CSS custom property). Not
+     used by brand icons (Figma/Git/React/Adobe XD), which keep their
+     real brand colors untouched, or by project/company colors. */
+  --color-icon-purple: #5849bc;
+  --color-icon-lavender: #8b7fe8;
+  --color-icon-light: #a49aff;
+  --color-icon-coral: #ff6b61;
+  --color-icon-pink: #d98bff;
+
+  /* ---- BUTTON: a separate, stricter track from the general accent
+     system — a flat foreground/background swap rather than a tinted
+     fill, so the primary CTA reads as a solid typographic surface
+     (near-black on white / white on near-black) instead of a colored
+     UI chip. The purple identity shows up only on hover (primary) or
+     as the whole treatment (secondary, border + text both accent). ---- */
   --color-button-primary-bg: #111111;
-  --color-button-primary-text: #e8e5df;
-  --color-button-primary-hover: #968f83;
-  --color-button-secondary-border: #968f83;
-  --color-button-secondary-text: var(--color-button-primary-bg);
+  --color-button-primary-text: #f1f0ff;
+  --color-button-primary-hover: var(--color-accent);
+  --color-button-secondary-border: var(--color-accent);
+  --color-button-secondary-text: var(--color-accent);
   --color-button-secondary-hover-bg: var(--color-background);
 
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
@@ -136,53 +158,44 @@
 
 /* Per-project "worlds": each Selected Work project, case-study page, and the
    one Experience row with a case study carries a data-world attribute that
-   retints its links/labels via these scoped custom properties. Both tracks
-   now draw from the same four-color family (gold = taupe/accent, green =
-   stone/accent-alt) rather than an unrelated amber-vs-sage split. */
+   retints its links/labels via these scoped custom properties. Only "gold"
+   is ever assigned (see data/work.js / data/experience.js), so it draws
+   straight from the portfolio's own accent pair rather than a second,
+   unused color family. */
 [data-world="gold"] {
   --world-accent: var(--color-accent);
   --world-accent-strong: var(--color-accent-secondary);
 }
-[data-world="green"] {
-  --world-accent: var(--color-accent-alt);
-  --world-accent-strong: var(--color-accent-alt-secondary);
-}
 
-/* Dark theme: not an inversion of light — a deliberately more restrained
-   reading of the same four tones. True-black background (paper/secondary
-   surfaces above it stay near-black/graphite, not black themselves),
-   warm-ivory text, and the taupe/olive/stone accents used closer to
-   their raw values
-   (they're already light enough to clear contrast on near-black without
-   brightening or saturating them, which would read as "glowing"). Follows
-   system preference by default; an explicit choice (via the nav toggle) is
-   recorded as data-theme on <html> and wins either direction. Values are
-   plain custom-property overrides layered on top of the @theme block
-   above — Tailwind's generated utilities read the property at paint time,
-   so overriding it later in the cascade repaints every utility that uses
-   it with no per-class dark: variants needed. */
+/* Dark theme: not an inversion of light — intentionally chosen values for
+   each token, not simply flipped. Near-black background (surfaces above it
+   step up toward, never reaching, pure black), cool near-white text, and
+   the purple/lavender identity shifted lighter so it still reads clearly
+   against near-black instead of the deep, saturated tone light mode uses.
+   Follows system preference by default; an explicit choice (via the nav
+   toggle) is recorded as data-theme on <html> and wins either direction.
+   Values are plain custom-property overrides layered on top of the @theme
+   block above — Tailwind's generated utilities read the property at paint
+   time, so overriding it later in the cascade repaints every utility that
+   uses it with no per-class dark: variants needed. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-background: #0f1111;
+    --color-text: #f1f0ff;
+    --color-text-secondary: #a8a8ad;
+    --color-surface: #171819;
+    --color-surface-elevated: #1d1f20;
     --color-hero-bg: #211a4a;
-    --color-background-secondary: #1d1a16;
-    --color-paper: #23211c;
-    --color-text: #eae7e1;
-    --color-text-secondary: #adad99;
-    --color-accent: #a49a87;
-    --color-accent-secondary: #a5a58d;
-    --color-accent-alt: #968f83;
-    --color-accent-alt-secondary: #756e61;
-    --color-gold: #a5a58d;
-    --color-bronze: #968f83;
-    --color-label: #968f83;
-    --color-border: rgba(234, 231, 225, 0.12);
-    --color-grid-line: rgba(234, 231, 225, 0.07);
-    --color-grid-tick: rgba(234, 231, 225, 0.22);
-    --color-button-primary-bg: #e8e5df;
+    --color-hero-brand: #afa7ff;
+    --color-accent: #afa7ff;
+    --color-accent-secondary: #d98bff;
+    --color-coral: #ff8278;
+    --color-border: rgba(255, 255, 255, 0.12);
+    --color-grid-line: rgba(255, 255, 255, 0.07);
+    --color-grid-tick: rgba(255, 255, 255, 0.22);
+    --color-button-primary-bg: #f1f0ff;
     --color-button-primary-text: #111111;
-    --color-button-primary-hover: #a49a87;
-    --color-button-secondary-hover-bg: var(--color-background-secondary);
+    --color-button-secondary-hover-bg: var(--color-surface);
     --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
     --shadow-soft-lg: 0 16px 40px color-mix(in srgb, var(--color-accent) 20%, transparent),
       0 10px 28px rgba(0, 0, 0, 0.5);
@@ -191,25 +204,21 @@
 
 :root[data-theme="dark"] {
   --color-background: #0f1111;
+  --color-text: #f1f0ff;
+  --color-text-secondary: #a8a8ad;
+  --color-surface: #171819;
+  --color-surface-elevated: #1d1f20;
   --color-hero-bg: #211a4a;
-  --color-background-secondary: #1d1a16;
-  --color-paper: #23211c;
-  --color-text: #eae7e1;
-  --color-text-secondary: #adad99;
-  --color-accent: #a49a87;
-  --color-accent-secondary: #a5a58d;
-  --color-accent-alt: #968f83;
-  --color-accent-alt-secondary: #756e61;
-  --color-gold: #a5a58d;
-  --color-bronze: #968f83;
-  --color-label: #968f83;
-  --color-border: rgba(234, 231, 225, 0.12);
-  --color-grid-line: rgba(234, 231, 225, 0.07);
-  --color-grid-tick: rgba(234, 231, 225, 0.22);
-  --color-button-primary-bg: #e8e5df;
+  --color-hero-brand: #afa7ff;
+  --color-accent: #afa7ff;
+  --color-accent-secondary: #d98bff;
+  --color-coral: #ff8278;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-grid-line: rgba(255, 255, 255, 0.07);
+  --color-grid-tick: rgba(255, 255, 255, 0.22);
+  --color-button-primary-bg: #f1f0ff;
   --color-button-primary-text: #111111;
-  --color-button-primary-hover: #a49a87;
-  --color-button-secondary-hover-bg: var(--color-background-secondary);
+  --color-button-secondary-hover-bg: var(--color-surface);
   --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
   --shadow-soft-lg: 0 16px 40px color-mix(in srgb, var(--color-accent) 20%, transparent),
     0 10px 28px rgba(0, 0, 0, 0.5);
@@ -921,7 +930,7 @@
     font-weight: 800;
     font-size: min(220px, calc((100vh - 112px) / 4.46));
     line-height: 1;
-    color: #5849bc;
+    color: var(--color-hero-brand);
     white-space: nowrap;
     pointer-events: none;
     transform: rotate(180deg);
@@ -939,7 +948,7 @@
     background: linear-gradient(
       90deg,
       var(--color-accent),
-      var(--color-gold)
+      var(--color-accent-secondary)
     );
     z-index: 60;
     pointer-events: none;
@@ -1077,7 +1086,7 @@
     width: 18px;
     height: 18px;
     margin: -9px 0 0 -9px;
-    border: 1.5px solid #ff6b61;
+    border: 1.5px solid var(--color-trail);
     pointer-events: none;
     z-index: 75;
     transform: translate3d(var(--cursor-x, -9999px), var(--cursor-y, -9999px), 0) scale(var(--cursor-scale, 1));
@@ -1102,7 +1111,7 @@
     font-family: ui-monospace, monospace;
     font-size: 6.5px;
     letter-spacing: 0.08em;
-    color: #ff6b61;
+    color: var(--color-trail);
     white-space: nowrap;
   }
 

@@ -38,7 +38,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/marzia-saidisoftwareengineer/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+                className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
               >
                 LinkedIn
               </a>
@@ -46,7 +46,7 @@ export default function Footer() {
             <Magnetic strength={0.25} max={8}>
               <a
                 href="mailto:marzia.saidi67@gmail.com"
-                className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze rounded-sm"
+                className="inline-flex items-center min-h-11 -my-2.5 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
               >
                 Email
               </a>
