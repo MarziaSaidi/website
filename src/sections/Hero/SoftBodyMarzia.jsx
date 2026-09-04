@@ -112,7 +112,7 @@ function useMarziaTexture(markRef, w, h) {
       const cs = getComputedStyle(mark);
       const cx = w / 2;
       const cy = h / 2;
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><g transform="scale(${scale})"><text x="${cx}" y="${cy}" transform="rotate(-90 ${cx} ${cy})" font-family="'OrbitronEmbedded', ${cs.fontFamily}" font-weight="${cs.fontWeight}" font-size="${cs.fontSize}" fill="${cs.color}" writing-mode="vertical-lr" text-anchor="middle" dominant-baseline="central">MARZIA</text></g></svg>`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * scale}" height="${h * scale}"><defs><style>${fontFace}</style></defs><g transform="scale(${scale})"><text x="${cx}" y="${cy}" transform="rotate(180 ${cx} ${cy})" font-family="'OrbitronEmbedded', ${cs.fontFamily}" font-weight="${cs.fontWeight}" font-size="${cs.fontSize}" fill="${cs.color}" writing-mode="vertical-rl" text-orientation="sideways" text-anchor="middle" dominant-baseline="central">MARZIA</text></g></svg>`;
       const img = new window.Image();
       img.onload = () => {
         if (cancelled) return;
