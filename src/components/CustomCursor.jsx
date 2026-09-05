@@ -35,8 +35,10 @@ export default function CustomCursor() {
       // The hero runs its own dedicated pixel-trail effect (PixelTrail.jsx)
       // instead — the ring reads as a mismatched leftover cursor style
       // layered on top of it, so it's suppressed for the whole time the
-      // pointer is over #top rather than the two effects competing.
-      if (e.target.closest?.("#top")) {
+      // pointer is over #top rather than the two effects competing. Same
+      // reasoning for the footer's ASCII signature (data-cursor-exempt):
+      // it has its own cursor-driven hover-push already.
+      if (e.target.closest?.("#top, [data-cursor-exempt]")) {
         el.classList.remove("is-active");
         return;
       }

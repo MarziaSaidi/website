@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 // Coral trail color, theme-aware — matches --color-trail in index.css.
 // Canvas2D's fillStyle needs a literal color string, so this is read live
 // off <html data-theme> each frame (same technique as HeroField's
-// darkBoost() / FooterSignature's currentDust()) rather than cached once.
+// darkBoost() / FooterSignature's currentGlyphColors()) rather than cached once.
 const COLOR_LIGHT = "255, 107, 97"; // #FF6B61
 const COLOR_DARK = "255, 130, 120"; // #FF8278
 
@@ -137,7 +137,10 @@ export default function PixelTrail() {
     function onMove(e) {
       // The hero runs its own composition and gets a plain cursor — no
       // trail spawns there, matching CustomCursor's own #top exclusion.
-      if (e.target.closest?.("#top")) {
+      // The footer's ASCII signature is excluded the same way: its own
+      // hover-push already reacts to the cursor, so a trail on top of it
+      // is a second, competing cursor effect rather than a complement.
+      if (e.target.closest?.("#top, [data-cursor-exempt]")) {
         hasLast = false;
         spawnCarry = 0;
         return;
