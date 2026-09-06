@@ -3,6 +3,9 @@ import ScrambleText from "../../components/ui/ScrambleText";
 import HeroField from "./HeroField";
 import FallingIcons from "./FallingIcons";
 import HeroPixelDissolve from "./HeroPixelDissolve";
+import HeroLiquidParticleField from "./HeroLiquidParticleField";
+import HeroGpuDustField from "./HeroGpuDustField";
+import HeroLiquidVolume from "./HeroLiquidVolume";
 
 // Pointer parallax only — driven by CSS custom properties set directly on
 // refs (no React re-renders per frame). The scroll-scrubbed storyboard
@@ -10,7 +13,7 @@ import HeroPixelDissolve from "./HeroPixelDissolve";
 // section now, immediately after this one, so Hero itself is just a
 // normal, single-viewport intro again — no pinning, no shared-space view
 // switching, no scroll-progress hook here at all.
-function usePointerParallax(paneRef) {
+function usePointerParallax(paneRef, pointerRef) {
   useEffect(() => {
     const pane = paneRef.current;
     if (!pane) return;
@@ -19,6 +22,7 @@ function usePointerParallax(paneRef) {
 
     let raf = 0;
     let pending = null;
+    let previous = null;
 
     function onMove(e) {
       const r = pane.getBoundingClientRect();
@@ -26,6 +30,18 @@ function usePointerParallax(paneRef) {
         mx: (e.clientX - r.left) / r.width - 0.5,
         my: (e.clientY - r.top) / r.height - 0.5,
       };
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      const elapsed = previous ? Math.max(1, e.timeStamp - previous.time) : 16.7;
+      pointerRef.current = {
+        x,
+        y,
+        vx: previous ? (x - previous.x) / elapsed : 0,
+        vy: previous ? (y - previous.y) / elapsed : 0,
+        speed: previous ? Math.hypot(x - previous.x, y - previous.y) / elapsed : 0,
+        active: true,
+      };
+      previous = { x, y, time: e.timeStamp };
       if (!raf) raf = requestAnimationFrame(apply);
     }
 
@@ -37,16 +53,24 @@ function usePointerParallax(paneRef) {
     }
 
     pane.addEventListener("pointermove", onMove);
+    const onLeave = () => {
+      previous = null;
+      pointerRef.current.active = false;
+    };
+    pane.addEventListener("pointerleave", onLeave);
     return () => {
       pane.removeEventListener("pointermove", onMove);
+      pane.removeEventListener("pointerleave", onLeave);
       cancelAnimationFrame(raf);
     };
-  }, [paneRef]);
+  }, [paneRef, pointerRef]);
 }
 
 export default function Hero() {
   const paneRef = useRef(null);
-  usePointerParallax(paneRef);
+  const marziaRef = useRef(null);
+  const pointerRef = useRef({ x: 0, y: 0, vx: 0, vy: 0, speed: 0, active: false });
+  usePointerParallax(paneRef, pointerRef);
 
   return (
     <section
@@ -88,10 +112,13 @@ export default function Hero() {
       }}
       className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-hero-bg"
     >
+      <HeroLiquidVolume sectionRef={paneRef} pointerRef={pointerRef} />
       <HeroField sectionRef={paneRef} />
-      <FallingIcons />
+      <HeroGpuDustField sectionRef={paneRef} pointerRef={pointerRef} />
+      <HeroLiquidParticleField sectionRef={paneRef} pointerRef={pointerRef} marziaRef={marziaRef} />
+      <FallingIcons sectionRef={paneRef} pointerRef={pointerRef} />
 
-      <span className="hero-marzia-mark" aria-hidden="true">
+      <span ref={marziaRef} className="hero-marzia-mark" aria-hidden="true">
         MARZIA
       </span>
 

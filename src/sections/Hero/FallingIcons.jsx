@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { SiFigma, SiReact, SiGit } from "react-icons/si";
 import {
   LuMousePointer2,
@@ -107,8 +107,9 @@ function usePrefersReducedMotion() {
 // on every load. Driven entirely by the shared hero-icon-fall CSS
 // keyframe (index.css) via per-element custom properties — no canvas,
 // no WebGL, no per-frame JS.
-export default function FallingIcons() {
+export default function FallingIcons({ sectionRef, pointerRef }) {
   const reduced = usePrefersReducedMotion();
+  const iconRefs = useRef([]);
 
   const icons = useMemo(() => {
     return shuffled(ICON_SET).map(({ Icon, color }, i) => {
@@ -138,13 +139,46 @@ export default function FallingIcons() {
     });
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef?.current;
+    if (reduced || !section || !pointerRef) return;
+    let frame = 0;
+    function update() {
+      const pointer = pointerRef.current;
+      const host = section.getBoundingClientRect();
+      for (const icon of iconRefs.current) {
+        if (!icon) continue;
+        if (!pointer.active) {
+          icon.style.setProperty("--icon-ripple-x", "0px");
+          icon.style.setProperty("--icon-ripple-y", "0px");
+          icon.style.setProperty("--icon-ripple-scale", "1");
+          continue;
+        }
+        const rect = icon.getBoundingClientRect();
+        const x = rect.left - host.left + rect.width * 0.5;
+        const y = rect.top - host.top + rect.height * 0.5;
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const distance = Math.hypot(dx, dy) || 1;
+        const force = Math.max(0, 1 - distance / 125) ** 2;
+        icon.style.setProperty("--icon-ripple-x", `${(dx / distance * force * 9).toFixed(2)}px`);
+        icon.style.setProperty("--icon-ripple-y", `${(dy / distance * force * 9).toFixed(2)}px`);
+        icon.style.setProperty("--icon-ripple-scale", (1 + force * 0.06).toFixed(3));
+      }
+      frame = requestAnimationFrame(update);
+    }
+    frame = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(frame);
+  }, [pointerRef, reduced, sectionRef]);
+
   if (reduced) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {icons.map(({ Icon, color, id, left, duration, delay, size, rotateFrom, rotateTo, drift, opacity }) => (
+      {icons.map(({ Icon, color, id, left, duration, delay, size, rotateFrom, rotateTo, drift, opacity }, index) => (
         <Icon
           key={id}
+          ref={(element) => { iconRefs.current[index] = element; }}
           className={`hero-falling-icon${color ? "" : " text-text-secondary"}`}
           style={{
             left: `${left}%`,
