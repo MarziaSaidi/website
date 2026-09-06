@@ -832,6 +832,61 @@
     }
   }
 
+  /* ---- Menu overlay reveal (MenuOverlay.jsx) ----
+     Two small pieces GSAP drives at runtime; everything else about the
+     reveal (the per-character masking, the width tween) is set up in JS
+     via SplitText, since it needs measured widths and split elements that
+     don't exist until mount.
+
+     .menu-item__label-rest is the container the trailing characters get
+     moved into after splitting — needs display:inline-block purely so
+     the width tween (0 -> scrollWidth) has something to act on; a plain
+     inline span ignores width entirely. */
+  .menu-item__label-rest {
+    display: inline-block;
+    overflow: visible;
+    vertical-align: baseline;
+    white-space: nowrap;
+  }
+
+  /* Pre-rotated and collapsed on the vertical axis from the start, same
+     trick as the reference: because the rotation is already baked in here,
+     GSAP only ever has to scale it back up, and it grows outward from its
+     own center at that angle rather than looking like it's unrolling
+     upright then snapping to a tilt. */
+  .menu-item__divider {
+    display: inline-block;
+    width: 2px;
+    height: 0.85em;
+    margin: 0 0.15em;
+    background: currentColor;
+    opacity: 0.4;
+    transform: rotate(20deg) scaleY(0);
+    transform-origin: center;
+  }
+
+  /* Soft wash behind the link column, fading in first (position 0 on the
+     timeline) so it leads the words the way the reference's blurred panel
+     does. It's a tint, not a blur — the overlay behind it is already a
+     flat, opaque color, so a backdrop-filter would have nothing to blur. */
+  .menu-panel {
+    position: absolute;
+    inset: -5% -4%;
+    z-index: 0;
+    opacity: 0;
+    border-radius: 2rem;
+    background: radial-gradient(
+      120% 100% at 15% 50%,
+      color-mix(in srgb, var(--color-accent) 10%, transparent),
+      transparent 70%
+    );
+  }
+
+  .menu-item {
+    position: relative;
+    z-index: 1;
+  }
+
   /* ---- Hero falling icons (FallingIcons.jsx) ----
      One shared keyframe; every icon's actual path through it comes from
      the CSS custom properties FallingIcons.jsx sets per-element
@@ -874,7 +929,20 @@
     top: 0;
     will-change: transform, opacity;
     animation: hero-icon-fall var(--fall-duration) linear var(--fall-delay) infinite;
+    translate: var(--icon-ripple-x, 0px) var(--icon-ripple-y, 0px);
+    scale: var(--icon-ripple-scale, 1);
+    transition: translate 110ms ease-out, scale 110ms ease-out;
   }
+
+  .hero-liquid-particle-field {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
 
   /* ---- Hero "MARZIA" side mark ----
      `writing-mode: vertical-rl` + `text-orientation: sideways` (not a
@@ -947,7 +1015,8 @@
     color: var(--color-hero-brand);
     white-space: nowrap;
     pointer-events: none;
-    transform: rotate(180deg);
+    transform: rotate(180deg) translate3d(var(--marzia-ripple-x, 0px), var(--marzia-ripple-y, 0px), 0);
+    will-change: transform;
   }
 
   /* ---- Scroll progress bar ---- */
