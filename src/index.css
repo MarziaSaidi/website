@@ -13,55 +13,76 @@
      represent identities this site doesn't own, so they don't move
      when the portfolio's own palette does. */
 
-  /* ---- FOUNDATION: global background/text, both themes ---- */
-  --color-background: #ffffff;
-  --color-text: #151411;
-  --color-text-secondary: #575042;
+  /* ---- FOUNDATION: global background/text, both themes ----
+     No longer a light/dark UI duality: the whole site now scrolls over
+     one fixed, always-dark GalaxyDust starfield (see GlobalBackground.jsx,
+     mounted once above the router), so there's no pale surface left for
+     near-black text to contrast against. These are permanently the old
+     dark-theme values; the nav toggle now only switches the fixed
+     backdrop's own atmosphere (deep-space vs. Aurora Dusk) and the
+     particle palette, not the page's text/surface colors. */
+  --color-background: #0f1111;
+  --color-text: #f1f0ff;
+  --color-text-secondary: #a8a8ad;
 
   /* ---- SURFACE: cards, elevated areas, subtle section tints ----
      --color-surface is a faint recessed tint (section backgrounds like
      Contact's, used at reduced opacity); --color-surface-elevated is
      the "lifted above the page" card surface (Card.jsx, chat bubbles,
-     preview frames) — identical to --color-background in light mode
-     (cards read as white-on-white, distinguished by border/shadow only)
-     but a visible step up from it in dark mode. */
-  --color-surface: #f8f8fa;
-  --color-surface-elevated: #ffffff;
+     preview frames) — a visible step up from --color-background so
+     cards read as distinct panels over the starfield, not just a
+     border/shadow away from it. Permanently the old dark-theme values,
+     for the same reason as FOUNDATION above. */
+  --color-surface: #171819;
+  --color-surface-elevated: #1d1f20;
 
   /* ---- HERO: the hero section's own environment, independent of the
      rest of the site (see Hero.jsx's className) ----
-     --color-hero-bg is the hero backdrop (pale lavender in light, deep
-     violet in dark — unrelated to --color-background on purpose).
+     --color-hero-bg is unused by Hero.jsx itself now (the section paints
+     its own Aurora Dusk / deep-space gradient pair behind the GalaxyDust
+     particle field instead — see the two crossfade divs there), kept
+     only in case another view still reads it.
      --color-hero-brand is the MARZIA wordmark's color: it now varies
      by theme (a lighter lavender in dark, for contrast against the
-     deep violet) rather than staying one fixed hex in both, as before. */
+     deep violet) rather than staying one fixed hex in both, as before.
+     --color-hero-text / --color-hero-text-secondary are pale in BOTH
+     themes, unlike the site-wide --color-text pair: the hero's own
+     backdrop is a dark space/aurora gradient regardless of the site's
+     light/dark theme, so its copy needs light-on-dark contrast even
+     when the rest of the page is light-on-white. */
   --color-hero-bg: #f1f0ff;
   --color-hero-brand: #5849bc;
+  --color-hero-text: #f5f5f7;
+  --color-hero-text-secondary: #b0b3c6;
 
   /* ---- ACCENT: the portfolio's interactive/highlight identity —
      cool purple/lavender, used for links, focus rings, active states,
      dividers, and (via --color-button-*) button hover/secondary
      treatments. --color-accent-secondary is a lighter step used for
      "stronger" hover/emphasis states on already-accent-colored
-     elements (world-link hover, decorative numerals). ---- */
-  --color-accent: #5849bc;
-  --color-accent-secondary: #8b7fe8;
+     elements (world-link hover, decorative numerals). Permanently the
+     old dark-theme values (see FOUNDATION) — the light-mode values were
+     tuned for a pale background that no longer exists anywhere. ---- */
+  --color-accent: #afa7ff;
+  --color-accent-secondary: #d98bff;
 
   /* ---- CORAL: the controlled secondary accent — small interactive
      details, status/selected states, the cursor trail — never a large
-     surface, never a stand-in for the purple identity above. ---- */
-  --color-coral: #ff6b61;
+     surface, never a stand-in for the purple identity above. Permanently
+     the old dark-theme value, for the same reason as ACCENT above. ---- */
+  --color-coral: #ff8278;
 
   /* ---- BORDER: subtle neutral/cool hairlines, not purple ----
-     Translucent near-black rather than a fixed hex so it stays legible
+     Translucent near-white rather than a fixed hex so it stays legible
      over both --color-background and the lighter --color-surface-elevated.
      --color-grid-line (the site-wide blueprint grid) is fainter than
      --color-border since it repeats across the whole page; --color-grid-tick
      is the small "+" drawn at each intersection, bolder than the
-     hairline it sits on. */
-  --color-border: rgba(21, 20, 17, 0.12);
-  --color-grid-line: rgba(21, 20, 17, 0.055);
-  --color-grid-tick: rgba(21, 20, 17, 0.18);
+     hairline it sits on. Permanently the old dark-theme values, for the
+     same reason as FOUNDATION above. */
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-grid-line: rgba(255, 255, 255, 0.07);
+  --color-grid-tick: rgba(255, 255, 255, 0.22);
 
   /* ---- EFFECT: trails, particles, glows ----
      --color-trail drives the cursor ring and the pixel mouse-trail; it's

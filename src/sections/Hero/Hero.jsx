@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import ScrambleText from "../../components/ui/ScrambleText";
-import HeroField from "./HeroField";
 import FallingIcons from "./FallingIcons";
 import HeroPixelDissolve from "./HeroPixelDissolve";
-import HeroLiquidParticleField from "./HeroLiquidParticleField";
-import HeroGpuDustField from "./HeroGpuDustField";
-import HeroLiquidVolume from "./HeroLiquidVolume";
+import GalaxyDust from "./GalaxyDust";
+import { useTheme } from "../../hooks/useTheme";
 
 // Pointer parallax only — driven by CSS custom properties set directly on
 // refs (no React re-renders per frame). The scroll-scrubbed storyboard
@@ -71,6 +69,7 @@ export default function Hero() {
   const marziaRef = useRef(null);
   const pointerRef = useRef({ x: 0, y: 0, vx: 0, vy: 0, speed: 0, active: false });
   usePointerParallax(paneRef, pointerRef);
+  const { theme } = useTheme();
 
   return (
     <section
@@ -110,12 +109,34 @@ export default function Hero() {
         "--hero-mark-clearance":
           "calc(min(114px, 7.9167vw) + min(220px, calc((100vh - 112px) / 4.46)) + 32px)",
       }}
-      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-hero-bg"
+      className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden"
     >
-      <HeroLiquidVolume sectionRef={paneRef} pointerRef={pointerRef} />
-      <HeroField sectionRef={paneRef} />
-      <HeroGpuDustField sectionRef={paneRef} pointerRef={pointerRef} />
-      <HeroLiquidParticleField sectionRef={paneRef} pointerRef={pointerRef} marziaRef={marziaRef} />
+      {/* Aurora Dusk background: two full-bleed layers crossfade via
+          opacity (not by animating `background` directly — browsers
+          don't interpolate two different gradient stacks, so that would
+          just snap). Dark theme is flat black ("deep space" at its
+          darkest); light theme keeps the aurora-on-dusk gradient. Both
+          replace bg-hero-bg above rather than layering on top of it. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          opacity: theme === "dark" ? 1 : 0,
+          transition: "opacity 600ms ease",
+          background: "#000000",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          opacity: theme === "light" ? 1 : 0,
+          transition: "opacity 600ms ease",
+          background:
+            "radial-gradient(ellipse at 72% 30%, rgba(108, 77, 170, 0.30), transparent 42%), radial-gradient(ellipse at 55% 80%, rgba(71, 105, 165, 0.18), transparent 48%), linear-gradient(135deg, #17182F 0%, #111329 50%, #17172F 100%)",
+        }}
+      />
+      <GalaxyDust theme={theme} />
       <FallingIcons sectionRef={paneRef} pointerRef={pointerRef} />
 
       <span ref={marziaRef} className="hero-marzia-mark" aria-hidden="true">
@@ -153,7 +174,7 @@ export default function Hero() {
           className="px-6 md:pl-[var(--hero-left-inset)] sm:pr-[var(--hero-mark-clearance)] flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6"
         >
           <p
-            className="enter font-bold text-text"
+            className="enter font-bold text-hero-text"
             style={{ fontSize: "24px", lineHeight: 1.2 }}
           >
             Design &<br />Engineering
@@ -165,7 +186,7 @@ export default function Hero() {
               the remaining width after the eyebrow, not pinned to the
               row's right edge, so it sits in the middle rather than
               crowding MARZIA. */}
-          <p className="hidden sm:block flex-1 enter enter-2 text-lg md:text-xl text-text-secondary leading-snug text-center">
+          <p className="hidden sm:block flex-1 enter enter-2 text-lg md:text-xl text-hero-text-secondary leading-snug text-center">
             I'm Marzia Saidi. I design interfaces and
             <br />
             ship the production code behind them.
@@ -209,7 +230,7 @@ export default function Hero() {
             delay={0}
             charDelay={18}
             scrambleTicks={4}
-            className="enter enter-1 font-display font-bold uppercase text-4xl sm:text-5xl md:text-7xl leading-[1.02] tracking-[-0.02em] text-text md:translate-y-[10px]"
+            className="enter enter-1 font-display font-bold uppercase text-4xl sm:text-5xl md:text-7xl leading-[1.02] tracking-[-0.02em] text-hero-text md:translate-y-[10px]"
           />
         </div>
       </div>
@@ -220,7 +241,7 @@ export default function Hero() {
           gap between the two instead of them sitting close together. */}
       <div className="sm:hidden absolute inset-x-0 bottom-10">
         <div className="max-w-6xl mx-auto px-6">
-          <p className="enter enter-2 text-lg text-text-secondary leading-snug max-w-[85%]">
+          <p className="enter enter-2 text-lg text-hero-text-secondary leading-snug max-w-[85%]">
             I'm Marzia Saidi. I design interfaces and ship the production code behind them.
           </p>
         </div>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Water — motion study</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main id="stage" aria-label="Interactive liquid cursor playground">
+    <div class="ambient" aria-hidden="true"></div>
+    <header><a href="./index.html">Marzia Saidi <span>/ Motion study</span></a><button id="theme" aria-label="Switch background">Dark background</button></header>
+    <div class="title" aria-hidden="true"><span>Make a little</span><h1>magic.</h1></div>
+    <canvas id="liquid" aria-label="Water ripples gently in response to your pointer"></canvas>
+    <p id="error" role="status" hidden></p>
+    <footer>
+      <p id="hint">Glide for ripples. Sweep for waves. Circle for swirls.</p>
+      <div class="controls">
+        <label>Strength <input id="flow" type="range" min="0.5" max="1.5" value="1" step="0.05" /></label>
+        <label>Stillness <input id="trail" type="range" min="0.6" max="1.5" value="1" step="0.05" /></label>
+        <button id="demo" aria-pressed="false">Play demo</button>
+        <button id="pause" aria-pressed="false">Pause</button>
+      </div>
+    </footer>
+  </main>
+  <script type="module" src="./liquid.js"></script>
+</body>
+</html>

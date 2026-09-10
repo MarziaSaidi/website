@@ -8,7 +8,6 @@ gsap.registerPlugin(SplitText);
 const LINKS = [
   { href: "#/", id: "home", label: "Home" },
   { href: "#/about", id: "about", label: "About" },
-  { href: "#/contact", id: "contact", label: "Contact" },
 ];
 
 // Full-screen nav overlay, opened from Navbar's single menu toggle at every

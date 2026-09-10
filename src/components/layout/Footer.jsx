@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FooterSignature from "./FooterSignature";
 import Magnetic from "../ui/Magnetic";
+import Contact from "../../sections/Contact";
 
 function useLocalTime() {
   const [time, setTime] = useState(() =>
@@ -22,7 +23,9 @@ export default function Footer() {
   const time = useLocalTime();
 
   return (
-    <footer className="relative min-h-[380px] md:min-h-[480px] flex flex-col items-center justify-center gap-8 md:gap-10 px-6 md:px-10 py-14 md:py-20">
+    <footer className="relative">
+      <Contact />
+      <div className="min-h-[380px] md:min-h-[480px] flex flex-col items-center justify-center gap-8 md:gap-10 px-6 md:px-10 py-14 md:py-20">
       <FooterSignature />
 
       <div className="relative z-20 max-w-6xl w-full flex items-center justify-center">
@@ -55,6 +58,7 @@ export default function Footer() {
             </Magnetic>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );

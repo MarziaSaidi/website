@@ -10,7 +10,6 @@ import Hero from "./sections/Hero/Hero";
 import FeaturedWork from "./sections/FeaturedWork";
 import Experience from "./sections/Experience";
 import About from "./sections/About/About";
-import Contact from "./sections/Contact";
 import CaseStudySurvue from "./pages/CaseStudySurvue";
 import CaseStudyRelay from "./pages/CaseStudyRelay";
 import CaseStudyGetCampus from "./pages/CaseStudyGetCampus";
@@ -93,9 +92,7 @@ function AboutPage() {
 function ContactPage() {
   useScrollToTop();
   return (
-    <Shell pageId="contact">
-      <Contact />
-    </Shell>
+    <Shell pageId="contact" />
   );
 }
 
