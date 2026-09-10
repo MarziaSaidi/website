@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "marziasaidi-portfolio.vercel.app"
+        }
+      ],
+      "destination": "https://www.marziasaidi.com/$1",
+      "permanent": true
+    }
+  ]
+}
